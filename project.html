@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="项目详情：WebSign Art Direction Lab。">
+  <meta property="og:title" content="WebSign｜项目详情">
+  <meta property="og:description" content="实验性多页面视觉系统与静态网站。">
+  <meta property="og:image" content="https://zhoulyle224-web.github.io/assets/concept-detail.jpeg">
+  <title>WebSign｜项目详情</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="detail">
+  <header class="site-nav detail-nav">
+    <a class="site-mark" href="projects.html"><span>PROJECT DETAIL</span><small>SELECTED WORK</small></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">MENU</button>
+    <nav id="primary-nav" class="nav-links" aria-label="主导航">
+      <a href="index.html">HOME</a><a href="about.html">ABOUT</a><a class="active" href="projects.html">PROJECTS</a><a href="about.html#contact">CONTACT</a>
+    </nav>
+  </header>
+
+  <main class="detail-stage">
+    <section class="detail-copy reveal">
+      <p class="detail-overline"><span data-project-category>WEB EXPERIENCE</span> / <span data-project-year>2026</span></p>
+      <h1>PROJECT DETAIL:<br><span data-project-title>WEBSIGN</span></h1>
+      <dl class="project-facts">
+        <div><dt>ROLE</dt><dd data-project-role>Creative direction, visual system, front-end</dd></div>
+        <div><dt>TOOLS</dt><dd data-project-tools>HTML, CSS, JavaScript, Vite</dd></div>
+        <div><dt>STATUS</dt><dd data-project-status>Prototype / Multi-page static site</dd></div>
+      </dl>
+      <p class="detail-description" data-project-description>一个围绕游戏艺术指导、视觉系统与世界观研究建立的多页面实验档案。通过 Plan A / Plan B 双路线、模块化内容和动态几何语言，让作品集本身成为被展示的作品。</p>
+      <div class="detail-actions">
+        <a class="button button-blue" data-project-repo href="https://github.com/zhoulyle224-web/WebSign" target="_blank" rel="noreferrer">VIEW REPOSITORY ↗</a>
+        <a class="button button-ghost" href="projects.html">BACK TO PROJECTS</a>
+      </div>
+    </section>
+
+    <section class="detail-art reveal" aria-label="项目视觉拼贴">
+      <div class="detail-blue-shape" aria-hidden="true"></div>
+      <figure class="detail-main-image drift" data-depth="0.8"><img data-project-image src="assets/concept-detail.jpeg" alt="项目概念拼贴"></figure>
+      <figure class="detail-small-image detail-small-a"><img src="assets/concept-home.jpeg" alt="创意视觉局部"></figure>
+      <figure class="detail-small-image detail-small-b"><img src="assets/concept-projects.jpeg" alt="项目索引视觉局部"></figure>
+      <div class="detail-orbit" aria-hidden="true"></div>
+      <span class="detail-symbol symbol-a">♟</span><span class="detail-symbol symbol-b">✦</span><span class="detail-symbol symbol-c">●</span>
+    </section>
+
+    <nav class="next-project" aria-label="项目切换">
+      <a data-prev-project href="project.html?project=warehouse">← PREVIOUS</a>
+      <span>SELECTED PROJECT / <b data-project-index>01</b></span>
+      <a data-next-project href="project.html?project=zbird">NEXT PROJECT →</a>
+    </nav>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
