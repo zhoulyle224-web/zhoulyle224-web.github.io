@@ -98,7 +98,7 @@ const projectData = {
     status: 'Architecture / Requirements baseline',
     description: '跨境电商海外仓库存、销量、在途物流与智能补货管理系统。项目从业务架构、数据库、API、需求验收到部署流程建立清晰分区，为后续前后端实现提供可验证的系统基线。',
     repo: 'https://github.com/zhoulyle224-web/overseas-warehouse-management-system',
-    image: 'assets/concept-home.jpeg',
+    image: 'assets/concept-home-clean.png',
     imageAlt: '海外仓系统项目视觉拼贴',
     prev: 'zhixue',
     next: 'websign'
