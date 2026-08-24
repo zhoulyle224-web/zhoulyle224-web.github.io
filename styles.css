@@ -295,7 +295,7 @@ body[data-page="projects"] .minimal-footer { display: none; }
 
 /* About */
 .about-detail-stage { min-height: 100svh; padding: 48px 5vw 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 74px; position: relative; overflow: hidden; background: var(--paper); }
-.about-detail-stage::before, .about-detail-stage::after { content: ""; position: absolute; top: 0; bottom: 0; width: 7vw; opacity: .22; background: url("assets/concept-about.jpeg") center/cover; filter: grayscale(1) contrast(1.5); }
+.about-detail-stage::before, .about-detail-stage::after { content: ""; position: absolute; top: 0; bottom: 0; width: 7vw; opacity: .28; background: url("assets/concept-about.jpeg") center/cover; }
 .about-detail-stage::before { left: 0; transform: translateX(-60%); }
 .about-detail-stage::after { right: 0; transform: translateX(60%); }
 .about-copy { position: relative; z-index: 4; padding: clamp(28px, 4vw, 68px) 3vw 54px 1.4vw; border: 1.5px solid var(--ink); border-top: 0; }
@@ -307,15 +307,11 @@ body[data-page="projects"] .minimal-footer { display: none; }
 .about-facts dd { margin: 0; font-size: clamp(13px, 1.1vw, 20px); line-height: 1.4; }
 .about-description { max-width: 650px; margin: clamp(34px, 5vh, 68px) 0 26px; font-size: clamp(14px, 1.15vw, 21px); line-height: 1.55; }
 .about-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.about-portrait-small { position: absolute; left: 2vw; bottom: 2.4%; width: 22%; height: 15%; overflow: hidden; border: 2px solid var(--blue); }
-.about-portrait-small img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: grayscale(1) contrast(1.4); }
 .about-star { position: absolute; left: 34%; bottom: 4%; color: var(--blue); font-size: 92px; }
 .about-art { position: relative; min-height: 720px; overflow: hidden; border: 1.5px solid var(--ink); border-top: 0; border-left: 0; background: linear-gradient(124deg, transparent 0 20%, #242424 20% 47%, transparent 47%); }
 .about-blue-shape { position: absolute; z-index: 1; inset: -4% 0 0; background: var(--blue); clip-path: polygon(0 0, 40% 41%, 91% 19%, 64% 58%, 95% 98%, 39% 76%, 2% 98%, 25% 55%); }
-.about-main-image { position: absolute; z-index: 2; left: 12%; top: 6%; width: 76%; height: 73%; overflow: hidden; clip-path: polygon(8% 0, 100% 4%, 90% 96%, 0 100%); }
-.about-main-image img { width: 100%; height: 100%; object-fit: cover; object-position: 55% 52%; filter: grayscale(1) contrast(1.5); mix-blend-mode: multiply; }
-.about-photo { position: absolute; z-index: 4; left: 30%; top: 10%; width: 45%; height: 64%; overflow: hidden; clip-path: polygon(9% 0, 100% 6%, 83% 100%, 0 92%); }
-.about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; filter: grayscale(1) contrast(1.45); mix-blend-mode: multiply; }
+.about-main-image { position: absolute; z-index: 2; left: 10%; top: 7%; width: 80%; height: 72%; overflow: hidden; clip-path: polygon(8% 0, 100% 4%, 90% 96%, 0 100%); }
+.about-main-image img { width: 100%; height: 100%; object-fit: cover; object-position: 54% 52%; filter: none; mix-blend-mode: normal; }
 .about-orbit-line { position: absolute; z-index: 5; inset: 17% -10% 17% 4%; border: 1px solid var(--ink); border-radius: 50%; transform: rotate(-14deg); }
 .about-orbit-copy { position: absolute; z-index: 6; right: -5%; top: 17%; margin: 0; font-size: 12px; letter-spacing: .05em; transform: rotate(35deg); }
 .about-symbol { position: absolute; z-index: 7; color: var(--blue); }
@@ -394,7 +390,7 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .about-copy { border-right: 1.5px solid var(--ink); }
   .about-art { min-height: 720px; border-left: 1.5px solid var(--ink); }
   .about-bottom { min-height: 74px; }
-  .about-portrait-small, .about-star { display: none; }
+  .about-star { display: none; }
   .contact-layout { grid-template-columns: 1fr; }
   .contact-art { width: min(760px, 92%); justify-self: center; }
   .contact-card { transform: none; }
@@ -432,7 +428,6 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .about-facts div { grid-template-columns: 70px 1fr; }
   .about-art { min-height: 560px; }
   .about-main-image { left: 8%; width: 84%; }
-  .about-photo { left: 24%; width: 54%; }
   .about-bottom { align-items: flex-start; flex-direction: column; justify-content: center; }
   .contact-stage { padding-left: 18px; padding-right: 18px; }
   .contact-heading h1 { font-size: 24vw; }
