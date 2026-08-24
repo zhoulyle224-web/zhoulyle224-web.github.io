@@ -310,14 +310,25 @@ body[data-page="projects"] .minimal-footer { display: none; }
 .about-star { position: absolute; left: 34%; bottom: 4%; color: var(--blue); font-size: 92px; }
 .about-art { position: relative; min-height: 720px; overflow: hidden; border: 1.5px solid var(--ink); border-top: 0; border-left: 0; background: linear-gradient(124deg, transparent 0 20%, #242424 20% 47%, transparent 47%); }
 .about-blue-shape { position: absolute; z-index: 1; inset: -4% 0 0; background: var(--blue); clip-path: polygon(0 0, 40% 41%, 91% 19%, 64% 58%, 95% 98%, 39% 76%, 2% 98%, 25% 55%); }
-.about-main-image { position: absolute; z-index: 2; left: 10%; top: 7%; width: 80%; height: 72%; overflow: hidden; clip-path: polygon(8% 0, 100% 4%, 90% 96%, 0 100%); }
-.about-main-image img { width: 100%; height: 100%; object-fit: cover; object-position: 54% 52%; filter: none; mix-blend-mode: normal; }
+.about-main-image { position: absolute; z-index: 2; left: 8%; top: 8%; width: 84%; height: 70%; overflow: hidden; opacity: .25; clip-path: polygon(8% 0, 100% 4%, 90% 96%, 0 100%); }
+.about-main-image img { width: 100%; height: 100%; object-fit: cover; object-position: 54% 52%; filter: none; mix-blend-mode: multiply; }
+.about-david { position: absolute; z-index: 4; left: 21%; top: 7%; width: 59%; height: 72%; overflow: hidden; clip-path: polygon(9% 0, 100% 3%, 88% 100%, 0 94%); mix-blend-mode: multiply; }
+.about-david img { width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+.about-detail-strip { position: absolute; z-index: 6; bottom: 4.5%; overflow: hidden; border: 2px solid var(--blue); background: var(--paper); }
+.about-detail-strip img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+.about-detail-strip-a { left: 3%; width: 31%; height: 18%; transform: rotate(-1deg); }
+.about-detail-strip-a img { object-position: center 21%; }
+.about-detail-strip-b { right: 3%; width: 43%; height: 18%; transform: rotate(1deg); }
+.about-detail-strip-b img { object-position: 72% 56%; }
 .about-orbit-line { position: absolute; z-index: 5; inset: 17% -10% 17% 4%; border: 1px solid var(--ink); border-radius: 50%; transform: rotate(-14deg); }
 .about-orbit-copy { position: absolute; z-index: 6; right: -5%; top: 17%; margin: 0; font-size: 12px; letter-spacing: .05em; transform: rotate(35deg); }
 .about-symbol { position: absolute; z-index: 7; color: var(--blue); }
 .about-symbol.symbol-a { left: 5%; top: 34%; font-size: 84px; transform: rotate(-12deg); }
 .about-symbol.symbol-b { right: 4%; bottom: 5%; font-size: 74px; }
 .about-symbol.symbol-c { right: 10%; top: 30%; font-size: 22px; }
+.about-wire-star { position: absolute; z-index: 8; color: var(--blue); font: 86px/1 var(--sans); }
+.about-wire-star-a { left: 31%; bottom: 10%; transform: rotate(-10deg); }
+.about-wire-star-b { right: 1%; bottom: 9%; transform: rotate(9deg); }
 .about-bottom { grid-column: 1/-1; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 28px; border: 1.5px solid var(--ink); border-top: 0; font: 12px/1 var(--condensed); letter-spacing: .09em; }
 .about-bottom a { color: var(--blue); font-size: 18px; text-decoration: none; }
 
@@ -428,6 +439,9 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .about-facts div { grid-template-columns: 70px 1fr; }
   .about-art { min-height: 560px; }
   .about-main-image { left: 8%; width: 84%; }
+  .about-david { left: 17%; width: 66%; }
+  .about-detail-strip-a { width: 37%; }
+  .about-detail-strip-b { width: 45%; }
   .about-bottom { align-items: flex-start; flex-direction: column; justify-content: center; }
   .contact-stage { padding-left: 18px; padding-right: 18px; }
   .contact-heading h1 { font-size: 24vw; }
