@@ -432,7 +432,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .about-ref-nav-left { display: flex; align-items: center; gap: clamp(40px, 7vw, 130px); padding-left: 26px; }
 .about-ref-nav a, .about-ref-nav span { font: 13px/1 var(--condensed); letter-spacing: .035em; text-decoration: none; }
 .about-ref-nav-right { padding-right: 26px; }
-.about-ref-page { position: relative; min-height: 100svh; padding: 60px 5vw 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(740px, calc(100svh - 132px)) 72px; overflow: hidden; background: var(--paper); }
+.about-ref-page { position: relative; min-height: 100svh; padding: 60px 5vw 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(820px, calc(100svh - 132px)) 72px; overflow: hidden; background: var(--paper); }
 .about-ref-page::before, .about-ref-page::after { content: ""; position: absolute; z-index: 0; top: 0; bottom: 0; width: 9vw; background-color: var(--paper); background-image: url("assets/about-botanical-halftone.png"); background-size: auto max(100%, 900px); background-repeat: repeat-y; background-position: center top; opacity: .92; filter: contrast(1.08); }
 .about-ref-page::before { left: 0; transform: translateX(-58%); }
 .about-ref-page::after { right: 0; transform: translateX(58%) scaleX(-1); }
@@ -550,7 +550,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   .next-project span { display: none; }
   .about-ref-nav { left: 16px; right: 16px; }
   .about-ref-page { padding-left: 16px; padding-right: 16px; grid-template-columns: 1fr; grid-template-rows: auto 720px auto; overflow: visible; }
-  .about-ref-copy { min-height: 760px; border-right: 1.5px solid var(--ink); }
+  .about-ref-copy { min-height: 900px; border-right: 1.5px solid var(--ink); }
   .about-ref-visual { border-left: 1.5px solid var(--ink); }
   .about-ref-footer { grid-template-columns: 1fr 1fr; min-height: 88px; }
   .about-ref-footer small { display: none; }
@@ -621,7 +621,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   .about-ref-nav-left { gap: 22px; padding-left: 12px; }
   .about-ref-nav-right { padding-right: 12px; }
   .about-ref-page { padding-left: 10px; padding-right: 10px; grid-template-rows: auto 520px auto; }
-  .about-ref-copy { min-height: 710px; padding-left: 12px; padding-right: 12px; }
+  .about-ref-copy { min-height: 980px; padding-left: 12px; padding-right: 12px; }
   .about-ref-copy h1 { font-size: 14vw; }
   .about-ref-facts div { grid-template-columns: 70px 1fr; }
   .about-ref-left-detail { width: 46%; height: 13%; }
