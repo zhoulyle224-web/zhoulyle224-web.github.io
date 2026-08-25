@@ -83,25 +83,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   font: 13px/1 var(--condensed);
 }
 
-.detail-nav {
-  justify-content: flex-start;
-  gap: clamp(40px, 9vw, 150px);
-  padding: 0 5.8vw;
-  background: rgba(246,246,243,.95);
-}
-.detail-nav-label { font: 13px/1 var(--condensed); letter-spacing: .04em; text-decoration: none; }
-.detail-nav .nav-links {
-  margin-left: auto;
-  min-width: 0;
-  min-height: 0;
-  padding: 0;
-  gap: 28px;
-  background: none;
-  border-radius: 0;
-}
-.detail-nav .nav-links a { font-size: 13px; }
-.detail-nav .nav-links a + a::before { display: none; }
-
 .button {
   display: inline-flex;
   justify-content: space-between;
@@ -391,63 +372,42 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .projects-ref-background b { font: clamp(55px, 7vw, 130px)/.68 var(--serif); font-weight: 400; letter-spacing: -.05em; }
 .projects-ref-background span { font: clamp(20px, 3.2vw, 62px)/.8 var(--serif); letter-spacing: -.03em; }
 
-/* Project detail — deconstructed concept system */
-.detail-concept-nav { position: fixed; z-index: 90; inset: 0 0 auto; height: 74px; display: flex; align-items: center; justify-content: space-between; padding: 0 3vw; border-bottom: 2px solid var(--ink); background: rgba(248,248,245,.96); }
-.detail-concept-nav a { color: var(--ink); text-decoration: none; }
-.detail-concept-brand { font: 34px/1 var(--condensed); }
-.detail-concept-nav nav { display: flex; align-self: stretch; border-left: 2px solid var(--ink); }
-.detail-concept-nav nav a { display: grid; place-items: center; min-width: 140px; padding: 0 25px; font-size: 19px; font-weight: 700; }
-.detail-concept-nav nav a:hover { background: var(--blue); color: #fff; }
-.detail-concept-page { min-height: 100svh; padding-top: 74px; display: grid; grid-template-columns: 44% 56%; grid-template-rows: minmax(740px, calc(100svh - 130px)) 56px; overflow: hidden; background: #f8f8f5; }
-.detail-concept-copy { position: relative; z-index: 5; padding: clamp(30px, 4vw, 74px) 4.3vw 36px 2.8vw; border-right: 2px solid var(--ink); }
-.detail-concept-code { margin: 0 0 clamp(52px, 8vh, 110px); font: clamp(25px, 2.7vw, 50px)/1 var(--condensed); }
-.detail-concept-code b { color: var(--blue); }
-.detail-concept-code span { font-family: var(--sans); font-weight: 400; }
-.detail-concept-copy h1 { margin: 0 0 clamp(42px, 7vh, 86px); }
-.detail-concept-copy h1 small, .detail-concept-copy h1 span { display: block; }
-.detail-concept-copy h1 small { margin-bottom: 6px; font: clamp(31px, 3vw, 56px)/1 var(--sans); font-weight: 800; }
-.detail-concept-copy h1 span { position: relative; font: clamp(54px, 6vw, 116px)/.78 var(--condensed); letter-spacing: -.035em; overflow-wrap: anywhere; }
-body[data-project="warehouse"] .detail-concept-copy h1 span { font-size: clamp(46px, 4.75vw, 92px); }
-.detail-concept-copy h1 span::before { content: ""; position: absolute; left: -4.3vw; top: 8%; width: 2.9vw; height: 80%; background: var(--ink); }
-.detail-concept-summary { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(26px, 3vw, 58px); max-width: 860px; }
-.detail-concept-summary p { margin: 0; font-size: clamp(13px, 1.2vw, 22px); line-height: 1.35; font-weight: 600; }
-.detail-concept-summary b { font-family: var(--condensed); letter-spacing: .05em; }
-.detail-concept-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: clamp(38px, 6vh, 76px); }
-.detail-concept-lists p { margin: 0; font: clamp(12px, 1.08vw, 19px)/1.3 var(--sans); font-weight: 700; }
-.detail-concept-lists b { font-family: var(--condensed); font-size: 1.18em; }
-.detail-concept-lists span { white-space: pre-line; }
-.detail-concept-copy .detail-actions { margin-top: 28px; }
-.detail-concept-art { position: relative; overflow: hidden; isolation: isolate; background: #fafaf7; }
-.detail-concept-grid { position: absolute; z-index: 0; inset: 0; }
-.detail-concept-grid i { position: absolute; display: block; background: var(--ink); }
-.detail-concept-grid i:nth-child(1) { left: 18%; top: 0; width: 2px; height: 100%; }
-.detail-concept-grid i:nth-child(2) { left: 64%; top: 0; width: 2px; height: 100%; }
-.detail-concept-grid i:nth-child(3) { right: 7%; top: 0; width: 2px; height: 100%; }
-.detail-concept-grid i:nth-child(4) { left: 0; top: 28%; width: 100%; height: 2px; }
-.detail-concept-grid i:nth-child(5) { left: 0; top: 67%; width: 100%; height: 2px; }
-.detail-concept-grid i:nth-child(6) { left: -5%; top: 74%; width: 116%; height: 2px; transform: rotate(-17deg); }
-.detail-concept-black { position: absolute; z-index: 1; left: 25%; top: 7%; width: 58%; height: 77%; background: #111; transform: rotate(9deg); clip-path: polygon(12% 0, 100% 6%, 88% 100%, 0 88%); }
-.detail-concept-star { position: absolute; z-index: 2; left: 6%; top: 18%; color: var(--blue); font: clamp(210px, 24vw, 470px)/1 var(--sans); transform: rotate(-14deg); }
-.detail-concept-image { position: absolute; z-index: 3; left: 23%; top: 13%; width: 61%; height: 72%; overflow: hidden; margin: 0; transform: rotate(7deg); clip-path: polygon(8% 0, 100% 8%, 91% 100%, 0 88%); }
-.detail-concept-image img { width: 100%; height: 100%; object-fit: cover; object-position: center; filter: grayscale(1) contrast(1.55); mix-blend-mode: screen; }
-.detail-concept-wire { position: absolute; z-index: 5; right: 3%; top: 14%; width: 47%; height: 70%; border: 2px solid var(--blue); transform: rotate(10deg); clip-path: polygon(50% 0, 100% 34%, 83% 100%, 16% 88%, 0 26%); }
-.detail-concept-wire i { position: absolute; left: 50%; top: 50%; width: 130%; height: 2px; background: var(--blue); transform-origin: left center; }
-.detail-concept-wire i:nth-child(1) { transform: rotate(18deg); }
-.detail-concept-wire i:nth-child(2) { transform: rotate(47deg); }
-.detail-concept-wire i:nth-child(3) { transform: rotate(76deg); }
-.detail-concept-wire i:nth-child(4) { transform: rotate(112deg); }
-.detail-concept-wire i:nth-child(5) { transform: rotate(145deg); }
-.detail-concept-wire i:nth-child(6) { transform: rotate(188deg); }
-.detail-concept-wire i:nth-child(7) { transform: rotate(224deg); }
-.detail-concept-wire i:nth-child(8) { transform: rotate(286deg); }
-.detail-concept-orbit { position: absolute; z-index: 6; margin: 0; font: clamp(12px, 1.35vw, 24px)/1 var(--condensed); letter-spacing: .05em; white-space: nowrap; }
-.detail-concept-orbit.orbit-top { right: -5%; top: 12%; transform: rotate(18deg); }
-.detail-concept-orbit.orbit-side { left: -13%; bottom: 19%; transform: rotate(-64deg); }
-.detail-concept-node { position: absolute; z-index: 7; right: 9%; top: 35%; width: 15px; aspect-ratio: 1; border-radius: 50%; background: var(--blue); }
-.detail-concept-pagination { grid-column: 1/-1; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 56px; border-top: 2px solid var(--ink); font: 12px/1 var(--condensed); letter-spacing: .08em; }
-.detail-concept-pagination a { padding: 20px 3vw; color: var(--ink); text-decoration: none; }
-.detail-concept-pagination a:last-child { text-align: right; }
-.detail-concept-pagination i { color: var(--blue); font-style: normal; }
+/* Project detail — clean rebuild from the current reference only */
+.detail-clean-nav { position: fixed; z-index: 90; inset: 0 0 auto; height: 70px; display: flex; align-items: center; justify-content: space-between; padding-left: 2.8vw; border-bottom: 2px solid var(--ink); background: rgba(250,250,248,.97); }
+.detail-clean-nav a { color: var(--ink); text-decoration: none; }
+.detail-clean-brand { font: clamp(22px, 2vw, 38px)/1 var(--condensed); }
+.detail-clean-nav nav { align-self: stretch; display: flex; border-left: 2px solid var(--ink); }
+.detail-clean-nav nav a { display: grid; place-items: center; min-width: 145px; padding: 0 1.6vw; font-size: clamp(15px, 1.45vw, 27px); }
+.detail-clean-nav nav a:hover { background: var(--ink); color: #fff; }
+.detail-clean-page { min-height: 100svh; padding-top: 70px; display: grid; grid-template-columns: 43.5% 56.5%; background: #fafaf8; }
+.detail-clean-copy { position: relative; min-height: calc(100svh - 70px); padding: 28px 4vw 40px 2.8vw; border-right: 2px solid var(--ink); }
+.detail-clean-code { margin: 0 0 clamp(50px, 7vh, 90px); font: clamp(28px, 2.8vw, 54px)/1 var(--condensed); }
+.detail-clean-code span { font-family: var(--sans); font-weight: 400; }
+.detail-clean-copy h1 { margin: 0 0 clamp(45px, 7vh, 82px); }
+.detail-clean-copy h1 small, .detail-clean-copy h1 span { display: block; }
+.detail-clean-copy h1 small { margin-bottom: 5px; font: clamp(30px, 3vw, 56px)/1 var(--sans); font-weight: 800; }
+.detail-clean-copy h1 span { position: relative; font: clamp(60px, 6.5vw, 126px)/.78 var(--condensed); letter-spacing: -.03em; overflow-wrap: anywhere; }
+.detail-clean-copy h1 span::before { content: ""; position: absolute; left: -2.8vw; top: 10%; width: 1.5vw; height: 78%; background: var(--ink); }
+body[data-project="warehouse"] .detail-clean-copy h1 span { font-size: clamp(48px, 5vw, 96px); }
+.detail-clean-summary { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(34px, 4vw, 70px); }
+.detail-clean-summary p { margin: 0; font-size: clamp(13px, 1.25vw, 23px); line-height: 1.35; font-weight: 650; }
+.detail-clean-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; margin-top: clamp(42px, 6vh, 72px); }
+.detail-clean-lists p { margin: 0; font: clamp(12px, 1.15vw, 21px)/1.24 var(--sans); font-weight: 700; }
+.detail-clean-lists b { font-family: var(--condensed); font-size: 1.15em; }
+.detail-clean-lists span { white-space: pre-line; }
+.detail-clean-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 25px; }
+.detail-clean-visual { position: relative; min-height: calc(100svh - 70px); overflow: hidden; background: #fafaf8; }
+.detail-clean-visual::before { content: ""; position: absolute; z-index: 2; inset: 0; border-left: 0; box-shadow: inset 0 0 0 2px rgba(0,0,0,.06); pointer-events: none; }
+.detail-clean-visual figure { position: absolute; inset: 0 0 54px; margin: 0; overflow: hidden; pointer-events: none; will-change: transform; }
+.detail-clean-visual figure img { position: absolute; top: -9.75%; left: -77%; width: 177%; height: 117.25%; max-width: none; object-fit: fill; }
+.detail-clean-layer.layer-base { z-index: 1; }
+.detail-clean-layer.layer-figure { z-index: 2; clip-path: polygon(5% 4%, 75% 3%, 78% 100%, 2% 96%); animation: detail-figure-drift 7s ease-in-out infinite; }
+.detail-clean-layer.layer-lines { z-index: 3; clip-path: polygon(24% 7%, 92% 9%, 93% 100%, 31% 98%); mix-blend-mode: multiply; animation: detail-lines-drift 9s ease-in-out infinite; }
+@keyframes detail-figure-drift { 0%,100% { transform: translate3d(0,0,0); } 50% { transform: translate3d(-5px,4px,0); } }
+@keyframes detail-lines-drift { 0%,100% { transform: translate3d(0,0,0); } 50% { transform: translate3d(7px,-5px,0); } }
+.detail-clean-pagination { position: absolute; z-index: 4; right: 2.5vw; bottom: 0; height: 54px; display: flex; align-items: center; gap: 8px; font-size: clamp(12px, 1.25vw, 22px); }
+.detail-clean-pagination a { color: var(--ink); text-decoration: none; }
+.detail-clean-pagination a:hover { color: var(--blue); }
 
 /* About */
 .about-ref-nav { position: fixed; z-index: 80; top: 0; left: 5vw; right: 5vw; height: 60px; display: flex; align-items: center; justify-content: space-between; border: 1.5px solid var(--ink); border-top: 0; background: rgba(246,246,243,.96); }
@@ -571,10 +531,6 @@ body[data-project="warehouse"] .detail-concept-copy h1 span { font-size: clamp(4
   .nav-links.open { display: flex; }
   .nav-links a { font-size: 24px; }
   .nav-links a + a::before { display: none; }
-  .detail-nav { justify-content: flex-start; gap: 28px; padding: 0 18px; }
-  .detail-nav .menu-toggle { margin-left: auto; }
-  .detail-nav .nav-links { position: absolute; margin-left: 0; padding: 18px; background: var(--paper); }
-  .detail-nav .nav-links a { font-size: 24px; }
   .flora-navigation { right: 24px; top: 28px; }
   .flora-art { inset: 9vh 2vw 6vh; transform: translateX(-4vw); }
   .legacy-slice-a { left: 5vw; bottom: 16vh; }
@@ -592,21 +548,13 @@ body[data-project="warehouse"] .detail-concept-copy h1 span { font-size: clamp(4
   .projects-ref-grid { position: relative; inset: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px 5vw; }
   .projects-ref-card, .projects-ref-card.card-one, .projects-ref-card.card-two, .projects-ref-card.card-three, .projects-ref-card.card-four { position: relative; inset: auto; width: auto; height: 48vw; }
   .projects-ref-background { position: relative; left: auto; bottom: auto; width: 100%; margin-top: 86px; }
-  .detail-stage { grid-template-columns: 1fr; grid-template-rows: auto; padding-left: 16px; padding-right: 16px; }
-  .detail-copy { border-right: 1.5px solid var(--ink); border-bottom: 0; padding-bottom: 50px; }
-  .detail-art { min-height: 720px; }
-  .next-project { grid-template-columns: 1fr 1fr; }
-  .next-project span { display: none; }
-  .detail-concept-nav { height: 64px; padding: 0 20px; }
-  .detail-concept-brand { font-size: 28px; }
-  .detail-concept-nav nav a { min-width: 0; padding: 0 18px; font-size: 15px; }
-  .detail-concept-page { padding-top: 64px; grid-template-columns: 1fr; grid-template-rows: auto 720px 58px; overflow: visible; }
-  .detail-concept-copy { padding: 50px 7vw 58px; border-right: 0; border-bottom: 2px solid var(--ink); }
-  .detail-concept-code { margin-bottom: 65px; }
-  .detail-concept-copy h1 span::before { left: -7vw; width: 4.5vw; }
-  .detail-concept-summary, .detail-concept-lists { max-width: 760px; }
-  .detail-concept-art { min-height: 720px; }
-  .detail-concept-pagination { grid-column: 1; }
+  .detail-clean-nav { height: 64px; }
+  .detail-clean-nav nav a { min-width: 0; padding: 0 18px; font-size: 15px; }
+  .detail-clean-page { padding-top: 64px; grid-template-columns: 1fr; }
+  .detail-clean-copy { min-height: auto; padding: 44px 7vw 58px; border-right: 0; border-bottom: 2px solid var(--ink); }
+  .detail-clean-copy h1 span::before { left: -7vw; width: 4.5vw; }
+  .detail-clean-summary, .detail-clean-lists { max-width: 760px; }
+  .detail-clean-visual { min-height: 720px; }
   .about-ref-nav { left: 16px; right: 16px; }
   .about-ref-page { padding-left: 16px; padding-right: 16px; grid-template-columns: 1fr; grid-template-rows: auto auto auto; overflow: visible; }
   .about-ref-copy { border-right: 1.5px solid var(--ink); }
@@ -629,7 +577,6 @@ body[data-project="warehouse"] .detail-concept-copy h1 span { font-size: clamp(4
 }
 
 @media (max-width: 680px) {
-  .detail-nav-label:nth-of-type(2) { display: none; }
   .flora-stage { min-height: 820px; }
   .flora-stage::before { width: 130vw; height: 130vw; left: -75vw; top: 10vh; }
   .flora-rings { inset: 22vh -32vw 13vh -27vw; }
@@ -671,41 +618,26 @@ body[data-project="warehouse"] .detail-concept-copy h1 span { font-size: clamp(4
   .projects-ref-label { max-width: 92%; }
   .projects-ref-label strong { font-size: 9vw; white-space: normal; }
   .projects-ref-background { align-items: flex-start; }
-  .detail-copy { padding-left: 2px; padding-right: 2px; }
-  .detail-copy h1 { font-size: 15vw; }
-  .project-facts div { grid-template-columns: 65px 1fr; }
-  .detail-art { min-height: 560px; }
-  .detail-main-image { left: 12%; width: 78%; }
-  .detail-small-a, .detail-small-b { width: 42%; }
-  .symbol-a { font-size: 58px; }
-  .next-project a { padding: 22px 4px; }
-  .detail-concept-nav { height: 58px; padding: 0 12px; }
-  .detail-concept-brand { font-size: 24px; }
-  .detail-concept-nav nav { border-left: 0; }
-  .detail-concept-nav nav a { padding: 0 8px; font-size: 11px; }
-  .detail-concept-page { padding-top: 58px; grid-template-rows: auto 540px 52px; }
-  .detail-concept-copy { padding: 34px 18px 46px; }
-  .detail-concept-code { margin-bottom: 52px; font-size: 7vw; }
-  .detail-concept-code span { display: block; margin-top: 8px; font-size: 5vw; }
-  .detail-concept-copy h1 { margin-bottom: 42px; }
-  .detail-concept-copy h1 small { font-size: 8vw; }
-  .detail-concept-copy h1 span { font-size: 16vw; }
-  body[data-project="warehouse"] .detail-concept-copy h1 span { font-size: 13vw; }
-  .detail-concept-copy h1 span::before { left: -18px; width: 12px; }
-  .detail-concept-summary, .detail-concept-lists { grid-template-columns: 1fr; gap: 28px; }
-  .detail-concept-lists { margin-top: 42px; }
-  .detail-concept-copy .detail-actions { display: grid; }
-  .detail-concept-copy .button { min-width: 0; width: 100%; }
-  .detail-concept-art { min-height: 540px; }
-  .detail-concept-black { left: 18%; top: 10%; width: 70%; height: 75%; }
-  .detail-concept-star { left: -9%; top: 20%; font-size: 72vw; }
-  .detail-concept-image { left: 16%; top: 15%; width: 72%; height: 67%; }
-  .detail-concept-wire { right: -5%; top: 19%; width: 58%; height: 62%; }
-  .detail-concept-orbit.orbit-top { right: -34%; top: 14%; }
-  .detail-concept-orbit.orbit-side { left: -43%; bottom: 18%; }
-  .detail-concept-pagination { grid-template-columns: 1fr 1fr; }
-  .detail-concept-pagination span { display: none; }
-  .detail-concept-pagination a { padding: 18px 12px; }
+  .detail-clean-nav { height: 58px; padding-left: 12px; }
+  .detail-clean-brand { font-size: 20px; }
+  .detail-clean-nav nav { border-left: 0; }
+  .detail-clean-nav nav a { min-width: 0; padding: 0 8px; font-size: 11px; }
+  .detail-clean-page { padding-top: 58px; }
+  .detail-clean-copy { padding: 30px 18px 44px; }
+  .detail-clean-code { margin-bottom: 48px; font-size: 7vw; }
+  .detail-clean-code span { display: block; margin-top: 8px; font: 5vw/1.05 var(--sans); }
+  .detail-clean-copy h1 { margin-bottom: 40px; }
+  .detail-clean-copy h1 small { font-size: 8vw; }
+  .detail-clean-copy h1 span { font-size: 16vw; }
+  body[data-project="warehouse"] .detail-clean-copy h1 span { font-size: 13vw; }
+  .detail-clean-copy h1 span::before { left: -18px; width: 12px; }
+  .detail-clean-summary, .detail-clean-lists { grid-template-columns: 1fr; gap: 28px; }
+  .detail-clean-lists { margin-top: 40px; }
+  .detail-clean-actions { display: grid; }
+  .detail-clean-actions .button { min-width: 0; width: 100%; }
+  .detail-clean-visual { min-height: 600px; }
+  .detail-clean-visual figure img { left: -95%; width: 195%; }
+  .detail-clean-pagination { right: 14px; font-size: 12px; }
   .about-ref-nav { left: 10px; right: 10px; }
   .about-ref-nav-left { gap: 22px; padding-left: 12px; }
   .about-ref-nav-right { padding-right: 12px; }

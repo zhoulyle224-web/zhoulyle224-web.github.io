@@ -82,80 +82,48 @@ const projectData = {
   websign: {
     index: '01',
     title: 'INTERLINKED',
-    category: 'WEB EXPERIENCE',
-    year: '2026',
-    role: 'Creative direction, visual system, front-end',
-    tools: 'HTML, CSS, JavaScript, Vite',
-    status: 'Prototype / Multi-page static site',
     description: '一个围绕游戏艺术指导、视觉系统与世界观研究建立的多页面实验档案。通过 Plan A / Plan B 双路线、模块化内容和动态几何语言，让作品集本身成为被展示的作品。',
+    summary: '以多页面结构组织复杂内容，通过清晰网格、粗体排版与克莱因蓝建立统一视觉语言，并让导航、信息和作品展示形成连续体验。',
     features: '[MULTI-PAGE ARCHIVE]\n[DUAL ROUTE SYSTEM]\n[MODULAR CONTENT]\n[DYNAMIC GEOMETRY]',
     mediums: '[WEB DESIGN]\n[FRONT-END]\n[ART DIRECTION]\n[VISUAL SYSTEM]',
-    orbitTop: 'INTERLINKED SYSTEM · VISUAL IDENTITY · MODULAR ARCHIVE ·',
-    orbitSide: 'PLAN A / PLAN B · STRUCTURE AND FREEDOM ·',
     linkLabel: 'VISIT INTERLINKED ↗',
     repo: 'https://interlinked.zhoulyle224.workers.dev/',
-    image: 'assets/concept-detail.jpeg',
-    imageAlt: 'Interlinked 实验性艺术指导拼贴',
     prev: 'warehouse',
     next: 'zbird'
   },
   zbird: {
     index: '02',
     title: 'ZBIRD TEMU',
-    category: 'CHROME EXTENSION',
-    year: '2026',
-    role: 'Product workflow, automation logic, extension UX',
-    tools: 'Chrome Manifest V3, JavaScript, Excel workflow',
-    status: 'V1.0.21 / Operational automation tool',
     description: '面向 Temu 商家后台的自动化扩展，用于批量处理 50 个 SPU、补充合规信息、上传实拍图、复制 SKU，并根据库存模板导出 Excel。重点解决浏览器环境限制、文件上传和流程硬校验。',
+    summary: '将重复且容易出错的后台操作拆解成可验证步骤，通过批量处理、状态反馈和文件导出缩短商品运营流程。',
     features: '[BATCH SPU PROCESSING]\n[IMAGE UPLOAD]\n[SKU AUTOMATION]\n[EXCEL EXPORT]',
     mediums: '[CHROME EXTENSION]\n[JAVASCRIPT]\n[WORKFLOW DESIGN]\n[DATA OPERATIONS]',
-    orbitTop: 'AUTOMATION FLOW · BATCH OPERATIONS · RELIABLE EXECUTION ·',
-    orbitSide: 'EXTENSION UX · INVENTORY DATA · OPERATIONAL CONTROL ·',
     linkLabel: 'VIEW REPOSITORY ↗',
     repo: 'https://github.com/zhoulyle224-web/zbird-temu-automation',
-    image: 'assets/concept-projects.jpeg',
-    imageAlt: '自动化扩展项目视觉拼贴',
     prev: 'websign',
     next: 'zhixue'
   },
   zhixue: {
     index: '03',
     title: 'ZHIXUE',
-    category: 'AI EDUCATION',
-    year: '2026',
-    role: 'Product design, interface system, front-end',
-    tools: 'HTML, CSS, JavaScript, local-first data',
-    status: 'Student / Teacher dual workspace',
     description: '连接学生学习与教师教学的双端智能工作台。学生管理课程、问题与复习任务，教师回应真实需求并规划教学行动；数据保存在浏览器中并支持导出恢复。',
+    summary: '以学生问题和教师行动为核心建立双向信息循环，让课程、复习和教学计划在同一套清晰界面中持续更新。',
     features: '[DUAL WORKSPACE]\n[COURSE PLANNING]\n[QUESTION LOOP]\n[LOCAL DATA EXPORT]',
     mediums: '[AI EDUCATION]\n[INTERFACE SYSTEM]\n[LOCAL-FIRST DATA]\n[FRONT-END]',
-    orbitTop: 'STUDENT SIGNALS · TEACHER ACTIONS · LEARNING LOOP ·',
-    orbitSide: 'KNOWLEDGE SYSTEM · LOCAL DATA · DUAL PERSPECTIVE ·',
     linkLabel: 'VIEW REPOSITORY ↗',
     repo: 'https://github.com/zhoulyle224-web/zhixue',
-    image: 'assets/concept-about.jpeg',
-    imageAlt: '智学双擎项目视觉拼贴',
     prev: 'zbird',
     next: 'warehouse'
   },
   warehouse: {
     index: '04',
     title: 'OVERSEAS WAREHOUSE',
-    category: 'SYSTEM DESIGN',
-    year: '2026',
-    role: 'Product architecture, data model, workflow planning',
-    tools: 'Java, Vue, MySQL, system documentation',
-    status: 'Architecture / Requirements baseline',
     description: '跨境电商海外仓库存、销量、在途物流与智能补货管理系统。项目从业务架构、数据库、API、需求验收到部署流程建立清晰分区，为后续前后端实现提供可验证的系统基线。',
+    summary: '围绕库存、销量、在途物流和补货决策建立统一数据关系，通过模块分区与清晰状态降低跨境仓储管理复杂度。',
     features: '[INVENTORY CONTROL]\n[SALES FORECAST]\n[INBOUND LOGISTICS]\n[SMART REPLENISHMENT]',
     mediums: '[SYSTEM DESIGN]\n[JAVA + VUE]\n[MYSQL]\n[API ARCHITECTURE]',
-    orbitTop: 'WAREHOUSE DATA · INVENTORY FLOW · SYSTEM BASELINE ·',
-    orbitSide: 'LOGISTICS NETWORK · REPLENISHMENT · VERIFIABLE MODEL ·',
     linkLabel: 'VIEW REPOSITORY ↗',
     repo: 'https://github.com/zhoulyle224-web/overseas-warehouse-management-system',
-    image: 'assets/concept-home-clean.png',
-    imageAlt: '海外仓系统项目视觉拼贴',
     prev: 'zhixue',
     next: 'websign'
   }
@@ -171,27 +139,16 @@ if (document.body.dataset.page === 'detail') {
     });
   };
   setText('[data-project-title]', project.title);
-  setText('[data-project-category]', project.category);
-  setText('[data-project-year]', project.year);
-  setText('[data-project-role]', project.role);
-  setText('[data-project-tools]', project.tools);
-  setText('[data-project-status]', project.status);
   setText('[data-project-description]', project.description);
+  setText('[data-project-summary]', project.summary);
   setText('[data-project-features]', project.features);
   setText('[data-project-mediums]', project.mediums);
-  setText('.detail-concept-orbit.orbit-top', project.orbitTop);
-  setText('.detail-concept-orbit.orbit-side', project.orbitSide);
   setText('[data-project-index]', project.index);
 
   const repositoryLink = document.querySelector('[data-project-repo]');
   if (repositoryLink) {
     repositoryLink.href = project.repo;
     repositoryLink.textContent = project.linkLabel;
-  }
-  const projectImage = document.querySelector('[data-project-image]');
-  if (projectImage) {
-    projectImage.src = project.image;
-    projectImage.alt = project.imageAlt;
   }
   const previous = document.querySelector('[data-prev-project]');
   const next = document.querySelector('[data-next-project]');
@@ -205,6 +162,4 @@ if (document.body.dataset.page === 'detail') {
   if (titleMeta) titleMeta.content = `${project.title}｜项目详情`;
   const descriptionOpenGraph = document.querySelector('meta[property="og:description"]');
   if (descriptionOpenGraph) descriptionOpenGraph.content = project.description;
-  const imageMeta = document.querySelector('meta[property="og:image"]');
-  if (imageMeta) imageMeta.content = new URL(project.image, window.location.href).href;
 }
