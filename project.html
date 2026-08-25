@@ -8,49 +8,53 @@
   <meta property="og:description" content="实验性多页面视觉系统与静态网站。">
   <meta property="og:image" content="https://zhoulyle224-web.github.io/assets/concept-detail.jpeg">
   <title>Interlinked｜项目详情</title>
-  <link rel="stylesheet" href="styles.css?v=20260825-flora-depth-v3">
+  <link rel="stylesheet" href="styles.css?v=20260825-detail-concept">
 </head>
 <body data-page="detail">
-  <header class="site-nav detail-nav">
-    <a class="detail-nav-label" href="projects.html">PROJECT DETAIL</a>
-    <a class="detail-nav-label" href="about.html">PERSONAL</a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">MENU</button>
-    <nav id="primary-nav" class="nav-links" aria-label="主导航">
-      <a href="index.html">PORTFOLIO</a>
+  <header class="detail-concept-nav">
+    <a class="detail-concept-brand" href="index.html">PORTFOLIO</a>
+    <nav aria-label="主导航">
+      <a href="projects.html">PROJECTS</a>
+      <a href="about.html">ABOUT</a>
+      <a href="contact.html">CONTACT</a>
     </nav>
   </header>
 
-  <main class="detail-stage">
-    <section class="detail-copy reveal">
-      <h1>PROJECT DETAIL:<br><span data-project-title>INTERLINKED</span></h1>
-      <dl class="project-facts">
-        <div><dt>ROLE</dt><dd data-project-role>Creative direction, visual system, front-end</dd></div>
-        <div><dt>TOOLS</dt><dd data-project-tools>HTML, CSS, JavaScript, Vite</dd></div>
-        <div><dt>YEAR</dt><dd data-project-year>2026</dd></div>
-      </dl>
-      <p class="detail-description" data-project-description>一个围绕游戏艺术指导、视觉系统与世界观研究建立的多页面实验档案。通过 Plan A / Plan B 双路线、模块化内容和动态几何语言，让作品集本身成为被展示的作品。</p>
+  <main class="detail-concept-page">
+    <section class="detail-concept-copy">
+      <p class="detail-concept-code">PROJECT:<b data-project-index>01</b> // <span data-project-category>WEB EXPERIENCE</span></p>
+      <h1><small>OVERVIEW</small><span data-project-title>INTERLINKED</span></h1>
+      <div class="detail-concept-summary">
+        <p data-project-description>一个围绕游戏艺术指导、视觉系统与世界观研究建立的多页面实验档案。</p>
+        <p><b>ROLE</b><br><span data-project-role>Creative direction, visual system, front-end</span><br><br><b>TOOLS</b><br><span data-project-tools>HTML, CSS, JavaScript, Vite</span></p>
+      </div>
+      <div class="detail-concept-lists">
+        <p><b>[FEATURES]</b><br><span data-project-features>[DECONSTRUCTED LAYOUT]<br>[HALFTONE TEXTURES]<br>[GEOMETRIC OVERLAYS]<br>[TYPOGRAPHIC ORBITS]</span></p>
+        <p><b>[MEDIUMS]</b><br><span data-project-mediums>[DIGITAL PRODUCT]<br>[INTERFACE DESIGN]<br>[FRONT-END SYSTEM]<br>[VISUAL DIRECTION]</span></p>
+      </div>
       <div class="detail-actions">
-        <a class="button button-blue" data-project-repo href="https://interlinked.zhoulyle224.workers.dev/" target="_blank" rel="noreferrer">VISIT INTERLINKED ↗</a>
-        <a class="button button-ghost" href="projects.html">BACK TO PROJECTS</a>
+        <a class="button button-blue" data-project-repo href="https://interlinked.zhoulyle224.workers.dev/" target="_blank" rel="noreferrer">VISIT PROJECT ↗</a>
+        <a class="button button-ghost" href="projects.html">ALL PROJECTS</a>
       </div>
     </section>
 
-    <section class="detail-art reveal" aria-label="项目视觉拼贴">
-      <div class="detail-blue-shape" aria-hidden="true"></div>
-      <figure class="detail-main-image drift" data-depth="0.8"><img data-project-image src="assets/concept-detail.jpeg" alt="项目概念拼贴"></figure>
-      <figure class="detail-small-image detail-small-a"><img src="assets/concept-home-clean.png" alt="创意视觉局部"></figure>
-      <figure class="detail-small-image detail-small-b"><img src="assets/concept-projects.jpeg" alt="项目索引视觉局部"></figure>
-      <div class="detail-orbit" aria-hidden="true"></div>
-      <p class="detail-orbit-copy">结构与自由 / SYSTEM AND FREEDOM / 从复杂中建立清晰秩序</p>
-      <span class="detail-symbol symbol-a">♟</span><span class="detail-symbol symbol-b">✦</span><span class="detail-symbol symbol-c">●</span>
+    <section class="detail-concept-art" aria-label="项目视觉拼贴">
+      <div class="detail-concept-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="detail-concept-black" aria-hidden="true"></div>
+      <span class="detail-concept-star" aria-hidden="true">★</span>
+      <figure class="detail-concept-image"><img data-project-image src="assets/concept-detail.jpeg" alt="项目概念拼贴"></figure>
+      <div class="detail-concept-wire" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="detail-concept-orbit orbit-top">DECONSTRUCTION OF FORM · SYSTEM AND FREEDOM ·</p>
+      <p class="detail-concept-orbit orbit-side">ARCHITECTURAL FRAGMENTS · TENSION &amp; EQUILIBRIUM ·</p>
+      <span class="detail-concept-node" aria-hidden="true"></span>
     </section>
 
-    <nav class="next-project" aria-label="项目切换">
+    <nav class="detail-concept-pagination" aria-label="项目切换">
       <a data-prev-project href="project.html?project=warehouse">← PREVIOUS</a>
-      <span>NEXT PROJECT: <b>★</b> PROJECT <b data-project-index>01</b></span>
-      <a data-next-project href="project.html?project=zbird">NEXT PROJECT →</a>
+      <span>PROJECT <b data-project-index>01</b> <i>★</i></span>
+      <a data-next-project href="project.html?project=zbird">NEXT →</a>
     </nav>
   </main>
-  <script src="app.js?v=20260825-interlinked"></script>
+  <script src="app.js?v=20260825-detail-concept"></script>
 </body>
 </html>
