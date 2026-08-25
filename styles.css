@@ -468,6 +468,7 @@ body[data-project="warehouse"] .detail-clean-copy h1 span { font-size: clamp(48p
 /* Contact — current diagonal reference only */
 .contact-diagonal-page { min-height: 100svh; overflow: auto; background: #f8f8f6; }
 .contact-diagonal-stage { position: relative; width: 100vw; min-width: 960px; height: 100svh; min-height: 536px; overflow: hidden; background: #f8f8f6; }
+.contact-diagonal-home { position: absolute; inset: 0; display: block; cursor: pointer; }
 .contact-diagonal-art { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: contain; object-position: center; user-select: none; }
 
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
