@@ -465,50 +465,18 @@ body[data-project="warehouse"] .detail-clean-copy h1 span { font-size: clamp(48p
 .about-ref-footer > a b { color: var(--blue); font-size: 1.55em; }
 .about-ref-footer small { padding-right: 22px; font-size: 10px; letter-spacing: .08em; }
 
-/* Contact */
-.contact-ref-page { position: relative; min-height: 100svh; padding: 42px 4vw 0; overflow: hidden; background: var(--paper); }
-.contact-ref-heading { position: relative; z-index: 8; text-align: center; }
-.contact-ref-heading h1 { margin: 0; font: clamp(52px, 7.8vw, 150px)/.86 var(--condensed); letter-spacing: -.03em; white-space: nowrap; }
-.contact-ref-heading h1 a { text-decoration: none; }
-.contact-ref-heading p { margin: 14px 0 22px; font-size: clamp(16px, 1.9vw, 34px); }
-.contact-ref-collage { position: relative; z-index: 3; width: min(1760px, 100%); min-height: 720px; margin: 0 auto; }
-.contact-ref-lines { position: absolute; z-index: 0; inset: -5% -8%; pointer-events: none; }
-.contact-ref-lines i { position: absolute; left: -5%; width: 112%; height: 4px; background: var(--ink); transform-origin: center; }
-.contact-ref-lines i:nth-child(1) { top: 3%; transform: rotate(10deg); }
-.contact-ref-lines i:nth-child(2) { top: 24%; transform: rotate(-8deg); }
-.contact-ref-lines i:nth-child(3) { top: 48%; transform: rotate(13deg); }
-.contact-ref-lines i:nth-child(4) { top: 70%; transform: rotate(-10deg); }
-.contact-ref-lines i:nth-child(5) { top: 91%; transform: rotate(7deg); }
-.contact-ref-frame { position: absolute; z-index: 1; border: 4px solid var(--ink); background: rgba(246,246,243,.72); }
-.contact-ref-frame.frame-a { inset: 7% 8% 7% 5%; transform: rotate(1deg); }
-.contact-ref-frame.frame-b { left: 2%; top: 22%; width: 43%; height: 61%; transform: rotate(-4deg); }
-.contact-ref-frame.frame-c { right: 2%; top: 22%; width: 40%; height: 62%; transform: rotate(5deg); }
-.contact-ref-orbit { position: absolute; z-index: 3; border: 2px solid var(--ink); border-radius: 50%; pointer-events: none; }
-.contact-ref-orbit.orbit-a { left: 24%; top: 2%; width: 54%; height: 67%; transform: rotate(-8deg); }
-.contact-ref-orbit.orbit-b { left: 27%; top: -1%; width: 49%; height: 71%; transform: rotate(17deg); }
-.contact-ref-orbit.orbit-c { left: 18%; top: 13%; width: 65%; height: 47%; transform: rotate(-17deg); }
-.contact-ref-orbit.orbit-d { left: 22%; top: 8%; width: 58%; height: 56%; border-width: 1px; transform: rotate(30deg); }
-.contact-ref-profile { position: absolute; z-index: 4; left: 12%; top: 12%; width: 24%; display: grid; gap: 36px; }
-.contact-ref-profile section { padding: 8px 14px; background: rgba(246,246,243,.9); }
-.contact-ref-profile h2 { margin: 0 0 4px; font: clamp(22px, 2vw, 37px)/1 var(--condensed); }
-.contact-ref-profile p { margin: 0; font-size: clamp(12px, 1.15vw, 20px); line-height: 1.3; }
-.contact-ref-orb { position: absolute; z-index: 7; left: 29%; top: -1%; width: 44%; aspect-ratio: 1; overflow: visible; pointer-events: none; }
-.contact-ref-orb img { display: block; width: 100%; height: 100%; max-width: 100%; object-fit: contain; }
-.contact-ref-connect { position: absolute; z-index: 6; right: 9%; top: 15%; width: 25%; padding: 18px 22px; background: rgba(246,246,243,.9); transform: rotate(3deg); }
-.contact-ref-social { margin: 0 0 38px!important; font: clamp(14px, 1.45vw, 26px)/1 var(--condensed); white-space: nowrap; }
-.contact-ref-connect h2 { margin: 8px 0 1px; font: clamp(20px, 1.7vw, 31px)/1 var(--condensed); }
-.contact-ref-connect > a:not(.contact-ref-cta) { display: block; overflow-wrap: anywhere; font-size: clamp(12px, 1vw, 18px); font-weight: 700; }
-.contact-ref-connect h3 { margin: 28px 0 8px; font: clamp(28px, 3vw, 55px)/.84 var(--condensed); }
-.contact-ref-connect p { margin: 0 0 20px; font-size: clamp(12px, 1vw, 17px); line-height: 1.45; }
-.contact-ref-cta { display: inline-block; padding: 12px 22px; border: 2px solid var(--ink); background: var(--paper); font: 14px/1 var(--condensed); letter-spacing: .06em; text-decoration: none; transform: rotate(-2deg); }
-.contact-ref-ring { position: absolute; z-index: 7; left: 8%; bottom: 7%; margin: 0; font: clamp(15px, 1.55vw, 28px)/1 var(--condensed); letter-spacing: .08em; transform: rotate(-7deg); }
-.contact-ref-spark { position: absolute; z-index: 8; font-family: var(--sans); }
-.contact-ref-spark.spark-a { left: 4%; top: 7%; font-size: 64px; }
-.contact-ref-spark.spark-b { left: 29%; bottom: 9%; font-size: 72px; }
-.contact-ref-spark.spark-c { right: 3%; top: 10%; font-size: 68px; }
-.contact-ref-spark.spark-d { left: 23%; top: 21%; font-size: 48px; }
-.contact-ref-spark.spark-e { right: 23%; bottom: 17%; font-size: 56px; color: var(--blue); }
-.contact-ref-spark.spark-f { right: 17%; top: 5%; font-size: 42px; }
+/* Contact — current diagonal reference only */
+.contact-diagonal-page { min-height: 100svh; overflow: auto; background: #f8f8f6; }
+.contact-diagonal-stage { position: relative; width: 100vw; min-width: 960px; height: 100svh; min-height: 536px; overflow: hidden; background: #f8f8f6; }
+.contact-diagonal-art { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: contain; object-position: center; user-select: none; }
+.contact-diagonal-hotspots { position: absolute; z-index: 2; inset: 0; pointer-events: none; }
+.contact-diagonal-hit { position: absolute; display: block; pointer-events: auto; text-decoration: none; }
+.contact-diagonal-hit span { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.contact-diagonal-hit.hit-home { left: 0; top: 0; width: 34%; height: 38%; }
+.contact-diagonal-hit.hit-projects { left: 34%; top: 20%; width: 34%; height: 64%; }
+.contact-diagonal-hit.hit-email { right: 0; top: 0; width: 36%; height: 66%; }
+.contact-diagonal-hit.hit-github { right: 0; bottom: 0; width: 27%; height: 34%; }
+.contact-diagonal-hit:hover { background: rgba(20,20,212,.035); }
 
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -560,16 +528,6 @@ body[data-project="warehouse"] .detail-clean-copy h1 span { font-size: clamp(48p
   .about-resume-contact { grid-template-columns: repeat(2, auto); justify-content: start; }
   .about-ref-footer { grid-template-columns: 1fr 1fr; min-height: 88px; }
   .about-ref-footer small { display: none; }
-  .contact-ref-heading h1 { white-space: normal; }
-  .contact-ref-collage { min-height: 1180px; }
-  .contact-ref-profile { left: 6%; top: 8%; width: 31%; }
-  .contact-ref-orb { left: 23%; top: 21%; width: 62%; }
-  .contact-ref-orbit.orbit-a { left: 17%; top: 22%; width: 72%; height: 40%; }
-  .contact-ref-orbit.orbit-b { left: 21%; top: 19%; width: 64%; height: 47%; }
-  .contact-ref-orbit.orbit-c { left: 11%; top: 29%; width: 83%; height: 29%; }
-  .contact-ref-orbit.orbit-d { left: 16%; top: 25%; width: 73%; height: 35%; }
-  .contact-ref-connect { right: 5%; top: 69%; width: 42%; }
-  .contact-ref-ring { left: 4%; bottom: 5%; max-width: 40%; }
 }
 
 @media (max-width: 680px) {
@@ -651,21 +609,7 @@ body[data-project="warehouse"] .detail-clean-copy h1 span { font-size: clamp(48p
   .about-visual-wall { min-height: 1200px; grid-template-rows: repeat(5, minmax(230px, 1fr)); }
   .about-visual-panel { min-height: 230px; }
   .about-visual-panel strong { font-size: 25vw; }
-  .contact-ref-page { padding: 28px 14px 0; }
-  .contact-ref-heading h1 { font-size: 15vw; }
-  .contact-ref-heading p { font-size: 15px; }
-  .contact-ref-collage { min-height: 1260px; }
-  .contact-ref-profile { left: 2%; top: 5%; width: 76%; gap: 20px; }
-  .contact-ref-orb { left: 1%; top: 29%; width: 98%; }
-  .contact-ref-orbit.orbit-a { left: -7%; top: 31%; width: 114%; height: 31%; }
-  .contact-ref-orbit.orbit-b { left: -1%; top: 28%; width: 101%; height: 38%; }
-  .contact-ref-orbit.orbit-c { left: -15%; top: 38%; width: 130%; height: 22%; }
-  .contact-ref-orbit.orbit-d { left: -8%; top: 34%; width: 113%; height: 28%; }
-  .contact-ref-connect { left: 7%; right: auto; top: 70%; width: 86%; transform: none; }
-  .contact-ref-social { white-space: normal; }
-  .contact-ref-ring { left: 2%; bottom: 3%; max-width: 88%; }
-  .contact-ref-frame.frame-b { width: 74%; }
-  .contact-ref-frame.frame-c { width: 74%; }
+  .contact-diagonal-stage { width: 960px; }
   .minimal-footer { flex-direction: column; }
 }
 
