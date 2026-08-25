@@ -81,16 +81,16 @@ if (canDrift) {
 const projectData = {
   websign: {
     index: '01',
-    title: 'WEBSIGN',
+    title: 'INTERLINKED',
     category: 'WEB EXPERIENCE',
     year: '2026',
     role: 'Creative direction, visual system, front-end',
     tools: 'HTML, CSS, JavaScript, Vite',
     status: 'Prototype / Multi-page static site',
     description: '一个围绕游戏艺术指导、视觉系统与世界观研究建立的多页面实验档案。通过 Plan A / Plan B 双路线、模块化内容和动态几何语言，让作品集本身成为被展示的作品。',
-    repo: 'https://github.com/zhoulyle224-web/WebSign',
+    repo: 'https://interlinked.zhoulyle224.workers.dev/',
     image: 'assets/concept-detail.jpeg',
-    imageAlt: 'WebSign 实验性艺术指导拼贴',
+    imageAlt: 'Interlinked 实验性艺术指导拼贴',
     prev: 'warehouse',
     next: 'zbird'
   },
