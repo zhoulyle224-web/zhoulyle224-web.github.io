@@ -432,26 +432,41 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .about-ref-nav-left { display: flex; align-items: center; gap: clamp(40px, 7vw, 130px); padding-left: 26px; }
 .about-ref-nav a, .about-ref-nav span { font: 13px/1 var(--condensed); letter-spacing: .035em; text-decoration: none; }
 .about-ref-nav-right { padding-right: 26px; }
-.about-ref-page { position: relative; min-height: 100svh; padding: 60px 5vw 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(820px, calc(100svh - 132px)) 72px; overflow: hidden; background: var(--paper); }
+.about-ref-page { position: relative; min-height: 100svh; padding: 60px 5vw 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 72px; overflow: hidden; background: var(--paper); }
 .about-ref-page::before, .about-ref-page::after { content: ""; position: absolute; z-index: 0; top: 0; bottom: 0; width: 9vw; background-color: var(--paper); background-image: url("assets/about-botanical-halftone.png"); background-size: auto max(100%, 900px); background-repeat: repeat-y; background-position: center top; opacity: .92; filter: contrast(1.08); }
 .about-ref-page::before { left: 0; transform: translateX(-58%); }
 .about-ref-page::after { right: 0; transform: translateX(58%) scaleX(-1); }
-.about-ref-copy { position: relative; z-index: 2; padding: 26px 3vw 42px 1.4vw; border: 1.5px solid var(--ink); border-top: 0; overflow: hidden; background-color: rgba(246,246,243,.94); background-image: radial-gradient(rgba(0,0,0,.16) .65px, transparent .65px); background-size: 5px 5px; }
-.about-ref-copy h1 { margin: 0 0 clamp(38px, 5vh, 70px); font: clamp(56px, 6vw, 116px)/.82 var(--condensed); letter-spacing: -.03em; }
-.about-ref-facts { display: grid; gap: 22px; max-width: 670px; margin: 0; }
-.about-ref-facts div { display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: start; }
-.about-ref-facts dt { font: clamp(20px, 1.6vw, 30px)/1 var(--condensed); }
-.about-ref-facts dd { margin: 0; font-size: clamp(13px, 1.12vw, 21px); line-height: 1.38; }
-.about-ref-description { max-width: 640px; margin: clamp(40px, 5vh, 70px) 0 24px; font-size: clamp(14px, 1.1vw, 20px); line-height: 1.52; }
-.about-ref-actions { position: relative; z-index: 3; display: flex; flex-wrap: wrap; gap: 10px; }
+.about-ref-copy { position: relative; z-index: 2; min-width: 0; padding: 26px 3vw 190px 1.4vw; border: 1.5px solid var(--ink); border-top: 0; overflow: hidden; background-color: rgba(246,246,243,.94); background-image: radial-gradient(rgba(0,0,0,.16) .65px, transparent .65px); background-size: 5px 5px; }
+.about-ref-copy h1 { margin: 0 0 12px; font: clamp(56px, 6vw, 116px)/.82 var(--condensed); letter-spacing: -.03em; }
+.about-resume-tagline { margin: 0 0 26px; color: var(--blue); font: clamp(18px, 1.45vw, 28px)/1 var(--condensed); letter-spacing: .03em; }
+.about-resume-contact { display: grid; grid-template-columns: repeat(4, auto); gap: 10px 22px; padding: 13px 0 22px; border-bottom: 1.5px solid var(--ink); font-size: 12px; }
+.about-resume-contact a { text-decoration: none; font-weight: 700; }
+.about-resume-section { margin-top: 30px; }
+.about-resume-section h2 { margin: 0 0 18px; padding-top: 12px; display: flex; align-items: baseline; gap: 24px; border-top: 2px solid var(--ink); font: clamp(24px, 2vw, 38px)/1 var(--condensed); }
+.about-resume-section h2 b { color: var(--blue); font-size: 1.15em; }
+.about-resume-entry + .about-resume-entry { margin-top: 25px; }
+.about-resume-entry header { display: grid; grid-template-columns: minmax(118px, .72fr) minmax(0, 1.45fr) auto; gap: 10px 16px; align-items: baseline; }
+.about-resume-entry time { color: var(--blue); font-weight: 700; font-size: 12px; white-space: nowrap; }
+.about-resume-entry header strong { min-width: 0; font-size: 14px; }
+.about-resume-entry header em { font-size: 11px; font-style: normal; text-align: right; white-space: nowrap; }
+.about-resume-entry ul, .about-resume-section.awards ul { margin: 14px 0 0; padding: 0; list-style: none; }
+.about-resume-entry li, .about-resume-section.awards li { position: relative; margin: 8px 0; padding-left: 18px; font-size: 12px; line-height: 1.65; }
+.about-resume-entry li::before, .about-resume-section.awards li::before { content: "•"; position: absolute; left: 0; color: var(--blue); font-size: 18px; line-height: 1; }
+.about-resume-entry li > b, .about-resume-skills p > b { color: var(--blue); }
+.about-resume-entry li strong, .about-resume-entry p strong, .about-resume-skills strong { color: var(--blue); }
+.about-resume-entry.compact p { margin: 12px 0 0; font-size: 12px; line-height: 1.65; }
+.about-resume-skills { display: grid; gap: 14px; }
+.about-resume-skills p { margin: 0; font-size: 12px; line-height: 1.65; }
+.about-resume-skills p > b { display: block; margin-bottom: 2px; font-size: 13px; }
+.about-ref-actions { position: relative; z-index: 3; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 38px; }
 .about-ref-actions a { min-width: 165px; padding: 12px 15px; border: 1.5px solid var(--ink); background: var(--paper); font: 12px/1 var(--condensed); letter-spacing: .07em; text-decoration: none; }
 .about-ref-actions a:first-child { background: var(--blue); border-color: var(--blue); color: #fff; }
 .about-ref-left-detail { position: absolute; left: 2.2%; bottom: 3%; width: 37%; height: 16%; overflow: hidden; border: 2px solid var(--blue); background: var(--paper); }
 .about-ref-left-detail img { width: 270%; height: 270%; max-width: none; object-fit: cover; object-position: 6% 88%; transform: translate(-2%, -60%); }
 .about-ref-left-star { position: absolute; z-index: 3; left: 35%; bottom: 6%; color: var(--blue); font: 90px/1 var(--sans); transform: rotate(-8deg); }
 .about-ref-left-bird { position: absolute; z-index: 3; left: 52%; bottom: 5%; color: var(--blue); font: 58px/1 var(--sans); transform: rotate(-28deg) scaleX(1.35); }
-.about-ref-visual { position: relative; z-index: 2; overflow: hidden; border: 1.5px solid var(--ink); border-top: 0; border-left: 0; }
-.about-ref-visual-source { position: absolute; inset: 0; overflow: hidden; }
+.about-ref-visual { position: relative; z-index: 2; min-width: 0; min-height: calc(100svh - 132px); overflow: visible; border: 1.5px solid var(--ink); border-top: 0; border-left: 0; background-color: var(--paper); background-image: radial-gradient(rgba(0,0,0,.18) .7px, transparent .7px); background-size: 5px 5px; }
+.about-ref-visual-source { position: sticky; top: 60px; height: calc(100svh - 60px); overflow: hidden; }
 .about-ref-visual-source img { position: absolute; top: -1%; left: 0; width: 200%; height: 112%; max-width: none; object-fit: cover; transform: translateX(-50%); }
 .about-ref-footer { position: relative; z-index: 3; grid-column: 1/-1; display: grid; grid-template-columns: 34% 1fr auto; align-items: center; min-height: 72px; border: 1.5px solid var(--ink); border-top: 0; }
 .about-ref-theory { align-self: stretch; display: flex; align-items: center; justify-content: center; gap: 20px; overflow: hidden; background: #11113d; color: #fff; }
@@ -550,8 +565,10 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   .next-project span { display: none; }
   .about-ref-nav { left: 16px; right: 16px; }
   .about-ref-page { padding-left: 16px; padding-right: 16px; grid-template-columns: 1fr; grid-template-rows: auto 720px auto; overflow: visible; }
-  .about-ref-copy { min-height: 900px; border-right: 1.5px solid var(--ink); }
+  .about-ref-copy { border-right: 1.5px solid var(--ink); }
   .about-ref-visual { border-left: 1.5px solid var(--ink); }
+  .about-ref-visual-source { position: absolute; inset: 0; height: auto; }
+  .about-resume-contact { grid-template-columns: repeat(2, auto); justify-content: start; }
   .about-ref-footer { grid-template-columns: 1fr 1fr; min-height: 88px; }
   .about-ref-footer small { display: none; }
   .contact-ref-heading h1 { white-space: normal; }
@@ -621,9 +638,12 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   .about-ref-nav-left { gap: 22px; padding-left: 12px; }
   .about-ref-nav-right { padding-right: 12px; }
   .about-ref-page { padding-left: 10px; padding-right: 10px; grid-template-rows: auto 520px auto; }
-  .about-ref-copy { min-height: 980px; padding-left: 12px; padding-right: 12px; }
+  .about-ref-copy { padding-left: 12px; padding-right: 12px; }
   .about-ref-copy h1 { font-size: 14vw; }
-  .about-ref-facts div { grid-template-columns: 70px 1fr; }
+  .about-resume-contact { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .about-resume-entry header { grid-template-columns: 1fr; gap: 5px; }
+  .about-resume-entry header em { text-align: left; white-space: normal; }
+  .about-resume-section h2 { gap: 14px; }
   .about-ref-left-detail { width: 46%; height: 13%; }
   .about-ref-left-star { left: 39%; font-size: 64px; }
   .about-ref-left-bird { left: 61%; font-size: 42px; }
