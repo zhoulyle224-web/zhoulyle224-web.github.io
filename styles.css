@@ -430,10 +430,10 @@ body[data-page="projects"] .minimal-footer { display: none; }
 .about-ref-nav a, .about-ref-nav span { font: 13px/1 var(--condensed); letter-spacing: .035em; text-decoration: none; }
 .about-ref-nav-right { padding-right: 26px; }
 .about-ref-page { position: relative; min-height: 100svh; padding: 60px 5vw 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(740px, calc(100svh - 132px)) 72px; overflow: hidden; background: var(--paper); }
-.about-ref-page::before, .about-ref-page::after { content: ""; position: absolute; z-index: 0; top: 0; bottom: 0; width: 7vw; background: url("assets/about-reference-20260825.jpg") center/cover; opacity: .22; }
+.about-ref-page::before, .about-ref-page::after { content: ""; position: absolute; z-index: 0; top: 0; bottom: 0; width: 9vw; background-color: var(--paper); background-image: url("assets/about-botanical-halftone.png"); background-size: auto max(100%, 900px); background-repeat: repeat-y; background-position: center top; opacity: .92; filter: contrast(1.08); }
 .about-ref-page::before { left: 0; transform: translateX(-58%); }
-.about-ref-page::after { right: 0; transform: translateX(58%); }
-.about-ref-copy { position: relative; z-index: 2; padding: 26px 3vw 42px 1.4vw; border: 1.5px solid var(--ink); border-top: 0; overflow: hidden; }
+.about-ref-page::after { right: 0; transform: translateX(58%) scaleX(-1); }
+.about-ref-copy { position: relative; z-index: 2; padding: 26px 3vw 42px 1.4vw; border: 1.5px solid var(--ink); border-top: 0; overflow: hidden; background-color: rgba(246,246,243,.94); background-image: radial-gradient(rgba(0,0,0,.16) .65px, transparent .65px); background-size: 5px 5px; }
 .about-ref-copy h1 { margin: 0 0 clamp(38px, 5vh, 70px); font: clamp(56px, 6vw, 116px)/.82 var(--condensed); letter-spacing: -.03em; }
 .about-ref-facts { display: grid; gap: 22px; max-width: 670px; margin: 0; }
 .about-ref-facts div { display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: start; }
