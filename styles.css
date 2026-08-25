@@ -177,38 +177,20 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   display: block;
   width: var(--bird-size);
   height: calc(var(--bird-size) * .54);
-  background: radial-gradient(ellipse 9% 12% at 50% 58%, currentColor 0 94%, transparent 100%);
-  opacity: .88;
+  background: url("assets/bird-silhouette-blue.png") center / contain no-repeat;
+  mix-blend-mode: multiply;
+  opacity: .16;
   will-change: translate;
 }
 .flora-bird::before,
-.flora-bird::after {
-  content: "";
-  position: absolute;
-  top: 25%;
-  display: block;
-  width: 53%;
-  height: 42%;
-  border-top: clamp(4px, .48vw, 9px) solid currentColor;
-  border-radius: 70% 70% 0 0;
-}
-.flora-bird::before {
-  left: 1%;
-  transform: rotate(17deg);
-  transform-origin: 96% 62%;
-}
-.flora-bird::after {
-  right: 1%;
-  transform: rotate(-17deg);
-  transform-origin: 4% 62%;
-}
-.bird-a { --bird-size: clamp(98px, 8vw, 164px); left: 4.5%; top: 31%; transform: rotate(-12deg); }
-.bird-b { --bird-size: clamp(84px, 7vw, 142px); right: 5%; top: 26%; transform: scaleX(-1) rotate(-8deg); }
-.bird-c { --bird-size: clamp(62px, 5.2vw, 106px); right: 12%; bottom: 21%; transform: rotate(13deg); opacity: .72; }
+.flora-bird::after { display: none; }
+.bird-a { --bird-size: clamp(300px, 40vw, 820px); left: -12%; top: 14%; transform: rotate(-10deg); }
+.bird-b { --bird-size: clamp(280px, 38vw, 780px); right: -13%; top: 10%; transform: scaleX(-1) rotate(-7deg); opacity: .13; }
+.bird-c { --bird-size: clamp(240px, 32vw, 660px); right: 5%; bottom: 3%; transform: rotate(14deg); opacity: .1; }
 .flora-piece { position: absolute; color: currentColor; font-family: Georgia, "Times New Roman", serif; line-height: 1; opacity: .82; will-change: translate; }
-.piece-a { left: 5.5%; top: 54%; font-size: clamp(82px, 7vw, 144px); transform: rotate(-9deg); }
-.piece-b { right: 5.5%; top: 51%; font-size: clamp(92px, 7.6vw, 156px); transform: rotate(7deg); }
-.piece-c { right: 19%; top: 10%; font-size: clamp(62px, 5.4vw, 110px); transform: rotate(-16deg); opacity: .58; }
+.piece-a { left: -2%; top: 45%; font-size: clamp(220px, 28vw, 570px); transform: rotate(-9deg); opacity: .13; }
+.piece-b { right: -3%; top: 39%; font-size: clamp(230px, 29vw, 590px); transform: rotate(7deg); opacity: .11; }
+.piece-c { right: 28%; top: -4%; font-size: clamp(190px, 24vw, 490px); transform: rotate(-16deg); opacity: .08; }
 .cursor-orbit {
   position: fixed;
   z-index: 140;
@@ -289,6 +271,11 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   pointer-events: none;
 }
 .flora-art img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.flora-art-base { will-change: translate; }
+.flora-art-layer { z-index: 4; opacity: .34; will-change: translate; }
+.flora-art-layer img { filter: saturate(1.12) contrast(1.04); }
+.flora-art-layer-a { clip-path: polygon(20% 0, 84% 0, 76% 53%, 28% 49%); transform: scale(1.012) rotate(.35deg); }
+.flora-art-layer-b { clip-path: polygon(10% 44%, 88% 40%, 96% 100%, 3% 100%); transform: scale(1.018) rotate(-.45deg); opacity: .28; }
 .flora-corner-title {
   position: absolute;
   z-index: 12;
@@ -551,12 +538,14 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .flora-symbols i { width: 19px; height: 19px; }
   .flora-bottom-left p { max-width: 230px; font-size: 14px; line-height: 1.2; }
   .flora-corner-title { left: 18px; bottom: 96px; font-size: 15vw; line-height: .78; }
-  .bird-a { --bird-size: 86px; left: 1%; top: 36%; }
-  .bird-b { --bird-size: 74px; right: 0; top: 30%; }
-  .bird-c { display: none; }
-  .piece-a { left: 2%; top: 60%; font-size: 78px; }
-  .piece-b { right: 1%; top: 56%; font-size: 84px; }
-  .piece-c { display: none; }
+  .bird-a { --bird-size: 68vw; left: -25%; top: 28%; }
+  .bird-b { --bird-size: 64vw; right: -27%; top: 25%; }
+  .bird-c { --bird-size: 56vw; right: -8%; bottom: 14%; display: block; }
+  .piece-a { left: -12%; top: 55%; font-size: 46vw; }
+  .piece-b { right: -11%; top: 52%; font-size: 48vw; }
+  .piece-c { right: 20%; top: 15%; display: block; font-size: 38vw; }
+  .flora-art-layer-a { clip-path: polygon(5% 4%, 96% 2%, 84% 56%, 14% 53%); }
+  .flora-art-layer-b { clip-path: polygon(0 45%, 100% 42%, 100% 100%, 0 100%); }
   .flora-bottom-right { right: 18px; bottom: 24px; gap: 7px; }
   .flora-chess { font-size: 24px; }
   .flora-bottom-right a { max-width: 120px; font-size: 13px; text-align: right; line-height: 1.15; }

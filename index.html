@@ -9,7 +9,7 @@
   <meta property="og:image" content="https://zhoulyle224-web.github.io/assets/home-flora-collage.png">
   <meta property="og:type" content="website">
   <title>赵雪儿｜Framed Ideas</title>
-  <link rel="stylesheet" href="styles.css?v=20260825-interaction-2">
+  <link rel="stylesheet" href="styles.css?v=20260825-parallax-layers">
 </head>
 <body data-page="home" class="flora-home">
   <main class="flora-stage">
@@ -34,8 +34,14 @@
       </div>
     </nav>
 
-    <figure class="flora-art">
+    <figure class="flora-art flora-art-base drift" data-depth="0.32">
       <img src="assets/home-flora-collage.png" alt="黑白网点花卉、蕨叶与半透明蓝色几何碎片组成的实验性编辑拼贴">
+    </figure>
+    <figure class="flora-art flora-art-layer flora-art-layer-a drift" data-depth="1.15" aria-hidden="true">
+      <img src="assets/home-flora-collage.png" alt="">
+    </figure>
+    <figure class="flora-art flora-art-layer flora-art-layer-b drift" data-depth="-0.82" aria-hidden="true">
+      <img src="assets/home-flora-collage.png" alt="">
     </figure>
 
     <div class="flora-specimens" aria-hidden="true">
@@ -61,6 +67,6 @@
 
     <a class="flora-side-link" href="projects.html">SELECTED PROJECTS <span>→</span></a>
   </main>
-  <script src="app.js?v=20260825-interaction"></script>
+  <script src="app.js?v=20260825-parallax-layers"></script>
 </body>
 </html>

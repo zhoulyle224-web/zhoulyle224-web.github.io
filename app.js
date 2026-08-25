@@ -33,16 +33,28 @@ const canDrift = window.matchMedia('(pointer:fine) and (prefers-reduced-motion:n
 if (canDrift) {
   const driftItems = [...document.querySelectorAll('.drift')];
   const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  const drift = { x: 0, y: 0, targetX: 0, targetY: 0 };
   window.addEventListener('pointermove', (event) => {
     pointer.x = event.clientX;
     pointer.y = event.clientY;
-    const x = (event.clientX / window.innerWidth - 0.5) * 2;
-    const y = (event.clientY / window.innerHeight - 0.5) * 2;
+    drift.targetX = (event.clientX / window.innerWidth - 0.5) * 2;
+    drift.targetY = (event.clientY / window.innerHeight - 0.5) * 2;
+  }, { passive: true });
+  window.addEventListener('pointerleave', () => {
+    drift.targetX = 0;
+    drift.targetY = 0;
+  });
+
+  const renderDrift = () => {
+    drift.x += (drift.targetX - drift.x) * 0.075;
+    drift.y += (drift.targetY - drift.y) * 0.075;
     driftItems.forEach((item) => {
       const depth = Number(item.dataset.depth || 1);
-      item.style.translate = `${x * depth * 11}px ${y * depth * 8}px`;
+      item.style.translate = `${drift.x * depth * 15}px ${drift.y * depth * 11}px`;
     });
-  }, { passive: true });
+    window.requestAnimationFrame(renderDrift);
+  };
+  renderDrift();
 
   if (document.body.dataset.page === 'home') {
     const cursor = document.createElement('div');
