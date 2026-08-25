@@ -33,57 +33,49 @@ const canDrift = window.matchMedia('(pointer:fine) and (prefers-reduced-motion:n
 if (canDrift) {
   const driftItems = [...document.querySelectorAll('.drift')];
   const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-  const drift = { x: 0, y: 0, targetX: 0, targetY: 0 };
   window.addEventListener('pointermove', (event) => {
     pointer.x = event.clientX;
     pointer.y = event.clientY;
-    drift.targetX = (event.clientX / window.innerWidth - 0.5) * 2;
-    drift.targetY = (event.clientY / window.innerHeight - 0.5) * 2;
-  }, { passive: true });
-  window.addEventListener('pointerleave', () => {
-    drift.targetX = 0;
-    drift.targetY = 0;
-  });
-
-  const renderDrift = () => {
-    drift.x += (drift.targetX - drift.x) * 0.075;
-    drift.y += (drift.targetY - drift.y) * 0.075;
+    const x = (event.clientX / window.innerWidth - 0.5) * 2;
+    const y = (event.clientY / window.innerHeight - 0.5) * 2;
     driftItems.forEach((item) => {
       const depth = Number(item.dataset.depth || 1);
-      item.style.translate = `${drift.x * depth * 15}px ${drift.y * depth * 11}px`;
+      item.style.translate = `${x * depth * 7}px ${y * depth * 5}px`;
     });
-    window.requestAnimationFrame(renderDrift);
+  }, { passive: true });
+  window.addEventListener('pointerleave', () => {
+    driftItems.forEach((item) => {
+      item.style.translate = '0px 0px';
+    });
+  });
+
+  document.body.classList.add('has-custom-cursor');
+  const cursor = document.createElement('div');
+  cursor.className = 'cursor-orbit';
+  cursor.setAttribute('aria-hidden', 'true');
+  document.body.append(cursor);
+
+  const current = { x: pointer.x, y: pointer.y };
+  const renderCursor = () => {
+    current.x += (pointer.x - current.x) * 0.2;
+    current.y += (pointer.y - current.y) * 0.2;
+    cursor.style.translate = `${current.x}px ${current.y}px`;
+    window.requestAnimationFrame(renderCursor);
   };
-  renderDrift();
+  renderCursor();
 
-  if (document.body.dataset.page === 'home') {
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor-orbit';
-    cursor.setAttribute('aria-hidden', 'true');
-    document.body.append(cursor);
-
-    const current = { x: pointer.x, y: pointer.y };
-    const renderCursor = () => {
-      current.x += (pointer.x - current.x) * 0.2;
-      current.y += (pointer.y - current.y) * 0.2;
-      cursor.style.translate = `${current.x}px ${current.y}px`;
-      window.requestAnimationFrame(renderCursor);
-    };
-    renderCursor();
-
-    window.addEventListener('pointermove', (event) => {
-      cursor.classList.add('is-visible');
-      cursor.classList.toggle('is-interactive', Boolean(event.target.closest('a, button')));
-    }, { passive: true });
-    window.addEventListener('pointerleave', () => cursor.classList.remove('is-visible'));
-    window.addEventListener('pointerdown', () => cursor.classList.add('is-down'));
-    window.addEventListener('pointerup', () => {
-      cursor.classList.remove('is-down');
-      cursor.classList.remove('is-pulse');
-      void cursor.offsetWidth;
-      cursor.classList.add('is-pulse');
-    });
-  }
+  window.addEventListener('pointermove', (event) => {
+    cursor.classList.add('is-visible');
+    cursor.classList.toggle('is-interactive', Boolean(event.target.closest('a, button, input, textarea, select, [role="button"]')));
+  }, { passive: true });
+  window.addEventListener('pointerleave', () => cursor.classList.remove('is-visible'));
+  window.addEventListener('pointerdown', () => cursor.classList.add('is-down'));
+  window.addEventListener('pointerup', () => {
+    cursor.classList.remove('is-down');
+    cursor.classList.remove('is-pulse');
+    void cursor.offsetWidth;
+    cursor.classList.add('is-pulse');
+  });
 }
 
 const projectData = {

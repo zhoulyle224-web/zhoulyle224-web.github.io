@@ -171,6 +171,29 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .flora-grid i { position: absolute; display: block; background: rgba(8,8,8,.34); }
 .flora-grid i:nth-child(1) { left: 50%; top: 5%; width: 1px; height: 90%; }
 .flora-grid i:nth-child(2) { left: 7%; top: 50%; width: 86%; height: 1px; }
+.legacy-depth { position: absolute; inset: 0; pointer-events: none; }
+.legacy-orbit { position: absolute; z-index: 1; border: 1px solid rgba(8,8,8,.46); border-radius: 50%; will-change: translate; }
+.legacy-orbit-a { left: 9vw; top: 15vh; width: 73vw; height: 35vw; transform: rotate(13deg); }
+.legacy-orbit-b { right: 3vw; top: -15vw; width: 43vw; height: 55vw; transform: rotate(-29deg); opacity: .56; }
+.legacy-slice {
+  position: absolute;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid rgba(8,8,8,.8);
+  background: rgba(255,255,255,.72);
+  box-shadow: 10px 12px 0 rgba(20,20,212,.12);
+  opacity: .72;
+  will-change: translate;
+}
+.legacy-slice::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(20,20,212,.18), transparent 58%); mix-blend-mode: multiply; }
+.legacy-slice img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.3); }
+.legacy-slice-a { z-index: 2; left: 13vw; bottom: 10vh; width: clamp(125px, 13vw, 265px); height: clamp(120px, 21vh, 245px); transform: rotate(-5deg); clip-path: polygon(7% 0, 100% 7%, 88% 100%, 0 90%); }
+.legacy-slice-a img { object-position: 48% 50%; }
+.legacy-slice-b { z-index: 7; right: 10vw; top: 19vh; width: clamp(110px, 11vw, 225px); height: clamp(110px, 18vh, 210px); transform: rotate(5deg); clip-path: polygon(0 8%, 92% 0, 100% 88%, 10% 100%); }
+.legacy-slice-b img { object-position: 76% 20%; }
+.legacy-node { position: absolute; z-index: 8; width: clamp(11px, .9vw, 18px); aspect-ratio: 1; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 7px rgba(20,20,212,.08); will-change: translate; }
+.legacy-node-a { left: 17vw; top: 43vh; }
+.legacy-node-b { right: 14vw; bottom: 22vh; }
 .flora-fauna { position: absolute; z-index: 2; inset: 0; pointer-events: none; color: var(--blue); }
 .flora-bird {
   position: absolute;
@@ -226,15 +249,14 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   opacity: 0;
 }
 .cursor-orbit.is-visible { opacity: 1; }
-.cursor-orbit.is-interactive { width: 58px; height: 58px; border-radius: 14px; background: rgba(20,20,212,.07); }
+.cursor-orbit.is-interactive { width: 58px; height: 58px; border-radius: 50%; background: rgba(20,20,212,.07); }
 .cursor-orbit.is-interactive::before { width: 12px; height: 12px; transform: translate(-50%, -50%) rotate(135deg); }
 .cursor-orbit.is-down { width: 24px; height: 24px; border-radius: 50%; }
 .cursor-orbit.is-pulse::after { animation: cursor-pulse .42s ease-out; }
 @keyframes cursor-pulse { from { opacity: .75; transform: scale(.8); } to { opacity: 0; transform: scale(2.15); } }
 @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .flora-home,
-  .flora-home a,
-  .flora-home button { cursor: none; }
+  .has-custom-cursor,
+  .has-custom-cursor * { cursor: none !important; }
   .flora-navigation a,
   .flora-side-link,
   .flora-bottom-right a { display: inline-block; transition: scale .16s ease, color .16s ease; }
@@ -270,12 +292,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   place-items: center;
   pointer-events: none;
 }
-.flora-art img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.flora-art img { width: 100%; height: 100%; object-fit: contain; filter: contrast(.97) saturate(.94); }
 .flora-art-base { will-change: translate; }
-.flora-art-layer { z-index: 4; opacity: .34; will-change: translate; }
-.flora-art-layer img { filter: saturate(1.12) contrast(1.04); }
-.flora-art-layer-a { clip-path: polygon(20% 0, 84% 0, 76% 53%, 28% 49%); transform: scale(1.012) rotate(.35deg); }
-.flora-art-layer-b { clip-path: polygon(10% 44%, 88% 40%, 96% 100%, 3% 100%); transform: scale(1.018) rotate(-.45deg); opacity: .28; }
 .flora-corner-title {
   position: absolute;
   z-index: 12;
@@ -492,6 +510,8 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .detail-nav .nav-links a { font-size: 24px; }
   .flora-navigation { right: 24px; top: 28px; }
   .flora-art { inset: 9vh 2vw 6vh; }
+  .legacy-slice-a { left: 5vw; bottom: 16vh; }
+  .legacy-slice-b { right: 4vw; top: 18vh; }
   .flora-corner-title { left: 24px; bottom: 28px; font-size: clamp(54px, 8.8vw, 86px); }
   .flora-specimens .specimen-dahlia,
   .flora-specimens .specimen-pansy,
@@ -532,6 +552,10 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .flora-navigation div { flex-direction: column; align-items: flex-end; gap: 5px; }
   .flora-navigation a { padding: 2px 0; }
   .flora-art { inset: 10vh -25vw 14vh -28vw; }
+  .legacy-orbit-a { left: -10vw; top: 20vh; width: 115vw; height: 76vw; }
+  .legacy-orbit-b { right: -35vw; top: -5vw; width: 88vw; height: 105vw; }
+  .legacy-slice-a { left: 4vw; bottom: 20vh; width: 27vw; height: 16vh; opacity: .56; }
+  .legacy-slice-b { right: 4vw; top: 21vh; width: 24vw; height: 14vh; opacity: .6; }
   .flora-specimens { display: none; }
   .flora-bottom-left { left: 18px; top: 22px; }
   .flora-symbols { gap: 7px; height: 24px; font-size: 20px; }
@@ -544,8 +568,6 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .piece-a { left: -12%; top: 55%; font-size: 46vw; }
   .piece-b { right: -11%; top: 52%; font-size: 48vw; }
   .piece-c { right: 20%; top: 15%; display: block; font-size: 38vw; }
-  .flora-art-layer-a { clip-path: polygon(5% 4%, 96% 2%, 84% 56%, 14% 53%); }
-  .flora-art-layer-b { clip-path: polygon(0 45%, 100% 42%, 100% 100%, 0 100%); }
   .flora-bottom-right { right: 18px; bottom: 24px; gap: 7px; }
   .flora-chess { font-size: 24px; }
   .flora-bottom-right a { max-width: 120px; font-size: 13px; text-align: right; line-height: 1.15; }
