@@ -182,18 +182,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .flora-grid i:nth-child(4) { left: 7%; top: 50%; width: 86%; height: 1px; }
 .flora-grid i:nth-child(5) { left: 22%; top: 9%; width: 63%; height: 1px; transform: rotate(13deg); }
 .flora-grid i:nth-child(6) { left: 18%; bottom: 17%; width: 68%; height: 1px; transform: rotate(-18deg); }
-.flora-identity {
-  position: absolute;
-  z-index: 12;
-  left: 2.8vw;
-  top: 4.8vh;
-  display: grid;
-  color: var(--ink);
-  font: clamp(16px, 1.55vw, 31px)/1.23 var(--sans);
-  font-weight: 700;
-  letter-spacing: -.035em;
-  text-decoration: none;
-}
 .flora-navigation {
   position: absolute;
   z-index: 12;
@@ -220,47 +208,20 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   pointer-events: none;
 }
 .flora-art img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
-.flora-wordmark {
+.flora-corner-title {
   position: absolute;
-  z-index: 8;
-  inset: 0;
+  z-index: 12;
+  left: 1.8vw;
+  bottom: 2.6vh;
   margin: 0;
   color: var(--blue);
-  font-family: Arial, "Helvetica Neue", sans-serif;
-  font-weight: 500;
-  letter-spacing: -.085em;
-  line-height: .72;
+  font: clamp(58px, 6.8vw, 138px)/.76 var(--sans);
+  font-weight: 700;
+  letter-spacing: -.075em;
   pointer-events: none;
   mix-blend-mode: multiply;
 }
-.flora-wordmark > span { position: absolute; display: block; }
-.flora-word-framed i {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  display: block;
-  font-style: normal;
-  transform: translate(-50%, -50%) rotate(var(--r));
-  transform-origin: 50% 58%;
-}
-.flora-word-framed { left: 16%; top: 20%; width: 24vw; height: 54vh; }
-.flora-word-framed i { font-size: clamp(54px, 5.8vw, 118px); }
-.flora-word-ideas {
-  left: 24%;
-  top: 67%;
-  font-size: clamp(108px, 14vw, 284px);
-  transform: rotate(-18deg);
-  transform-origin: left center;
-  white-space: nowrap;
-}
-.flora-word-echo {
-  left: 64%;
-  top: 18%;
-  font-size: clamp(58px, 5.8vw, 118px);
-  transform: scaleX(-1) rotate(-8deg);
-  transform-origin: center;
-  white-space: nowrap;
-}
+.flora-corner-title span { display: block; }
 .flora-specimens { position: absolute; z-index: 6; inset: 0; font-size: clamp(9px, .82vw, 16px); pointer-events: none; }
 .flora-specimens span { position: absolute; white-space: nowrap; }
 .flora-specimens i { display: inline-block; width: 6.8vw; height: 1px; margin: 0 0 .28em .45em; background: var(--ink); vertical-align: middle; }
@@ -271,8 +232,9 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .specimen-screen-a { left: 2.6%; top: 47.4%; }
 .specimen-screen-b { left: 1.8%; bottom: 16.5%; width: 110px; white-space: normal !important; line-height: 1.2; }
 .flora-bottom-left,
-.flora-bottom-right { position: absolute; z-index: 12; bottom: 3vh; }
-.flora-bottom-left { left: 1.8vw; }
+.flora-bottom-right { position: absolute; z-index: 12; }
+.flora-bottom-left { left: 2.5vw; top: 4.6vh; }
+.flora-bottom-right { bottom: 3vh; }
 .flora-symbols { display: flex; align-items: center; gap: 10px; height: 32px; color: var(--blue); font-size: 26px; }
 .flora-symbols i { width: 25px; height: 25px; border-radius: 50%; background: var(--blue); }
 .flora-symbols i + i { background: repeating-conic-gradient(from 0deg, var(--blue) 0 5deg, transparent 5deg 10deg); border: 1px solid var(--blue); }
@@ -460,13 +422,9 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .detail-nav .menu-toggle { margin-left: auto; }
   .detail-nav .nav-links { position: absolute; margin-left: 0; padding: 18px; background: var(--paper); }
   .detail-nav .nav-links a { font-size: 24px; }
-  .flora-identity { left: 24px; top: 28px; }
   .flora-navigation { right: 24px; top: 28px; }
   .flora-art { inset: 9vh 2vw 6vh; }
-  .flora-word-framed { left: 7%; top: 23%; width: 34vw; height: 49vh; }
-  .flora-word-framed i { font-size: clamp(50px, 8vw, 78px); }
-  .flora-word-ideas { left: 19%; top: 68%; font-size: clamp(96px, 17vw, 166px); }
-  .flora-word-echo { left: 63%; top: 23%; font-size: clamp(52px, 7vw, 68px); }
+  .flora-corner-title { left: 24px; bottom: 28px; font-size: clamp(54px, 8.8vw, 86px); }
   .flora-specimens .specimen-dahlia,
   .flora-specimens .specimen-pansy,
   .flora-specimens .specimen-fern { display: none; }
@@ -503,21 +461,17 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .flora-grid i:nth-child(1) { left: 18%; }
   .flora-grid i:nth-child(2) { left: 68%; }
   .flora-grid i:nth-child(3) { display: none; }
-  .flora-identity { top: 22px; left: 18px; font-size: 15px; }
   .flora-navigation { top: 21px; right: 18px; gap: 10px; font-size: 12px; }
   .flora-navigation > span { display: none; }
   .flora-navigation div { flex-direction: column; align-items: flex-end; gap: 5px; }
   .flora-navigation a { padding: 2px 0; }
   .flora-art { inset: 10vh -25vw 14vh -28vw; }
-  .flora-word-framed { left: 14%; top: 27%; width: 62vw; height: 36vh; }
-  .flora-word-framed i { font-size: 12vw; }
-  .flora-word-ideas { left: 8%; top: 66%; font-size: 23vw; }
-  .flora-word-echo { left: 48%; top: 26%; font-size: 12vw; }
   .flora-specimens { display: none; }
-  .flora-bottom-left { left: 18px; bottom: 24px; }
+  .flora-bottom-left { left: 18px; top: 22px; }
   .flora-symbols { gap: 7px; height: 24px; font-size: 20px; }
   .flora-symbols i { width: 19px; height: 19px; }
   .flora-bottom-left p { max-width: 230px; font-size: 14px; line-height: 1.2; }
+  .flora-corner-title { left: 18px; bottom: 96px; font-size: 15vw; line-height: .78; }
   .flora-bottom-right { right: 18px; bottom: 24px; gap: 7px; }
   .flora-chess { font-size: 24px; }
   .flora-bottom-right a { max-width: 120px; font-size: 13px; text-align: right; line-height: 1.15; }
