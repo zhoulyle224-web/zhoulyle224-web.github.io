@@ -82,10 +82,12 @@ const projectData = {
   websign: {
     index: '01',
     title: 'INTERLINKED',
-    description: '一个围绕游戏艺术指导、视觉系统与世界观研究建立的多页面实验档案。通过 Plan A / Plan B 双路线、模块化内容和动态几何语言，让作品集本身成为被展示的作品。',
-    summary: '以多页面结构组织复杂内容，通过清晰网格、粗体排版与克莱因蓝建立统一视觉语言，并让导航、信息和作品展示形成连续体验。',
-    features: '[MULTI-PAGE ARCHIVE]\n[DUAL ROUTE SYSTEM]\n[MODULAR CONTENT]\n[DYNAMIC GEOMETRY]',
-    mediums: '[WEB DESIGN]\n[FRONT-END]\n[ART DIRECTION]\n[VISUAL SYSTEM]',
+    description: '这是一个末世生存+回合制卡牌战斗游戏，核心流程是：\n\n玩家先在基地经营设施、制造物品并培养角色，然后组建队伍外出远征。远征途中会探索区域、遭遇事件和敌人，并进入卡牌战斗。',
+    summary: '战斗结果会影响角色状态和战利品，玩家需要决定继续冒险还是撤回基地。回到基地后，资源和成长成果会被结算，用于下一轮发展。',
+    featureLabel: '游戏主要包含：',
+    features: '• 基地经营、设施建设与资源生产\n• 角色生命、体力、饱食度、侵蚀和伤病管理\n• 区域探索、路线选择和随机遭遇\n• 卡牌战斗、敌人 AI 与战斗编组\n• 战利品积累、风险抉择和撤退结算\n• 内容解锁、角色成长与存档读档',
+    mediumLabel: '网页说明：',
+    mediums: '网页本身是一份游戏开发架构说明，介绍基地、远征和战斗系统如何连接，以及 UI、内容、本地化和存档的开发安排。目前项目已完成基础架构，之后再接通完整的真实游戏循环。',
     linkLabel: 'VISIT INTERLINKED ↗',
     repo: 'https://interlinked.zhoulyle224.workers.dev/',
     prev: 'warehouse',
@@ -141,7 +143,9 @@ if (document.body.dataset.page === 'detail') {
   setText('[data-project-title]', project.title);
   setText('[data-project-description]', project.description);
   setText('[data-project-summary]', project.summary);
+  setText('[data-project-feature-label]', project.featureLabel || '[FEATURES]');
   setText('[data-project-features]', project.features);
+  setText('[data-project-medium-label]', project.mediumLabel || '[MEDIUMS]');
   setText('[data-project-mediums]', project.mediums);
   setText('[data-project-index]', project.index);
 
