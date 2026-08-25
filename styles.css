@@ -461,9 +461,25 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .about-ref-actions { position: relative; z-index: 3; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 38px; }
 .about-ref-actions a { min-width: 165px; padding: 12px 15px; border: 1.5px solid var(--ink); background: var(--paper); font: 12px/1 var(--condensed); letter-spacing: .07em; text-decoration: none; }
 .about-ref-actions a:first-child { background: var(--blue); border-color: var(--blue); color: #fff; }
-.about-ref-visual { position: relative; z-index: 2; min-width: 0; min-height: calc(100svh - 132px); overflow: hidden; border: 1.5px solid var(--ink); border-top: 0; border-left: 0; background-color: var(--paper); background-image: linear-gradient(rgba(246,246,243,.6), rgba(246,246,243,.6)), url("assets/about-botanical-halftone.png"); background-size: auto, clamp(170px, 25vw, 380px) auto; background-repeat: repeat, repeat; background-position: 0 0, center top; }
-.about-ref-visual-source { position: sticky; top: 60px; height: calc(100svh - 60px); overflow: hidden; }
+.about-ref-visual { position: relative; z-index: 2; min-width: 0; min-height: calc(100svh - 132px); overflow: hidden; display: flex; flex-direction: column; border: 1.5px solid var(--ink); border-top: 0; border-left: 0; background: var(--paper); }
+.about-ref-visual-source { position: relative; flex: 0 0 min(760px, calc(100svh - 60px)); overflow: hidden; }
 .about-ref-visual-source img { position: absolute; top: -1%; left: 0; width: 200%; height: 112%; max-width: none; object-fit: cover; transform: translateX(-50%); }
+.about-visual-wall { flex: 1; min-height: 1500px; display: grid; grid-template-rows: repeat(5, minmax(280px, 1fr)); }
+.about-visual-panel { position: relative; min-height: 280px; padding: clamp(24px, 3vw, 54px); display: flex; flex-direction: column; justify-content: center; overflow: hidden; border-top: 1.5px solid var(--ink); isolation: isolate; }
+.about-visual-panel small { position: absolute; top: 22px; left: 24px; z-index: 2; font: 11px/1 var(--condensed); letter-spacing: .12em; }
+.about-visual-panel strong { position: relative; z-index: 2; font: clamp(86px, 10vw, 190px)/.72 var(--condensed); letter-spacing: -.04em; }
+.about-visual-panel p { position: relative; z-index: 2; margin: 15px 0 8px; font: clamp(22px, 2vw, 38px)/1 var(--condensed); }
+.about-visual-panel span { position: relative; z-index: 2; font-size: 10px; letter-spacing: .12em; }
+.about-visual-panel.botanical { background-color: rgba(246,246,243,.94); background-image: linear-gradient(90deg, rgba(246,246,243,.98) 0 42%, rgba(246,246,243,.2)), url("assets/about-botanical-halftone.png"); background-size: auto, auto 115%; background-repeat: no-repeat; background-position: 0 0, right center; }
+.about-visual-panel.botanical strong, .about-visual-panel.paper strong { color: var(--blue); }
+.about-visual-panel.blue { background: var(--blue); color: #fff; }
+.about-visual-panel.blue::after { content: ""; position: absolute; inset: 0; z-index: 0; background-image: radial-gradient(#fff .7px, transparent .7px); background-size: 5px 5px; opacity: .18; }
+.about-visual-panel.image { color: var(--ink); background: url("assets/about-reference-20260825.jpg") 73% 66%/210% auto no-repeat; }
+.about-visual-panel.image::after { content: ""; position: absolute; inset: 0; z-index: 0; background: rgba(246,246,243,.63); }
+.about-visual-panel.image strong { color: var(--blue); }
+.about-visual-panel.paper { background-color: var(--paper); background-image: radial-gradient(rgba(0,0,0,.22) .7px, transparent .7px); background-size: 5px 5px; }
+.about-visual-panel.dark { background: #11113d; color: #fff; }
+.about-visual-panel.dark strong { color: var(--blue); text-shadow: 1px 1px 0 #fff; }
 .about-ref-footer { position: relative; z-index: 3; grid-column: 1/-1; display: grid; grid-template-columns: 34% 1fr auto; align-items: center; min-height: 72px; border: 1.5px solid var(--ink); border-top: 0; }
 .about-ref-theory { align-self: stretch; display: flex; align-items: center; justify-content: center; gap: 22px; overflow: hidden; border-right: 1.5px solid var(--ink); background: linear-gradient(90deg, rgba(20,20,212,.12), rgba(246,246,243,.94)); color: var(--ink); }
 .about-ref-theory span { font: 12px/1 var(--condensed); letter-spacing: .12em; }
@@ -560,10 +576,11 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   .next-project { grid-template-columns: 1fr 1fr; }
   .next-project span { display: none; }
   .about-ref-nav { left: 16px; right: 16px; }
-  .about-ref-page { padding-left: 16px; padding-right: 16px; grid-template-columns: 1fr; grid-template-rows: auto 720px auto; overflow: visible; }
+  .about-ref-page { padding-left: 16px; padding-right: 16px; grid-template-columns: 1fr; grid-template-rows: auto auto auto; overflow: visible; }
   .about-ref-copy { border-right: 1.5px solid var(--ink); }
   .about-ref-visual { border-left: 1.5px solid var(--ink); }
-  .about-ref-visual-source { position: absolute; inset: 0; height: auto; }
+  .about-ref-visual-source { position: relative; inset: auto; flex-basis: 680px; }
+  .about-visual-wall { min-height: 1400px; }
   .about-resume-contact { grid-template-columns: repeat(2, auto); justify-content: start; }
   .about-ref-footer { grid-template-columns: 1fr 1fr; min-height: 88px; }
   .about-ref-footer small { display: none; }
@@ -633,7 +650,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   .about-ref-nav { left: 10px; right: 10px; }
   .about-ref-nav-left { gap: 22px; padding-left: 12px; }
   .about-ref-nav-right { padding-right: 12px; }
-  .about-ref-page { padding-left: 10px; padding-right: 10px; grid-template-rows: auto 520px auto; }
+  .about-ref-page { padding-left: 10px; padding-right: 10px; grid-template-rows: auto auto auto; }
   .about-ref-copy { padding-left: 12px; padding-right: 12px; }
   .about-ref-copy h1 { font-size: 14vw; }
   .about-resume-contact { grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -643,6 +660,10 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   .about-ref-footer { grid-template-columns: 1fr; }
   .about-ref-theory { min-height: 68px; }
   .about-ref-footer > a { min-height: 68px; display: grid; place-items: center; }
+  .about-ref-visual-source { flex-basis: 520px; }
+  .about-visual-wall { min-height: 1200px; grid-template-rows: repeat(5, minmax(230px, 1fr)); }
+  .about-visual-panel { min-height: 230px; }
+  .about-visual-panel strong { font-size: 25vw; }
   .contact-ref-page { padding: 28px 14px 0; }
   .contact-ref-heading h1 { font-size: 15vw; }
   .contact-ref-heading p { font-size: 15px; }
