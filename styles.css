@@ -182,14 +182,14 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   border: 1px solid rgba(8,8,8,.8);
   background: rgba(255,255,255,.72);
   box-shadow: 10px 12px 0 rgba(20,20,212,.12);
-  opacity: .72;
+  opacity: 1;
   will-change: translate;
 }
 .legacy-slice::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(20,20,212,.18), transparent 58%); mix-blend-mode: multiply; }
 .legacy-slice img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.3); }
-.legacy-slice-a { z-index: 2; left: 13vw; bottom: 10vh; width: clamp(125px, 13vw, 265px); height: clamp(120px, 21vh, 245px); transform: rotate(-5deg); clip-path: polygon(7% 0, 100% 7%, 88% 100%, 0 90%); }
+.legacy-slice-a { z-index: 2; left: 11vw; bottom: 8vh; width: clamp(165px, 17vw, 345px); height: clamp(155px, 27vh, 315px); transform: rotate(-5deg); clip-path: polygon(7% 0, 100% 7%, 88% 100%, 0 90%); }
 .legacy-slice-a img { object-position: 48% 50%; }
-.legacy-slice-b { z-index: 7; right: 10vw; top: 19vh; width: clamp(110px, 11vw, 225px); height: clamp(110px, 18vh, 210px); transform: rotate(5deg); clip-path: polygon(0 8%, 92% 0, 100% 88%, 10% 100%); }
+.legacy-slice-b { z-index: 7; right: 8vw; top: 17vh; width: clamp(145px, 15vw, 305px); height: clamp(145px, 24vh, 280px); transform: rotate(5deg); clip-path: polygon(0 8%, 92% 0, 100% 88%, 10% 100%); }
 .legacy-slice-b img { object-position: 76% 20%; }
 .legacy-node { position: absolute; z-index: 8; width: clamp(11px, .9vw, 18px); aspect-ratio: 1; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 7px rgba(20,20,212,.08); will-change: translate; }
 .legacy-node-a { left: 17vw; top: 43vh; }
@@ -554,8 +554,8 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .flora-art { inset: 10vh -25vw 14vh -28vw; }
   .legacy-orbit-a { left: -10vw; top: 20vh; width: 115vw; height: 76vw; }
   .legacy-orbit-b { right: -35vw; top: -5vw; width: 88vw; height: 105vw; }
-  .legacy-slice-a { left: 4vw; bottom: 20vh; width: 27vw; height: 16vh; opacity: .56; }
-  .legacy-slice-b { right: 4vw; top: 21vh; width: 24vw; height: 14vh; opacity: .6; }
+  .legacy-slice-a { left: 2vw; bottom: 19vh; width: 34vw; height: 20vh; opacity: 1; }
+  .legacy-slice-b { right: 2vw; top: 19vh; width: 31vw; height: 18vh; opacity: 1; }
   .flora-specimens { display: none; }
   .flora-bottom-left { left: 18px; top: 22px; }
   .flora-symbols { gap: 7px; height: 24px; font-size: 20px; }
