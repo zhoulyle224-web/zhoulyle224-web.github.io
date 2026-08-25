@@ -469,14 +469,6 @@ body[data-project="warehouse"] .detail-clean-copy h1 span { font-size: clamp(48p
 .contact-diagonal-page { min-height: 100svh; overflow: auto; background: #f8f8f6; }
 .contact-diagonal-stage { position: relative; width: 100vw; min-width: 960px; height: 100svh; min-height: 536px; overflow: hidden; background: #f8f8f6; }
 .contact-diagonal-art { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: contain; object-position: center; user-select: none; }
-.contact-diagonal-hotspots { position: absolute; z-index: 2; inset: 0; pointer-events: none; }
-.contact-diagonal-hit { position: absolute; display: block; pointer-events: auto; text-decoration: none; }
-.contact-diagonal-hit span { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-.contact-diagonal-hit.hit-home { left: 0; top: 0; width: 34%; height: 38%; }
-.contact-diagonal-hit.hit-projects { left: 34%; top: 20%; width: 34%; height: 64%; }
-.contact-diagonal-hit.hit-email { right: 0; top: 0; width: 36%; height: 66%; }
-.contact-diagonal-hit.hit-github { right: 0; bottom: 0; width: 27%; height: 34%; }
-.contact-diagonal-hit:hover { background: rgba(20,20,212,.035); }
 
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
