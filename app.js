@@ -102,8 +102,8 @@ const projectData = {
     features: '• SPU 查询与完整范围校验\n• 合规信息和实拍图批量处理\n• SKU 采集与分页状态恢复\n• JIT 批量开通及成功验证\n• 库存工作簿生成、归档与导入',
     mediumLabel: '交付构成：',
     mediums: '• 业务扩展 v1.4.49\n• Manifest V3\n• 本地文件 SDK 平台 v2.4.1\n• Automation Bridge\n• 实时日志与任务恢复',
-    linkLabel: 'VIEW RUNNING INTERFACE ↗',
-    repo: 'assets/zbird-automation-console-v1.4.49.png',
+    linkLabel: 'VIEW REPOSITORY ↗',
+    repo: 'https://github.com/zhoulyle224-web/zbird-temu-automation',
     prev: 'websign',
     next: 'zhixue'
   },
