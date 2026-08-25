@@ -187,9 +187,9 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 }
 .legacy-slice::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(20,20,212,.18), transparent 58%); mix-blend-mode: multiply; }
 .legacy-slice img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.3); }
-.legacy-slice-a { z-index: 2; left: 11vw; bottom: 8vh; width: clamp(165px, 17vw, 345px); height: clamp(155px, 27vh, 315px); transform: rotate(-5deg); clip-path: polygon(7% 0, 100% 7%, 88% 100%, 0 90%); }
+.legacy-slice-a { z-index: 2; left: 11vw; bottom: 8vh; width: clamp(165px, 17vw, 345px); height: clamp(155px, 27vh, 315px); transform: translateX(-6vw) rotate(-5deg); clip-path: polygon(7% 0, 100% 7%, 88% 100%, 0 90%); }
 .legacy-slice-a img { object-position: 48% 50%; }
-.legacy-slice-b { z-index: 7; right: 8vw; top: 17vh; width: clamp(145px, 15vw, 305px); height: clamp(145px, 24vh, 280px); transform: rotate(5deg); clip-path: polygon(0 8%, 92% 0, 100% 88%, 10% 100%); }
+.legacy-slice-b { z-index: 7; right: 8vw; top: 17vh; width: clamp(145px, 15vw, 305px); height: clamp(145px, 24vh, 280px); transform: translateX(-6vw) rotate(5deg); clip-path: polygon(0 8%, 92% 0, 100% 88%, 10% 100%); }
 .legacy-slice-b img { object-position: 76% 20%; }
 .legacy-node { position: absolute; z-index: 8; width: clamp(11px, .9vw, 18px); aspect-ratio: 1; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 7px rgba(20,20,212,.08); will-change: translate; }
 .legacy-node-a { left: 17vw; top: 43vh; }
@@ -291,19 +291,21 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   display: grid;
   place-items: center;
   pointer-events: none;
+  transform: translateX(-6vw);
 }
 .flora-art img { width: 100%; height: 100%; object-fit: contain; filter: contrast(.97) saturate(.94); }
 .flora-art-base { will-change: translate; }
 .flora-corner-title {
   position: absolute;
   z-index: 12;
-  left: 1.8vw;
-  bottom: 2.6vh;
+  right: 3vw;
+  bottom: 13vh;
   margin: 0;
   color: var(--blue);
   font: clamp(58px, 6.8vw, 138px)/.76 var(--sans);
   font-weight: 700;
   letter-spacing: -.075em;
+  text-align: right;
   pointer-events: none;
   mix-blend-mode: multiply;
 }
@@ -509,10 +511,10 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .detail-nav .nav-links { position: absolute; margin-left: 0; padding: 18px; background: var(--paper); }
   .detail-nav .nav-links a { font-size: 24px; }
   .flora-navigation { right: 24px; top: 28px; }
-  .flora-art { inset: 9vh 2vw 6vh; }
+  .flora-art { inset: 9vh 2vw 6vh; transform: translateX(-4vw); }
   .legacy-slice-a { left: 5vw; bottom: 16vh; }
   .legacy-slice-b { right: 4vw; top: 18vh; }
-  .flora-corner-title { left: 24px; bottom: 28px; font-size: clamp(54px, 8.8vw, 86px); }
+  .flora-corner-title { left: auto; right: 24px; bottom: 13vh; font-size: clamp(54px, 8.8vw, 86px); }
   .flora-specimens .specimen-dahlia,
   .flora-specimens .specimen-pansy,
   .flora-specimens .specimen-fern { display: none; }
@@ -551,7 +553,7 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .flora-navigation > span { display: none; }
   .flora-navigation div { flex-direction: column; align-items: flex-end; gap: 5px; }
   .flora-navigation a { padding: 2px 0; }
-  .flora-art { inset: 10vh -25vw 14vh -28vw; }
+  .flora-art { inset: 10vh -25vw 14vh -28vw; transform: translateX(-5vw); }
   .legacy-orbit-a { left: -10vw; top: 20vh; width: 115vw; height: 76vw; }
   .legacy-orbit-b { right: -35vw; top: -5vw; width: 88vw; height: 105vw; }
   .legacy-slice-a { left: 2vw; bottom: 19vh; width: 34vw; height: 20vh; opacity: 1; }
@@ -561,7 +563,7 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .flora-symbols { gap: 7px; height: 24px; font-size: 20px; }
   .flora-symbols i { width: 19px; height: 19px; }
   .flora-bottom-left p { max-width: 230px; font-size: 14px; line-height: 1.2; }
-  .flora-corner-title { left: 18px; bottom: 96px; font-size: 15vw; line-height: .78; }
+  .flora-corner-title { left: auto; right: 18px; bottom: 118px; font-size: 15vw; line-height: .78; }
   .bird-a { --bird-size: 68vw; left: -25%; top: 28%; }
   .bird-b { --bird-size: 64vw; right: -27%; top: 25%; }
   .bird-c { --bird-size: 56vw; right: -8%; bottom: 14%; display: block; }
