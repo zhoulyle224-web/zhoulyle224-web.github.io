@@ -177,17 +177,92 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   display: block;
   width: var(--bird-size);
   height: calc(var(--bird-size) * .54);
-  background: currentColor;
-  clip-path: polygon(0 51%, 17% 31%, 39% 47%, 49% 22%, 54% 43%, 78% 7%, 67% 51%, 100% 64%, 67% 70%, 54% 59%, 43% 84%, 38% 62%, 17% 73%);
+  background: radial-gradient(ellipse 9% 12% at 50% 58%, currentColor 0 94%, transparent 100%);
   opacity: .88;
+  will-change: translate;
 }
-.bird-a { --bird-size: clamp(64px, 5.8vw, 118px); left: 5.8%; top: 33%; transform: rotate(-12deg); }
-.bird-b { --bird-size: clamp(52px, 4.8vw, 96px); right: 6.5%; top: 28%; transform: scaleX(-1) rotate(-8deg); }
-.bird-c { --bird-size: clamp(42px, 3.6vw, 74px); right: 14%; bottom: 23%; transform: rotate(13deg); opacity: .7; }
-.flora-piece { position: absolute; color: currentColor; font-family: Georgia, "Times New Roman", serif; line-height: 1; opacity: .82; }
-.piece-a { left: 7%; top: 56%; font-size: clamp(58px, 5vw, 102px); transform: rotate(-9deg); }
-.piece-b { right: 7.5%; top: 54%; font-size: clamp(64px, 5.5vw, 112px); transform: rotate(7deg); }
-.piece-c { right: 21%; top: 13%; font-size: clamp(42px, 3.8vw, 78px); transform: rotate(-16deg); opacity: .55; }
+.flora-bird::before,
+.flora-bird::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  display: block;
+  width: 53%;
+  height: 42%;
+  border-top: clamp(4px, .48vw, 9px) solid currentColor;
+  border-radius: 70% 70% 0 0;
+}
+.flora-bird::before {
+  left: 1%;
+  transform: rotate(17deg);
+  transform-origin: 96% 62%;
+}
+.flora-bird::after {
+  right: 1%;
+  transform: rotate(-17deg);
+  transform-origin: 4% 62%;
+}
+.bird-a { --bird-size: clamp(98px, 8vw, 164px); left: 4.5%; top: 31%; transform: rotate(-12deg); }
+.bird-b { --bird-size: clamp(84px, 7vw, 142px); right: 5%; top: 26%; transform: scaleX(-1) rotate(-8deg); }
+.bird-c { --bird-size: clamp(62px, 5.2vw, 106px); right: 12%; bottom: 21%; transform: rotate(13deg); opacity: .72; }
+.flora-piece { position: absolute; color: currentColor; font-family: Georgia, "Times New Roman", serif; line-height: 1; opacity: .82; will-change: translate; }
+.piece-a { left: 5.5%; top: 54%; font-size: clamp(82px, 7vw, 144px); transform: rotate(-9deg); }
+.piece-b { right: 5.5%; top: 51%; font-size: clamp(92px, 7.6vw, 156px); transform: rotate(7deg); }
+.piece-c { right: 19%; top: 10%; font-size: clamp(62px, 5.4vw, 110px); transform: rotate(-16deg); opacity: .58; }
+.cursor-orbit {
+  position: fixed;
+  z-index: 140;
+  left: 0;
+  top: 0;
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid var(--blue);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width .18s ease, height .18s ease, border-radius .18s ease, background-color .18s ease, opacity .15s ease;
+  will-change: translate, width, height;
+}
+.cursor-orbit::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  background: var(--blue);
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: width .18s ease, height .18s ease, transform .18s ease;
+}
+.cursor-orbit::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border: 1px solid var(--blue);
+  border-radius: inherit;
+  opacity: 0;
+}
+.cursor-orbit.is-visible { opacity: 1; }
+.cursor-orbit.is-interactive { width: 58px; height: 58px; border-radius: 14px; background: rgba(20,20,212,.07); }
+.cursor-orbit.is-interactive::before { width: 12px; height: 12px; transform: translate(-50%, -50%) rotate(135deg); }
+.cursor-orbit.is-down { width: 24px; height: 24px; border-radius: 50%; }
+.cursor-orbit.is-pulse::after { animation: cursor-pulse .42s ease-out; }
+@keyframes cursor-pulse { from { opacity: .75; transform: scale(.8); } to { opacity: 0; transform: scale(2.15); } }
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .flora-home,
+  .flora-home a,
+  .flora-home button { cursor: none; }
+  .flora-navigation a,
+  .flora-side-link,
+  .flora-bottom-right a { display: inline-block; transition: scale .16s ease, color .16s ease; }
+  .flora-navigation a:hover,
+  .flora-side-link:hover,
+  .flora-bottom-right a:hover { scale: 1.045; color: var(--blue); }
+  .flora-navigation a:active,
+  .flora-side-link:active,
+  .flora-bottom-right a:active { scale: .92; }
+}
 .flora-navigation {
   position: absolute;
   z-index: 12;
@@ -476,11 +551,11 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .flora-symbols i { width: 19px; height: 19px; }
   .flora-bottom-left p { max-width: 230px; font-size: 14px; line-height: 1.2; }
   .flora-corner-title { left: 18px; bottom: 96px; font-size: 15vw; line-height: .78; }
-  .bird-a { --bird-size: 58px; left: 3%; top: 37%; }
-  .bird-b { --bird-size: 50px; right: 2%; top: 31%; }
+  .bird-a { --bird-size: 86px; left: 1%; top: 36%; }
+  .bird-b { --bird-size: 74px; right: 0; top: 30%; }
   .bird-c { display: none; }
-  .piece-a { left: 4%; top: 61%; font-size: 56px; }
-  .piece-b { right: 3%; top: 57%; font-size: 60px; }
+  .piece-a { left: 2%; top: 60%; font-size: 78px; }
+  .piece-b { right: 1%; top: 56%; font-size: 84px; }
   .piece-c { display: none; }
   .flora-bottom-right { right: 18px; bottom: 24px; gap: 7px; }
   .flora-chess { font-size: 24px; }

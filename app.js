@@ -32,14 +32,46 @@ if ('IntersectionObserver' in window) {
 const canDrift = window.matchMedia('(pointer:fine) and (prefers-reduced-motion:no-preference)').matches;
 if (canDrift) {
   const driftItems = [...document.querySelectorAll('.drift')];
+  const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   window.addEventListener('pointermove', (event) => {
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
     const x = (event.clientX / window.innerWidth - 0.5) * 2;
     const y = (event.clientY / window.innerHeight - 0.5) * 2;
     driftItems.forEach((item) => {
       const depth = Number(item.dataset.depth || 1);
-      item.style.translate = `${x * depth * 7}px ${y * depth * 5}px`;
+      item.style.translate = `${x * depth * 11}px ${y * depth * 8}px`;
     });
   }, { passive: true });
+
+  if (document.body.dataset.page === 'home') {
+    const cursor = document.createElement('div');
+    cursor.className = 'cursor-orbit';
+    cursor.setAttribute('aria-hidden', 'true');
+    document.body.append(cursor);
+
+    const current = { x: pointer.x, y: pointer.y };
+    const renderCursor = () => {
+      current.x += (pointer.x - current.x) * 0.2;
+      current.y += (pointer.y - current.y) * 0.2;
+      cursor.style.translate = `${current.x}px ${current.y}px`;
+      window.requestAnimationFrame(renderCursor);
+    };
+    renderCursor();
+
+    window.addEventListener('pointermove', (event) => {
+      cursor.classList.add('is-visible');
+      cursor.classList.toggle('is-interactive', Boolean(event.target.closest('a, button')));
+    }, { passive: true });
+    window.addEventListener('pointerleave', () => cursor.classList.remove('is-visible'));
+    window.addEventListener('pointerdown', () => cursor.classList.add('is-down'));
+    window.addEventListener('pointerup', () => {
+      cursor.classList.remove('is-down');
+      cursor.classList.remove('is-pulse');
+      void cursor.offsetWidth;
+      cursor.classList.add('is-pulse');
+    });
+  }
 }
 
 const projectData = {
