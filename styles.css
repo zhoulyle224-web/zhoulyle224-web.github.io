@@ -436,7 +436,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .about-ref-page::before, .about-ref-page::after { content: ""; position: absolute; z-index: 0; top: 0; bottom: 0; width: 9vw; background-color: var(--paper); background-image: url("assets/about-botanical-halftone.png"); background-size: auto max(100%, 900px); background-repeat: repeat-y; background-position: center top; opacity: .92; filter: contrast(1.08); }
 .about-ref-page::before { left: 0; transform: translateX(-58%); }
 .about-ref-page::after { right: 0; transform: translateX(58%) scaleX(-1); }
-.about-ref-copy { position: relative; z-index: 2; min-width: 0; padding: 26px 3vw 190px 1.4vw; border: 1.5px solid var(--ink); border-top: 0; overflow: hidden; background-color: rgba(246,246,243,.94); background-image: radial-gradient(rgba(0,0,0,.16) .65px, transparent .65px); background-size: 5px 5px; }
+.about-ref-copy { position: relative; z-index: 2; min-width: 0; padding: 26px 3vw 56px 1.4vw; border: 1.5px solid var(--ink); border-top: 0; overflow: hidden; background-color: rgba(246,246,243,.94); background-image: radial-gradient(rgba(0,0,0,.16) .65px, transparent .65px); background-size: 5px 5px; }
 .about-ref-copy h1 { margin: 0 0 12px; font: clamp(56px, 6vw, 116px)/.82 var(--condensed); letter-spacing: -.03em; }
 .about-resume-tagline { margin: 0 0 26px; color: var(--blue); font: clamp(18px, 1.45vw, 28px)/1 var(--condensed); letter-spacing: .03em; }
 .about-resume-contact { display: grid; grid-template-columns: repeat(4, auto); gap: 10px 22px; padding: 13px 0 22px; border-bottom: 1.5px solid var(--ink); font-size: 12px; }
@@ -461,16 +461,12 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .about-ref-actions { position: relative; z-index: 3; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 38px; }
 .about-ref-actions a { min-width: 165px; padding: 12px 15px; border: 1.5px solid var(--ink); background: var(--paper); font: 12px/1 var(--condensed); letter-spacing: .07em; text-decoration: none; }
 .about-ref-actions a:first-child { background: var(--blue); border-color: var(--blue); color: #fff; }
-.about-ref-left-detail { position: absolute; left: 2.2%; bottom: 3%; width: 37%; height: 16%; overflow: hidden; border: 2px solid var(--blue); background: var(--paper); }
-.about-ref-left-detail img { width: 270%; height: 270%; max-width: none; object-fit: cover; object-position: 6% 88%; transform: translate(-2%, -60%); }
-.about-ref-left-star { position: absolute; z-index: 3; left: 35%; bottom: 6%; color: var(--blue); font: 90px/1 var(--sans); transform: rotate(-8deg); }
-.about-ref-left-bird { position: absolute; z-index: 3; left: 52%; bottom: 5%; color: var(--blue); font: 58px/1 var(--sans); transform: rotate(-28deg) scaleX(1.35); }
-.about-ref-visual { position: relative; z-index: 2; min-width: 0; min-height: calc(100svh - 132px); overflow: visible; border: 1.5px solid var(--ink); border-top: 0; border-left: 0; background-color: var(--paper); background-image: radial-gradient(rgba(0,0,0,.18) .7px, transparent .7px); background-size: 5px 5px; }
+.about-ref-visual { position: relative; z-index: 2; min-width: 0; min-height: calc(100svh - 132px); overflow: hidden; border: 1.5px solid var(--ink); border-top: 0; border-left: 0; background-color: var(--paper); background-image: linear-gradient(rgba(246,246,243,.6), rgba(246,246,243,.6)), url("assets/about-botanical-halftone.png"); background-size: auto, clamp(170px, 25vw, 380px) auto; background-repeat: repeat, repeat; background-position: 0 0, center top; }
 .about-ref-visual-source { position: sticky; top: 60px; height: calc(100svh - 60px); overflow: hidden; }
 .about-ref-visual-source img { position: absolute; top: -1%; left: 0; width: 200%; height: 112%; max-width: none; object-fit: cover; transform: translateX(-50%); }
 .about-ref-footer { position: relative; z-index: 3; grid-column: 1/-1; display: grid; grid-template-columns: 34% 1fr auto; align-items: center; min-height: 72px; border: 1.5px solid var(--ink); border-top: 0; }
-.about-ref-theory { align-self: stretch; display: flex; align-items: center; justify-content: center; gap: 20px; overflow: hidden; background: #11113d; color: #fff; }
-.about-ref-theory span { font: 15px/1 var(--sans); letter-spacing: .09em; transform: rotate(-12deg); }
+.about-ref-theory { align-self: stretch; display: flex; align-items: center; justify-content: center; gap: 22px; overflow: hidden; border-right: 1.5px solid var(--ink); background: linear-gradient(90deg, rgba(20,20,212,.12), rgba(246,246,243,.94)); color: var(--ink); }
+.about-ref-theory span { font: 12px/1 var(--condensed); letter-spacing: .12em; }
 .about-ref-footer > a { justify-self: center; font: clamp(15px, 1.55vw, 28px)/1 var(--condensed); text-decoration: none; }
 .about-ref-footer > a b { color: var(--blue); font-size: 1.55em; }
 .about-ref-footer small { padding-right: 22px; font-size: 10px; letter-spacing: .08em; }
@@ -644,9 +640,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   .about-resume-entry header { grid-template-columns: 1fr; gap: 5px; }
   .about-resume-entry header em { text-align: left; white-space: normal; }
   .about-resume-section h2 { gap: 14px; }
-  .about-ref-left-detail { width: 46%; height: 13%; }
-  .about-ref-left-star { left: 39%; font-size: 64px; }
-  .about-ref-left-bird { left: 61%; font-size: 42px; }
   .about-ref-footer { grid-template-columns: 1fr; }
   .about-ref-theory { min-height: 68px; }
   .about-ref-footer > a { min-height: 68px; display: grid; place-items: center; }
