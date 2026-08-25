@@ -155,7 +155,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   pointer-events: none;
 }
 .flora-stage::before { left: -23vw; top: -13vw; }
-.flora-stage::after { right: -23vw; bottom: -30vw; }
+.flora-stage::after { display: none; }
 .flora-rings {
   position: absolute;
   z-index: 1;
@@ -166,22 +166,28 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   pointer-events: none;
 }
 .flora-rings::before,
-.flora-rings::after {
-  content: "";
-  position: absolute;
-  border: 1px solid rgba(8,8,8,.42);
-  border-radius: 50%;
-}
-.flora-rings::before { inset: 9% -4% 7% 6%; transform: rotate(18deg); }
-.flora-rings::after { inset: 18% 8% -2% -5%; transform: rotate(-12deg); }
+.flora-rings::after { display: none; }
 .flora-grid { position: absolute; z-index: 1; inset: 0; pointer-events: none; }
-.flora-grid i { position: absolute; display: block; background: rgba(8,8,8,.54); transform-origin: center; }
-.flora-grid i:nth-child(1) { left: 25%; top: 5%; width: 1px; height: 91%; }
-.flora-grid i:nth-child(2) { left: 50%; top: 0; width: 1px; height: 100%; }
-.flora-grid i:nth-child(3) { right: 15%; top: 19%; width: 1px; height: 71%; }
-.flora-grid i:nth-child(4) { left: 7%; top: 50%; width: 86%; height: 1px; }
-.flora-grid i:nth-child(5) { left: 22%; top: 9%; width: 63%; height: 1px; transform: rotate(13deg); }
-.flora-grid i:nth-child(6) { left: 18%; bottom: 17%; width: 68%; height: 1px; transform: rotate(-18deg); }
+.flora-grid i { position: absolute; display: block; background: rgba(8,8,8,.34); }
+.flora-grid i:nth-child(1) { left: 50%; top: 5%; width: 1px; height: 90%; }
+.flora-grid i:nth-child(2) { left: 7%; top: 50%; width: 86%; height: 1px; }
+.flora-fauna { position: absolute; z-index: 2; inset: 0; pointer-events: none; color: var(--blue); }
+.flora-bird {
+  position: absolute;
+  display: block;
+  width: var(--bird-size);
+  height: calc(var(--bird-size) * .54);
+  background: currentColor;
+  clip-path: polygon(0 51%, 17% 31%, 39% 47%, 49% 22%, 54% 43%, 78% 7%, 67% 51%, 100% 64%, 67% 70%, 54% 59%, 43% 84%, 38% 62%, 17% 73%);
+  opacity: .88;
+}
+.bird-a { --bird-size: clamp(64px, 5.8vw, 118px); left: 5.8%; top: 33%; transform: rotate(-12deg); }
+.bird-b { --bird-size: clamp(52px, 4.8vw, 96px); right: 6.5%; top: 28%; transform: scaleX(-1) rotate(-8deg); }
+.bird-c { --bird-size: clamp(42px, 3.6vw, 74px); right: 14%; bottom: 23%; transform: rotate(13deg); opacity: .7; }
+.flora-piece { position: absolute; color: currentColor; font-family: Georgia, "Times New Roman", serif; line-height: 1; opacity: .82; }
+.piece-a { left: 7%; top: 56%; font-size: clamp(58px, 5vw, 102px); transform: rotate(-9deg); }
+.piece-b { right: 7.5%; top: 54%; font-size: clamp(64px, 5.5vw, 112px); transform: rotate(7deg); }
+.piece-c { right: 21%; top: 13%; font-size: clamp(42px, 3.8vw, 78px); transform: rotate(-16deg); opacity: .55; }
 .flora-navigation {
   position: absolute;
   z-index: 12;
@@ -456,11 +462,9 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .detail-nav-label:nth-of-type(2) { display: none; }
   .flora-stage { min-height: 820px; }
   .flora-stage::before { width: 130vw; height: 130vw; left: -75vw; top: 10vh; }
-  .flora-stage::after { width: 140vw; height: 140vw; right: -95vw; bottom: -30vw; }
   .flora-rings { inset: 22vh -32vw 13vh -27vw; }
-  .flora-grid i:nth-child(1) { left: 18%; }
-  .flora-grid i:nth-child(2) { left: 68%; }
-  .flora-grid i:nth-child(3) { display: none; }
+  .flora-grid i:nth-child(1) { left: 68%; }
+  .flora-grid i:nth-child(2) { left: 10%; width: 80%; }
   .flora-navigation { top: 21px; right: 18px; gap: 10px; font-size: 12px; }
   .flora-navigation > span { display: none; }
   .flora-navigation div { flex-direction: column; align-items: flex-end; gap: 5px; }
@@ -472,6 +476,12 @@ body[data-page="projects"] .minimal-footer { display: none; }
   .flora-symbols i { width: 19px; height: 19px; }
   .flora-bottom-left p { max-width: 230px; font-size: 14px; line-height: 1.2; }
   .flora-corner-title { left: 18px; bottom: 96px; font-size: 15vw; line-height: .78; }
+  .bird-a { --bird-size: 58px; left: 3%; top: 37%; }
+  .bird-b { --bird-size: 50px; right: 2%; top: 31%; }
+  .bird-c { display: none; }
+  .piece-a { left: 4%; top: 61%; font-size: 56px; }
+  .piece-b { right: 3%; top: 57%; font-size: 60px; }
+  .piece-c { display: none; }
   .flora-bottom-right { right: 18px; bottom: 24px; gap: 7px; }
   .flora-chess { font-size: 24px; }
   .flora-bottom-right a { max-width: 120px; font-size: 13px; text-align: right; line-height: 1.15; }
