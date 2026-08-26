@@ -114,8 +114,8 @@ const projectData = {
     summary: '以学生问题和教师行动为核心建立双向信息循环，让课程、复习和教学计划在同一套清晰界面中持续更新。',
     features: '[DUAL WORKSPACE]\n[COURSE PLANNING]\n[QUESTION LOOP]\n[LOCAL DATA EXPORT]',
     mediums: '[AI EDUCATION]\n[INTERFACE SYSTEM]\n[LOCAL-FIRST DATA]\n[FRONT-END]',
-    linkLabel: 'VIEW REPOSITORY ↗',
-    repo: 'https://github.com/zhoulyle224-web/zhixue',
+    linkLabel: 'VISIT ZHIXUE ↗',
+    repo: 'https://zhixue-dual-engine-2026.zhoulyle.chatgpt.site/',
     prev: 'zbird',
     next: 'warehouse'
   },
