@@ -29,53 +29,231 @@ if ('IntersectionObserver' in window) {
   revealItems.forEach((item) => item.classList.add('visible'));
 }
 
-const canDrift = window.matchMedia('(pointer:fine) and (prefers-reduced-motion:no-preference)').matches;
-if (canDrift) {
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+if (!reducedMotion) {
+  document.body.classList.add('motion-enabled');
+
+  const entranceSelectors = [
+    '.flora-navigation',
+    '.flora-corner-title',
+    '.flora-bottom-left',
+    '.flora-bottom-right',
+    '.flora-side-link',
+    '.projects-ref-browser',
+    '.projects-ref-card',
+    '.projects-ref-background',
+    '.about-ref-nav',
+    '.about-resume-section',
+    '.about-ref-visual-source',
+    '.about-visual-panel',
+    '.about-ref-footer',
+    '.detail-clean-nav',
+    '.detail-clean-copy > *',
+    '.detail-clean-visual',
+    '.contact-diagonal-stage',
+    '.error-page main'
+  ];
+  const entranceItems = [...new Set(document.querySelectorAll(entranceSelectors.join(',')))];
+  entranceItems.forEach((item, index) => {
+    if (item.classList.contains('drift')) return;
+    item.classList.add('motion-enter');
+    item.style.setProperty('--motion-delay', `${Math.min(index % 7, 6) * 55}ms`);
+  });
+  const entranceObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-motion-visible');
+      entranceObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -3% 0px' });
+  entranceItems.forEach((item) => entranceObserver.observe(item));
+
+  const reactiveItems = document.querySelectorAll([
+    '.button',
+    '.projects-ref-card',
+    '.about-ref-actions a',
+    '.about-visual-panel',
+    '.zbird-proof-shot',
+    '.contact-diagonal-stage'
+  ].join(','));
+  reactiveItems.forEach((item) => {
+    item.classList.add('motion-reactive');
+    const sheen = document.createElement('i');
+    sheen.className = 'motion-sheen';
+    sheen.setAttribute('aria-hidden', 'true');
+    item.append(sheen);
+    item.addEventListener('pointermove', (event) => {
+      const rect = item.getBoundingClientRect();
+      item.style.setProperty('--sheen-x', `${event.clientX - rect.left}px`);
+      item.style.setProperty('--sheen-y', `${event.clientY - rect.top}px`);
+    }, { passive: true });
+  });
+
+  const particleCanvas = document.createElement('canvas');
+  particleCanvas.className = 'motion-particles';
+  particleCanvas.setAttribute('aria-hidden', 'true');
+  document.body.append(particleCanvas);
+  const particleContext = particleCanvas.getContext('2d');
+  let pixelRatio = 1;
+  let viewportWidth = window.innerWidth;
+  let viewportHeight = window.innerHeight;
+  let ambientParticles = [];
+  const trailParticles = [];
+
+  const makeAmbientParticle = () => ({
+    x: Math.random() * viewportWidth,
+    y: Math.random() * viewportHeight,
+    vx: (Math.random() - 0.5) * 0.16,
+    vy: (Math.random() - 0.5) * 0.16 - 0.025,
+    radius: 0.7 + Math.random() * 1.25,
+    alpha: 0.09 + Math.random() * 0.16,
+    phase: Math.random() * Math.PI * 2
+  });
+  const resizeParticleCanvas = () => {
+    viewportWidth = window.innerWidth;
+    viewportHeight = window.innerHeight;
+    pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    particleCanvas.width = Math.round(viewportWidth * pixelRatio);
+    particleCanvas.height = Math.round(viewportHeight * pixelRatio);
+    particleCanvas.style.width = `${viewportWidth}px`;
+    particleCanvas.style.height = `${viewportHeight}px`;
+    ambientParticles = Array.from(
+      { length: Math.max(18, Math.min(34, Math.round(viewportWidth / 55))) },
+      makeAmbientParticle
+    );
+  };
+  resizeParticleCanvas();
+  window.addEventListener('resize', resizeParticleCanvas, { passive: true });
+
+  const pointer = { x: viewportWidth / 2, y: viewportHeight / 2, active: false };
+  const current = { x: pointer.x, y: pointer.y };
+  const lastTrail = { x: pointer.x, y: pointer.y };
+  let cursor;
+  let trackingLight;
+
+  trackingLight = document.createElement('div');
+  trackingLight.className = 'motion-tracking-light';
+  trackingLight.setAttribute('aria-hidden', 'true');
+  document.body.append(trackingLight);
+
+  if (finePointer) {
+    document.body.classList.add('has-custom-cursor');
+    cursor = document.createElement('div');
+    cursor.className = 'cursor-orbit';
+    cursor.setAttribute('aria-hidden', 'true');
+    document.body.append(cursor);
+  }
+
   const driftItems = [...document.querySelectorAll('.drift')];
-  const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  const addTrailParticle = (x, y) => {
+    if (!finePointer || trailParticles.length > 42) return;
+    const distance = Math.hypot(x - lastTrail.x, y - lastTrail.y);
+    if (distance < 12) return;
+    lastTrail.x = x;
+    lastTrail.y = y;
+    trailParticles.push({
+      x,
+      y,
+      vx: (Math.random() - 0.5) * 0.48,
+      vy: (Math.random() - 0.5) * 0.48,
+      life: 1,
+      size: 1.2 + Math.random() * 2.1,
+      spin: Math.random() * Math.PI
+    });
+  };
+  const addClickRing = (x, y) => {
+    const ring = document.createElement('i');
+    ring.className = 'motion-click-ring';
+    ring.style.left = `${x}px`;
+    ring.style.top = `${y}px`;
+    ring.setAttribute('aria-hidden', 'true');
+    document.body.append(ring);
+    ring.addEventListener('animationend', () => ring.remove(), { once: true });
+  };
+
   window.addEventListener('pointermove', (event) => {
     pointer.x = event.clientX;
     pointer.y = event.clientY;
-    const x = (event.clientX / window.innerWidth - 0.5) * 2;
-    const y = (event.clientY / window.innerHeight - 0.5) * 2;
-    driftItems.forEach((item) => {
-      const depth = Number(item.dataset.depth || 1);
-      item.style.translate = `${x * depth * 7}px ${y * depth * 5}px`;
-    });
+    pointer.active = true;
+    document.body.classList.add('motion-pointer-active');
+    addTrailParticle(event.clientX, event.clientY);
+    if (cursor) {
+      cursor.classList.add('is-visible');
+      cursor.classList.toggle('is-interactive', Boolean(event.target.closest('a, button, input, textarea, select, [role="button"]')));
+    }
   }, { passive: true });
   window.addEventListener('pointerleave', () => {
-    driftItems.forEach((item) => {
-      item.style.translate = '0px 0px';
+    pointer.active = false;
+    document.body.classList.remove('motion-pointer-active');
+    if (cursor) cursor.classList.remove('is-visible');
+  });
+  window.addEventListener('pointerdown', () => {
+    if (cursor) cursor.classList.add('is-down');
+  });
+  window.addEventListener('pointerup', (event) => {
+    if (cursor) {
+      cursor.classList.remove('is-down');
+      cursor.classList.remove('is-pulse');
+      void cursor.offsetWidth;
+      cursor.classList.add('is-pulse');
+    }
+    addClickRing(event.clientX, event.clientY);
+  });
+
+  const drawParticles = (time) => {
+    particleContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    particleContext.clearRect(0, 0, viewportWidth, viewportHeight);
+    ambientParticles.forEach((particle) => {
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      if (particle.x < -20) particle.x = viewportWidth + 20;
+      if (particle.x > viewportWidth + 20) particle.x = -20;
+      if (particle.y < -20) particle.y = viewportHeight + 20;
+      if (particle.y > viewportHeight + 20) particle.y = -20;
+      const pulse = 0.72 + Math.sin(time * 0.0008 + particle.phase) * 0.28;
+      particleContext.beginPath();
+      particleContext.fillStyle = `rgba(20, 20, 212, ${particle.alpha * pulse})`;
+      particleContext.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+      particleContext.fill();
     });
-  });
-
-  document.body.classList.add('has-custom-cursor');
-  const cursor = document.createElement('div');
-  cursor.className = 'cursor-orbit';
-  cursor.setAttribute('aria-hidden', 'true');
-  document.body.append(cursor);
-
-  const current = { x: pointer.x, y: pointer.y };
-  const renderCursor = () => {
-    current.x += (pointer.x - current.x) * 0.2;
-    current.y += (pointer.y - current.y) * 0.2;
-    cursor.style.translate = `${current.x}px ${current.y}px`;
-    window.requestAnimationFrame(renderCursor);
+    for (let index = trailParticles.length - 1; index >= 0; index -= 1) {
+      const particle = trailParticles[index];
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      particle.vy -= 0.008;
+      particle.life -= 0.025;
+      particle.spin += 0.035;
+      if (particle.life <= 0) {
+        trailParticles.splice(index, 1);
+        continue;
+      }
+      particleContext.save();
+      particleContext.translate(particle.x, particle.y);
+      particleContext.rotate(particle.spin);
+      particleContext.fillStyle = `rgba(20, 20, 212, ${particle.life * 0.38})`;
+      const size = particle.size * particle.life;
+      particleContext.fillRect(-size / 2, -size / 2, size, size);
+      particleContext.restore();
+    }
   };
-  renderCursor();
 
-  window.addEventListener('pointermove', (event) => {
-    cursor.classList.add('is-visible');
-    cursor.classList.toggle('is-interactive', Boolean(event.target.closest('a, button, input, textarea, select, [role="button"]')));
-  }, { passive: true });
-  window.addEventListener('pointerleave', () => cursor.classList.remove('is-visible'));
-  window.addEventListener('pointerdown', () => cursor.classList.add('is-down'));
-  window.addEventListener('pointerup', () => {
-    cursor.classList.remove('is-down');
-    cursor.classList.remove('is-pulse');
-    void cursor.offsetWidth;
-    cursor.classList.add('is-pulse');
-  });
+  const renderMotion = (time) => {
+    current.x += (pointer.x - current.x) * 0.16;
+    current.y += (pointer.y - current.y) * 0.16;
+    if (cursor) cursor.style.translate = `${current.x}px ${current.y}px`;
+    trackingLight.style.translate = `${current.x}px ${current.y}px`;
+    const normalizedX = (current.x / Math.max(viewportWidth, 1) - 0.5) * 2;
+    const normalizedY = (current.y / Math.max(viewportHeight, 1) - 0.5) * 2;
+    driftItems.forEach((item) => {
+      const depth = Number(item.dataset.depth || 1);
+      item.style.translate = `${normalizedX * depth * 9}px ${normalizedY * depth * 7}px`;
+    });
+    drawParticles(time);
+    window.requestAnimationFrame(renderMotion);
+  };
+  window.requestAnimationFrame(renderMotion);
 }
 
 const projectData = {
@@ -155,6 +333,12 @@ if (document.body.dataset.page === 'detail') {
   if (repositoryLink) {
     repositoryLink.href = project.repo;
     repositoryLink.textContent = project.linkLabel;
+    if (repositoryLink.classList.contains('motion-reactive')) {
+      const repositorySheen = document.createElement('i');
+      repositorySheen.className = 'motion-sheen';
+      repositorySheen.setAttribute('aria-hidden', 'true');
+      repositoryLink.append(repositorySheen);
+    }
   }
   const previous = document.querySelector('[data-prev-project]');
   const next = document.querySelector('[data-next-project]');
