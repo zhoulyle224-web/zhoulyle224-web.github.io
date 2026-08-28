@@ -565,6 +565,40 @@ body[data-project="zbird"] .zbird-proof { position: absolute; z-index: 3; inset:
 .about-ref-footer > a b { color: var(--blue); font-size: 1.55em; }
 .about-ref-footer small { padding-right: 22px; font-size: 10px; letter-spacing: .08em; }
 
+/* About-only element motion. The existing canvas background is intentionally untouched. */
+body[data-page="about"].about-motion-ready .about-fx-enter {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translate3d(0, 24px, 0);
+  transition: opacity .68s cubic-bezier(.2,.7,.2,1) var(--about-delay, 0ms), filter .68s ease var(--about-delay, 0ms), transform .68s cubic-bezier(.2,.7,.2,1) var(--about-delay, 0ms);
+}
+body[data-page="about"].about-motion-ready .about-fx-enter.is-about-visible { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0); }
+body[data-page="about"].about-motion-ready .about-ref-copy h1.about-fx-intro { transform: translate3d(0, 34px, 0); }
+body[data-page="about"].about-motion-ready .about-ref-copy h1.about-fx-intro.is-about-visible { transform: translate3d(0, 0, 0); }
+body[data-page="about"] .about-ref-copy h1 { transition: letter-spacing .35s ease; }
+@media (pointer: fine) { body[data-page="about"] .about-ref-copy h1:hover { letter-spacing: -.005em; } }
+body[data-page="about"].about-motion-ready .about-fx-section h2 { position: relative; border-top-color: transparent; }
+body[data-page="about"].about-motion-ready .about-fx-section h2::before { content: ""; position: absolute; left: 0; right: 0; top: -2px; height: 2px; background: var(--ink); transform: scaleX(0); transform-origin: left center; transition: transform .72s cubic-bezier(.2,.7,.2,1) calc(var(--about-delay, 0ms) + 100ms); }
+body[data-page="about"].about-motion-ready .about-fx-section.is-about-visible h2::before { transform: scaleX(1); }
+body[data-page="about"].about-motion-ready .about-fx-panel { --about-panel-x: 34px; opacity: 0; transform: translate3d(var(--about-panel-x), 0, 0); clip-path: inset(0 0 0 8%); transition: opacity .72s ease var(--about-delay, 0ms), transform .78s cubic-bezier(.2,.75,.2,1) var(--about-delay, 0ms), clip-path .78s cubic-bezier(.2,.75,.2,1) var(--about-delay, 0ms); }
+body[data-page="about"].about-motion-ready .about-fx-panel:nth-child(even) { --about-panel-x: -34px; clip-path: inset(0 8% 0 0); }
+body[data-page="about"].about-motion-ready .about-fx-panel.is-about-visible { opacity: 1; transform: translate3d(0, 0, 0); clip-path: inset(0); }
+body[data-page="about"] .about-visual-panel strong { transition: transform .28s ease, text-shadow .28s ease; }
+body[data-page="about"] .about-visual-panel:hover strong { transform: scale(1.035); text-shadow: 3px 0 0 rgba(20,20,212,.2), -2px 0 0 rgba(255,255,255,.45); }
+body[data-page="about"] .about-ref-actions a { background-position: right center; background-size: 0 100%; background-repeat: no-repeat; transition: color .28s ease, background-size .36s cubic-bezier(.2,.7,.2,1), transform .2s ease; }
+body[data-page="about"] .about-ref-actions a:first-child { background-color: var(--blue); background-image: linear-gradient(var(--blue-dark), var(--blue-dark)); }
+body[data-page="about"] .about-ref-actions a:last-child { background-image: linear-gradient(var(--blue), var(--blue)); }
+body[data-page="about"] .about-ref-actions a:hover, body[data-page="about"] .about-ref-actions a:focus-visible { color: #fff; background-size: 100% 100%; background-position: left center; transform: translateY(-2px); }
+body[data-page="about"] .about-ref-theory { justify-content: flex-start; }
+body[data-page="about"] .about-theory-track { width: max-content; min-width: max-content; display: flex; align-items: center; gap: 22px; padding-left: 22px; will-change: transform; animation: about-theory-loop 13s linear infinite; }
+body[data-page="about"] .about-ref-theory:hover .about-theory-track { animation-play-state: paused; }
+@keyframes about-theory-loop { to { transform: translateX(calc(-50% - 11px)); } }
+@media (prefers-reduced-motion: reduce) {
+  body[data-page="about"] .about-fx-enter, body[data-page="about"] .about-fx-panel { opacity: 1 !important; filter: none !important; transform: none !important; clip-path: none !important; transition: none !important; }
+  body[data-page="about"] .about-fx-section h2::before { transform: scaleX(1) !important; transition: none !important; }
+  body[data-page="about"] .about-theory-track { animation: none !important; }
+}
+
 /* Contact — current diagonal reference only */
 .contact-diagonal-page { min-height: 100svh; display: flex; align-items: center; overflow: auto; background: #f8f8f6; }
 .contact-diagonal-stage { position: relative; flex: 0 0 auto; width: 100vw; min-width: 960px; height: auto; min-height: 0; aspect-ratio: 1678/937; overflow: hidden; background: #f8f8f6; }
