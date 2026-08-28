@@ -444,23 +444,6 @@ if (!reducedMotion) {
       }
     }
 
-    if (pointer.active) {
-      ambientParticles
-        .map((particle) => ({ particle, distance: Math.hypot(particle.x - pointer.x, particle.y - pointer.y) }))
-        .filter(({ distance }) => distance < 235)
-        .sort((first, second) => first.distance - second.distance)
-        .slice(0, 9)
-        .forEach(({ particle, distance }) => {
-          const strength = 1 - distance / 235;
-          particleContext.beginPath();
-          particleContext.moveTo(pointer.x, pointer.y);
-          particleContext.lineTo(particle.x, particle.y);
-          particleContext.lineWidth = 0.85;
-          particleContext.strokeStyle = `rgba(20, 20, 212, ${strength * 0.24})`;
-          particleContext.stroke();
-        });
-    }
-
     ambientParticles.forEach((particle) => {
       const pulse = 0.72 + Math.sin(time * 0.0008 + particle.phase) * 0.28;
       const reactiveScale = 1 + particle.pointerInfluence * 0.75;
