@@ -96,11 +96,10 @@ if (!reducedMotion) {
   let viewportHeight = window.innerHeight;
   let ambientParticles = [];
   let geometryBodies = [];
-  const trailParticles = [];
 
   const makeAmbientParticle = () => {
     const scaleRoll = Math.random();
-    const radius = scaleRoll < 0.62
+    const radius = scaleRoll < 0.7
       ? 0.8 + Math.random() * 1.6
       : scaleRoll < 0.9
         ? 2.6 + Math.random() * 3.4
@@ -134,6 +133,32 @@ if (!reducedMotion) {
       hit: 0
     };
   };
+  const largeGeometryAnchors = [
+    [0.12, 0.2],
+    [0.88, 0.3],
+    [0.76, 0.82],
+    [0.24, 0.78]
+  ];
+  const makeLargeGeometryBody = (index) => {
+    const baseRadius = Math.max(34, Math.min(viewportWidth * 0.1, viewportHeight * 0.16));
+    const radius = baseRadius * (0.88 + Math.random() * 0.24);
+    const [anchorX, anchorY] = largeGeometryAnchors[index % largeGeometryAnchors.length];
+    const direction = Math.random() * Math.PI * 2;
+    const speed = 0.045 + Math.random() * 0.07;
+    return {
+      x: Math.max(radius, Math.min(viewportWidth - radius, viewportWidth * anchorX)),
+      y: Math.max(radius, Math.min(viewportHeight - radius, viewportHeight * anchorY)),
+      vx: Math.cos(direction) * speed,
+      vy: Math.sin(direction) * speed,
+      radius,
+      angle: Math.random() * Math.PI * 2,
+      angularVelocity: (Math.random() - 0.5) * 0.0018,
+      alpha: 0.085 + Math.random() * 0.055,
+      type: geometryTypes[(index + 1) % geometryTypes.length],
+      hit: 0,
+      large: true
+    };
+  };
   const resizeParticleCanvas = () => {
     viewportWidth = window.innerWidth;
     viewportHeight = window.innerHeight;
@@ -143,20 +168,24 @@ if (!reducedMotion) {
     particleCanvas.style.width = `${viewportWidth}px`;
     particleCanvas.style.height = `${viewportHeight}px`;
     ambientParticles = Array.from(
-      { length: Math.max(58, Math.min(108, Math.round(viewportWidth / 15))) },
+      { length: Math.max(68, Math.min(126, Math.round(viewportWidth / 13))) },
       makeAmbientParticle
     );
-    geometryBodies = Array.from(
+    const standardGeometryBodies = Array.from(
       { length: Math.max(10, Math.min(18, Math.round(viewportWidth / 86))) },
       (_, index) => makeGeometryBody(index)
     );
+    const largeGeometryBodies = Array.from(
+      { length: viewportWidth < 720 ? 2 : 4 },
+      (_, index) => makeLargeGeometryBody(index)
+    );
+    geometryBodies = [...largeGeometryBodies, ...standardGeometryBodies];
   };
   resizeParticleCanvas();
   window.addEventListener('resize', resizeParticleCanvas, { passive: true });
 
   const pointer = { x: viewportWidth / 2, y: viewportHeight / 2 };
   const current = { x: pointer.x, y: pointer.y };
-  const lastTrail = { x: pointer.x, y: pointer.y };
   let cursor;
 
   if (finePointer) {
@@ -168,23 +197,6 @@ if (!reducedMotion) {
   }
 
   const driftItems = [...document.querySelectorAll('.drift')];
-  const addTrailParticle = (x, y) => {
-    if (!finePointer || trailParticles.length >= 56) return;
-    const distance = Math.hypot(x - lastTrail.x, y - lastTrail.y);
-    if (distance < 7) return;
-    lastTrail.x = x;
-    lastTrail.y = y;
-    trailParticles.push({
-      x,
-      y,
-      vx: (Math.random() - 0.5) * 0.52,
-      vy: (Math.random() - 0.5) * 0.52,
-      life: 1,
-      size: 2.2 + Math.random() * 4.3,
-      spin: Math.random() * Math.PI,
-      kind: Math.random() > 0.68 ? 'ring' : 'diamond'
-    });
-  };
   const addClickRing = (x, y) => {
     const ring = document.createElement('i');
     ring.className = 'motion-click-ring';
@@ -198,7 +210,6 @@ if (!reducedMotion) {
   window.addEventListener('pointermove', (event) => {
     pointer.x = event.clientX;
     pointer.y = event.clientY;
-    addTrailParticle(event.clientX, event.clientY);
     if (cursor) {
       cursor.classList.add('is-visible');
       cursor.classList.toggle('is-interactive', Boolean(event.target.closest('a, button, input, textarea, select, [role="button"]')));
@@ -234,17 +245,20 @@ if (!reducedMotion) {
         const normalX = dx / distance;
         const normalY = dy / distance;
         const overlap = minimumDistance - distance;
-        first.x -= normalX * overlap * 0.5;
-        first.y -= normalY * overlap * 0.5;
-        second.x += normalX * overlap * 0.5;
-        second.y += normalY * overlap * 0.5;
+        const firstInverseMass = first.large ? 0.16 : 1;
+        const secondInverseMass = second.large ? 0.16 : 1;
+        const inverseMassTotal = firstInverseMass + secondInverseMass;
+        first.x -= normalX * overlap * (firstInverseMass / inverseMassTotal);
+        first.y -= normalY * overlap * (firstInverseMass / inverseMassTotal);
+        second.x += normalX * overlap * (secondInverseMass / inverseMassTotal);
+        second.y += normalY * overlap * (secondInverseMass / inverseMassTotal);
         const relativeVelocity = (second.vx - first.vx) * normalX + (second.vy - first.vy) * normalY;
         if (relativeVelocity < 0) {
-          const impulse = -(1.72 * relativeVelocity) / 2;
-          first.vx -= impulse * normalX;
-          first.vy -= impulse * normalY;
-          second.vx += impulse * normalX;
-          second.vy += impulse * normalY;
+          const impulse = -(1.72 * relativeVelocity) / inverseMassTotal;
+          first.vx -= impulse * normalX * firstInverseMass;
+          first.vy -= impulse * normalY * firstInverseMass;
+          second.vx += impulse * normalX * secondInverseMass;
+          second.vy += impulse * normalY * secondInverseMass;
         }
         first.hit = 1;
         second.hit = 1;
@@ -252,15 +266,12 @@ if (!reducedMotion) {
     }
   };
 
-  const drawGeometryBody = (body) => {
-    particleContext.save();
-    particleContext.translate(body.x, body.y);
-    particleContext.rotate(body.angle);
+  const traceGeometryPath = (body, scale = 0.78) => {
     particleContext.beginPath();
     if (body.type === 'circle') {
-      particleContext.arc(0, 0, body.radius * 0.72, 0, Math.PI * 2);
+      particleContext.arc(0, 0, body.radius * scale, 0, Math.PI * 2);
     } else if (body.type === 'cross') {
-      const arm = body.radius * 0.78;
+      const arm = body.radius * scale;
       particleContext.moveTo(-arm, 0);
       particleContext.lineTo(arm, 0);
       particleContext.moveTo(0, -arm);
@@ -270,16 +281,30 @@ if (!reducedMotion) {
       const offset = body.type === 'diamond' ? Math.PI / 4 : -Math.PI / 2;
       for (let side = 0; side < sides; side += 1) {
         const angle = offset + (Math.PI * 2 * side) / sides;
-        const x = Math.cos(angle) * body.radius * 0.78;
-        const y = Math.sin(angle) * body.radius * 0.78;
+        const x = Math.cos(angle) * body.radius * scale;
+        const y = Math.sin(angle) * body.radius * scale;
         if (side === 0) particleContext.moveTo(x, y);
         else particleContext.lineTo(x, y);
       }
       particleContext.closePath();
     }
-    particleContext.lineWidth = 0.85 + body.hit * 0.8;
+  };
+
+  const drawGeometryBody = (body) => {
+    particleContext.save();
+    particleContext.translate(body.x, body.y);
+    particleContext.rotate(body.angle);
+    traceGeometryPath(body, body.large ? 0.88 : 0.78);
+    particleContext.lineWidth = (body.large ? 1.15 : 0.85) + body.hit * 0.8;
     particleContext.strokeStyle = `rgba(20, 20, 212, ${body.alpha + body.hit * 0.18})`;
     particleContext.stroke();
+    if (body.large) {
+      particleContext.setLineDash([5, 9]);
+      traceGeometryPath(body, 0.62);
+      particleContext.lineWidth = 0.7;
+      particleContext.strokeStyle = `rgba(20, 20, 212, ${body.alpha * 0.65})`;
+      particleContext.stroke();
+    }
     particleContext.restore();
   };
 
@@ -351,12 +376,12 @@ if (!reducedMotion) {
         const dx = second.x - first.x;
         const dy = second.y - first.y;
         const distance = Math.hypot(dx, dy);
-        if (distance > 112) continue;
+        if (distance > 122) continue;
         particleContext.beginPath();
         particleContext.moveTo(first.x, first.y);
         particleContext.lineTo(second.x, second.y);
-        particleContext.lineWidth = 0.55;
-        particleContext.strokeStyle = `rgba(20, 20, 212, ${(1 - distance / 112) * 0.055})`;
+        particleContext.lineWidth = 0.62;
+        particleContext.strokeStyle = `rgba(20, 20, 212, ${(1 - distance / 122) * 0.075})`;
         particleContext.stroke();
       }
     }
@@ -385,32 +410,6 @@ if (!reducedMotion) {
       particleContext.restore();
     });
     geometryBodies.forEach(drawGeometryBody);
-    for (let index = trailParticles.length - 1; index >= 0; index -= 1) {
-      const particle = trailParticles[index];
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-      particle.life -= 0.018;
-      particle.spin += 0.055;
-      if (particle.life <= 0) {
-        trailParticles.splice(index, 1);
-        continue;
-      }
-      particleContext.save();
-      particleContext.translate(particle.x, particle.y);
-      particleContext.rotate(particle.spin);
-      const size = particle.size * (0.45 + particle.life * 0.55);
-      particleContext.beginPath();
-      if (particle.kind === 'ring') {
-        particleContext.arc(0, 0, size * 0.7, 0, Math.PI * 2);
-        particleContext.strokeStyle = `rgba(20, 20, 212, ${particle.life * 0.72})`;
-        particleContext.lineWidth = 1;
-        particleContext.stroke();
-      } else {
-        particleContext.fillStyle = `rgba(20, 20, 212, ${particle.life * 0.7})`;
-        particleContext.fillRect(-size / 2, -size / 2, size, size);
-      }
-      particleContext.restore();
-    }
   };
 
   const renderMotion = (time) => {
