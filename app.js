@@ -70,25 +70,20 @@ if (!reducedMotion) {
   }, { threshold: 0.06, rootMargin: '0px 0px -3% 0px' });
   entranceItems.forEach((item) => entranceObserver.observe(item));
 
-  const reactiveItems = document.querySelectorAll([
-    '.button',
-    '.projects-ref-card',
-    '.about-ref-actions a',
-    '.about-visual-panel',
-    '.zbird-proof-shot',
-    '.contact-diagonal-stage'
-  ].join(','));
-  reactiveItems.forEach((item) => {
-    item.classList.add('motion-reactive');
-    const sheen = document.createElement('i');
-    sheen.className = 'motion-sheen';
-    sheen.setAttribute('aria-hidden', 'true');
-    item.append(sheen);
-    item.addEventListener('pointermove', (event) => {
-      const rect = item.getBoundingClientRect();
-      item.style.setProperty('--sheen-x', `${event.clientX - rect.left}px`);
-      item.style.setProperty('--sheen-y', `${event.clientY - rect.top}px`);
-    }, { passive: true });
+  const interactiveItems = document.querySelectorAll('a[href], button, [role="button"]');
+  interactiveItems.forEach((item) => {
+    item.classList.add('motion-clickable');
+    const release = () => item.classList.remove('is-motion-pressed');
+    item.addEventListener('pointerdown', () => item.classList.add('is-motion-pressed'));
+    item.addEventListener('pointerup', release);
+    item.addEventListener('pointercancel', release);
+    item.addEventListener('pointerleave', release);
+    item.addEventListener('click', () => {
+      item.classList.remove('is-motion-activated');
+      void item.offsetWidth;
+      item.classList.add('is-motion-activated');
+      window.setTimeout(() => item.classList.remove('is-motion-activated'), 420);
+    });
   });
 
   const particleCanvas = document.createElement('canvas');
@@ -103,18 +98,27 @@ if (!reducedMotion) {
   let geometryBodies = [];
   const trailParticles = [];
 
-  const makeAmbientParticle = () => ({
-    x: Math.random() * viewportWidth,
-    y: Math.random() * viewportHeight,
-    vx: (Math.random() - 0.5) * 0.28,
-    vy: (Math.random() - 0.5) * 0.28,
-    radius: 0.75 + Math.random() * 1.5,
-    alpha: 0.12 + Math.random() * 0.2,
-    phase: Math.random() * Math.PI * 2
-  });
+  const makeAmbientParticle = () => {
+    const scaleRoll = Math.random();
+    const radius = scaleRoll < 0.62
+      ? 0.8 + Math.random() * 1.6
+      : scaleRoll < 0.9
+        ? 2.6 + Math.random() * 3.4
+        : 6.5 + Math.random() * 5.5;
+    return {
+      x: Math.random() * viewportWidth,
+      y: Math.random() * viewportHeight,
+      vx: (Math.random() - 0.5) * (0.2 + 3 / Math.max(radius, 2)),
+      vy: (Math.random() - 0.5) * (0.2 + 3 / Math.max(radius, 2)),
+      radius,
+      alpha: radius > 6 ? 0.12 + Math.random() * 0.1 : 0.18 + Math.random() * 0.25,
+      phase: Math.random() * Math.PI * 2,
+      kind: scaleRoll > 0.82 ? (Math.random() > 0.48 ? 'ring' : 'diamond') : 'dot'
+    };
+  };
   const geometryTypes = ['circle', 'triangle', 'diamond', 'hexagon', 'cross'];
   const makeGeometryBody = (index) => {
-    const radius = 15 + Math.random() * 25;
+    const radius = 11 + Math.random() * 47;
     const direction = Math.random() * Math.PI * 2;
     const speed = 0.15 + Math.random() * 0.24;
     return {
@@ -125,7 +129,7 @@ if (!reducedMotion) {
       radius,
       angle: Math.random() * Math.PI * 2,
       angularVelocity: (Math.random() - 0.5) * 0.005,
-      alpha: 0.11 + Math.random() * 0.11,
+      alpha: 0.12 + Math.random() * 0.14,
       type: geometryTypes[index % geometryTypes.length],
       hit: 0
     };
@@ -139,11 +143,11 @@ if (!reducedMotion) {
     particleCanvas.style.width = `${viewportWidth}px`;
     particleCanvas.style.height = `${viewportHeight}px`;
     ambientParticles = Array.from(
-      { length: Math.max(36, Math.min(64, Math.round(viewportWidth / 24))) },
+      { length: Math.max(58, Math.min(108, Math.round(viewportWidth / 15))) },
       makeAmbientParticle
     );
     geometryBodies = Array.from(
-      { length: Math.max(7, Math.min(13, Math.round(viewportWidth / 115))) },
+      { length: Math.max(10, Math.min(18, Math.round(viewportWidth / 86))) },
       (_, index) => makeGeometryBody(index)
     );
   };
@@ -165,19 +169,20 @@ if (!reducedMotion) {
 
   const driftItems = [...document.querySelectorAll('.drift')];
   const addTrailParticle = (x, y) => {
-    if (!finePointer || trailParticles.length >= 34) return;
+    if (!finePointer || trailParticles.length >= 56) return;
     const distance = Math.hypot(x - lastTrail.x, y - lastTrail.y);
-    if (distance < 14) return;
+    if (distance < 7) return;
     lastTrail.x = x;
     lastTrail.y = y;
     trailParticles.push({
       x,
       y,
-      vx: (Math.random() - 0.5) * 0.34,
-      vy: (Math.random() - 0.5) * 0.34,
-      life: 0.9,
-      size: 1.15 + Math.random() * 1.9,
-      spin: Math.random() * Math.PI
+      vx: (Math.random() - 0.5) * 0.52,
+      vy: (Math.random() - 0.5) * 0.52,
+      life: 1,
+      size: 2.2 + Math.random() * 4.3,
+      spin: Math.random() * Math.PI,
+      kind: Math.random() > 0.68 ? 'ring' : 'diamond'
     });
   };
   const addClickRing = (x, y) => {
@@ -358,18 +363,34 @@ if (!reducedMotion) {
 
     ambientParticles.forEach((particle) => {
       const pulse = 0.72 + Math.sin(time * 0.0008 + particle.phase) * 0.28;
+      particleContext.save();
+      particleContext.translate(particle.x, particle.y);
       particleContext.beginPath();
-      particleContext.fillStyle = `rgba(20, 20, 212, ${particle.alpha * pulse})`;
-      particleContext.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-      particleContext.fill();
+      if (particle.kind === 'diamond') {
+        particleContext.rotate(Math.PI / 4 + time * 0.00008);
+        particleContext.rect(-particle.radius * 0.7, -particle.radius * 0.7, particle.radius * 1.4, particle.radius * 1.4);
+        particleContext.strokeStyle = `rgba(20, 20, 212, ${particle.alpha * pulse})`;
+        particleContext.lineWidth = 0.8;
+        particleContext.stroke();
+      } else if (particle.kind === 'ring') {
+        particleContext.arc(0, 0, particle.radius, 0, Math.PI * 2);
+        particleContext.strokeStyle = `rgba(20, 20, 212, ${particle.alpha * pulse})`;
+        particleContext.lineWidth = 0.85;
+        particleContext.stroke();
+      } else {
+        particleContext.arc(0, 0, particle.radius, 0, Math.PI * 2);
+        particleContext.fillStyle = `rgba(20, 20, 212, ${particle.alpha * pulse})`;
+        particleContext.fill();
+      }
+      particleContext.restore();
     });
     geometryBodies.forEach(drawGeometryBody);
     for (let index = trailParticles.length - 1; index >= 0; index -= 1) {
       const particle = trailParticles[index];
       particle.x += particle.vx;
       particle.y += particle.vy;
-      particle.life -= 0.03;
-      particle.spin += 0.04;
+      particle.life -= 0.018;
+      particle.spin += 0.055;
       if (particle.life <= 0) {
         trailParticles.splice(index, 1);
         continue;
@@ -377,9 +398,17 @@ if (!reducedMotion) {
       particleContext.save();
       particleContext.translate(particle.x, particle.y);
       particleContext.rotate(particle.spin);
-      const size = particle.size * particle.life;
-      particleContext.fillStyle = `rgba(20, 20, 212, ${particle.life * 0.36})`;
-      particleContext.fillRect(-size / 2, -size / 2, size, size);
+      const size = particle.size * (0.45 + particle.life * 0.55);
+      particleContext.beginPath();
+      if (particle.kind === 'ring') {
+        particleContext.arc(0, 0, size * 0.7, 0, Math.PI * 2);
+        particleContext.strokeStyle = `rgba(20, 20, 212, ${particle.life * 0.72})`;
+        particleContext.lineWidth = 1;
+        particleContext.stroke();
+      } else {
+        particleContext.fillStyle = `rgba(20, 20, 212, ${particle.life * 0.7})`;
+        particleContext.fillRect(-size / 2, -size / 2, size, size);
+      }
       particleContext.restore();
     }
   };
@@ -477,12 +506,6 @@ if (document.body.dataset.page === 'detail') {
   if (repositoryLink) {
     repositoryLink.href = project.repo;
     repositoryLink.textContent = project.linkLabel;
-    if (repositoryLink.classList.contains('motion-reactive')) {
-      const repositorySheen = document.createElement('i');
-      repositorySheen.className = 'motion-sheen';
-      repositorySheen.setAttribute('aria-hidden', 'true');
-      repositoryLink.append(repositorySheen);
-    }
   }
   const previous = document.querySelector('[data-prev-project]');
   const next = document.querySelector('[data-next-project]');

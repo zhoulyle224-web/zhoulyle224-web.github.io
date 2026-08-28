@@ -172,7 +172,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .legacy-slice-a img { object-position: 48% 50%; }
 .legacy-slice-b { z-index: 7; right: 8vw; top: 17vh; width: clamp(145px, 15vw, 305px); height: clamp(145px, 24vh, 280px); transform: translateX(-6vw) rotate(5deg); clip-path: polygon(0 8%, 92% 0, 100% 88%, 10% 100%); }
 .legacy-slice-b img { object-position: 76% 20%; }
-.legacy-node { position: absolute; z-index: 8; width: clamp(11px, .9vw, 18px); aspect-ratio: 1; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 7px rgba(20,20,212,.08); will-change: translate; }
+.legacy-node { position: absolute; z-index: 8; width: clamp(11px, .9vw, 18px); aspect-ratio: 1; border-radius: 50%; background: var(--blue); will-change: translate; }
 .legacy-node-a { left: 17vw; top: 43vh; }
 .legacy-node-b { right: 14vw; bottom: 22vh; }
 .flora-fauna { position: absolute; z-index: 2; inset: 0; pointer-events: none; color: var(--blue); }
@@ -224,19 +224,15 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   transition: opacity .72s cubic-bezier(.2,.7,.2,1) var(--motion-delay, 0ms), filter .72s ease var(--motion-delay, 0ms), translate .72s cubic-bezier(.2,.7,.2,1) var(--motion-delay, 0ms);
 }
 .motion-enter.is-motion-visible { opacity: 1; filter: blur(0); translate: 0 0; }
-.motion-reactive { position: relative; }
-.motion-sheen {
-  position: absolute;
-  z-index: 25;
-  inset: 0;
-  display: block;
-  opacity: 0;
-  pointer-events: none;
-  background: radial-gradient(circle 180px at var(--sheen-x, 50%) var(--sheen-y, 50%), rgba(20,20,212,.16), rgba(20,20,212,.045) 38%, transparent 72%);
-  mix-blend-mode: multiply;
-  transition: opacity .35s ease;
+.motion-clickable {
+  transition: scale .16s cubic-bezier(.2,.8,.2,1), transform .2s ease, box-shadow .2s ease, background .2s ease, color .16s ease, outline-color .16s ease, outline-offset .16s ease;
 }
-.motion-reactive:hover > .motion-sheen { opacity: .72; }
+.motion-clickable.is-motion-pressed {
+  scale: .955;
+  outline: 1px solid var(--blue);
+  outline-offset: -3px;
+}
+.motion-clickable.is-motion-activated { animation: motion-target-impact .4s cubic-bezier(.2,.75,.2,1); }
 .cursor-orbit {
   position: fixed;
   z-index: 140;
@@ -249,7 +245,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  transition: width .22s cubic-bezier(.2,.8,.2,1), height .22s cubic-bezier(.2,.8,.2,1), border-color .22s ease, background-color .22s ease, opacity .16s ease;
+  transition: width .22s cubic-bezier(.2,.8,.2,1), height .22s cubic-bezier(.2,.8,.2,1), border-color .22s ease, opacity .16s ease;
   will-change: translate, width, height;
 }
 .cursor-orbit::before {
@@ -277,15 +273,16 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .cursor-orbit.is-interactive {
   width: 64px;
   height: 64px;
-  background: rgba(20,20,212,.055);
+  background: transparent;
   border-color: rgba(20,20,212,.72);
 }
 .cursor-orbit.is-interactive::before { width: 13px; height: 13px; transform: translate(-50%, -50%) rotate(135deg); }
-.cursor-orbit.is-down { width: 26px; height: 26px; background: rgba(20,20,212,.12); }
+.cursor-orbit.is-down { width: 26px; height: 26px; background: transparent; }
 .cursor-orbit.is-pulse { animation: cursor-impact .46s ease-out; }
 @keyframes cursor-orbit-spin { to { transform: rotate(360deg); } }
 @keyframes cursor-impact { 0%, 100% { scale: 1; } 45% { scale: 1.16; } }
 @keyframes motion-click-ring { from { opacity: .7; scale: .55; } to { opacity: 0; scale: 2.45; } }
+@keyframes motion-target-impact { 0% { scale: .955; } 52% { scale: 1.035; } 100% { scale: 1; } }
 @keyframes motion-breathe { from { scale: 1; } to { scale: 1.014; } }
 @keyframes motion-orbit-a { from { transform: rotate(9deg) scale(.995); } to { transform: rotate(12deg) scale(1.015); } }
 @keyframes motion-orbit-b { from { transform: rotate(-10deg) scale(1.01); } to { transform: rotate(-7deg) scale(.99); } }
