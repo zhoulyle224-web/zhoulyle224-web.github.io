@@ -100,17 +100,36 @@ if (!reducedMotion) {
   let viewportWidth = window.innerWidth;
   let viewportHeight = window.innerHeight;
   let ambientParticles = [];
+  let geometryBodies = [];
   const trailParticles = [];
 
   const makeAmbientParticle = () => ({
     x: Math.random() * viewportWidth,
     y: Math.random() * viewportHeight,
-    vx: (Math.random() - 0.5) * 0.16,
-    vy: (Math.random() - 0.5) * 0.16 - 0.025,
-    radius: 0.7 + Math.random() * 1.25,
-    alpha: 0.09 + Math.random() * 0.16,
+    vx: (Math.random() - 0.5) * 0.28,
+    vy: (Math.random() - 0.5) * 0.28,
+    radius: 0.75 + Math.random() * 1.5,
+    alpha: 0.12 + Math.random() * 0.2,
     phase: Math.random() * Math.PI * 2
   });
+  const geometryTypes = ['circle', 'triangle', 'diamond', 'hexagon', 'cross'];
+  const makeGeometryBody = (index) => {
+    const radius = 15 + Math.random() * 25;
+    const direction = Math.random() * Math.PI * 2;
+    const speed = 0.15 + Math.random() * 0.24;
+    return {
+      x: radius + Math.random() * Math.max(1, viewportWidth - radius * 2),
+      y: radius + Math.random() * Math.max(1, viewportHeight - radius * 2),
+      vx: Math.cos(direction) * speed,
+      vy: Math.sin(direction) * speed,
+      radius,
+      angle: Math.random() * Math.PI * 2,
+      angularVelocity: (Math.random() - 0.5) * 0.005,
+      alpha: 0.11 + Math.random() * 0.11,
+      type: geometryTypes[index % geometryTypes.length],
+      hit: 0
+    };
+  };
   const resizeParticleCanvas = () => {
     viewportWidth = window.innerWidth;
     viewportHeight = window.innerHeight;
@@ -120,23 +139,21 @@ if (!reducedMotion) {
     particleCanvas.style.width = `${viewportWidth}px`;
     particleCanvas.style.height = `${viewportHeight}px`;
     ambientParticles = Array.from(
-      { length: Math.max(18, Math.min(34, Math.round(viewportWidth / 55))) },
+      { length: Math.max(36, Math.min(64, Math.round(viewportWidth / 24))) },
       makeAmbientParticle
+    );
+    geometryBodies = Array.from(
+      { length: Math.max(7, Math.min(13, Math.round(viewportWidth / 115))) },
+      (_, index) => makeGeometryBody(index)
     );
   };
   resizeParticleCanvas();
   window.addEventListener('resize', resizeParticleCanvas, { passive: true });
 
-  const pointer = { x: viewportWidth / 2, y: viewportHeight / 2, active: false };
+  const pointer = { x: viewportWidth / 2, y: viewportHeight / 2 };
   const current = { x: pointer.x, y: pointer.y };
   const lastTrail = { x: pointer.x, y: pointer.y };
   let cursor;
-  let trackingLight;
-
-  trackingLight = document.createElement('div');
-  trackingLight.className = 'motion-tracking-light';
-  trackingLight.setAttribute('aria-hidden', 'true');
-  document.body.append(trackingLight);
 
   if (finePointer) {
     document.body.classList.add('has-custom-cursor');
@@ -148,18 +165,18 @@ if (!reducedMotion) {
 
   const driftItems = [...document.querySelectorAll('.drift')];
   const addTrailParticle = (x, y) => {
-    if (!finePointer || trailParticles.length > 42) return;
+    if (!finePointer || trailParticles.length >= 34) return;
     const distance = Math.hypot(x - lastTrail.x, y - lastTrail.y);
-    if (distance < 12) return;
+    if (distance < 14) return;
     lastTrail.x = x;
     lastTrail.y = y;
     trailParticles.push({
       x,
       y,
-      vx: (Math.random() - 0.5) * 0.48,
-      vy: (Math.random() - 0.5) * 0.48,
-      life: 1,
-      size: 1.2 + Math.random() * 2.1,
+      vx: (Math.random() - 0.5) * 0.34,
+      vy: (Math.random() - 0.5) * 0.34,
+      life: 0.9,
+      size: 1.15 + Math.random() * 1.9,
       spin: Math.random() * Math.PI
     });
   };
@@ -176,8 +193,6 @@ if (!reducedMotion) {
   window.addEventListener('pointermove', (event) => {
     pointer.x = event.clientX;
     pointer.y = event.clientY;
-    pointer.active = true;
-    document.body.classList.add('motion-pointer-active');
     addTrailParticle(event.clientX, event.clientY);
     if (cursor) {
       cursor.classList.add('is-visible');
@@ -185,8 +200,6 @@ if (!reducedMotion) {
     }
   }, { passive: true });
   window.addEventListener('pointerleave', () => {
-    pointer.active = false;
-    document.body.classList.remove('motion-pointer-active');
     if (cursor) cursor.classList.remove('is-visible');
   });
   window.addEventListener('pointerdown', () => {
@@ -202,29 +215,161 @@ if (!reducedMotion) {
     addClickRing(event.clientX, event.clientY);
   });
 
+  const resolveGeometryCollisions = () => {
+    for (let firstIndex = 0; firstIndex < geometryBodies.length; firstIndex += 1) {
+      const first = geometryBodies[firstIndex];
+      for (let secondIndex = firstIndex + 1; secondIndex < geometryBodies.length; secondIndex += 1) {
+        const second = geometryBodies[secondIndex];
+        const dx = second.x - first.x;
+        const dy = second.y - first.y;
+        const minimumDistance = first.radius + second.radius;
+        const distanceSquared = dx * dx + dy * dy;
+        if (distanceSquared >= minimumDistance * minimumDistance) continue;
+        const distance = Math.sqrt(distanceSquared) || 0.001;
+        const normalX = dx / distance;
+        const normalY = dy / distance;
+        const overlap = minimumDistance - distance;
+        first.x -= normalX * overlap * 0.5;
+        first.y -= normalY * overlap * 0.5;
+        second.x += normalX * overlap * 0.5;
+        second.y += normalY * overlap * 0.5;
+        const relativeVelocity = (second.vx - first.vx) * normalX + (second.vy - first.vy) * normalY;
+        if (relativeVelocity < 0) {
+          const impulse = -(1.72 * relativeVelocity) / 2;
+          first.vx -= impulse * normalX;
+          first.vy -= impulse * normalY;
+          second.vx += impulse * normalX;
+          second.vy += impulse * normalY;
+        }
+        first.hit = 1;
+        second.hit = 1;
+      }
+    }
+  };
+
+  const drawGeometryBody = (body) => {
+    particleContext.save();
+    particleContext.translate(body.x, body.y);
+    particleContext.rotate(body.angle);
+    particleContext.beginPath();
+    if (body.type === 'circle') {
+      particleContext.arc(0, 0, body.radius * 0.72, 0, Math.PI * 2);
+    } else if (body.type === 'cross') {
+      const arm = body.radius * 0.78;
+      particleContext.moveTo(-arm, 0);
+      particleContext.lineTo(arm, 0);
+      particleContext.moveTo(0, -arm);
+      particleContext.lineTo(0, arm);
+    } else {
+      const sides = body.type === 'triangle' ? 3 : body.type === 'diamond' ? 4 : 6;
+      const offset = body.type === 'diamond' ? Math.PI / 4 : -Math.PI / 2;
+      for (let side = 0; side < sides; side += 1) {
+        const angle = offset + (Math.PI * 2 * side) / sides;
+        const x = Math.cos(angle) * body.radius * 0.78;
+        const y = Math.sin(angle) * body.radius * 0.78;
+        if (side === 0) particleContext.moveTo(x, y);
+        else particleContext.lineTo(x, y);
+      }
+      particleContext.closePath();
+    }
+    particleContext.lineWidth = 0.85 + body.hit * 0.8;
+    particleContext.strokeStyle = `rgba(20, 20, 212, ${body.alpha + body.hit * 0.18})`;
+    particleContext.stroke();
+    particleContext.restore();
+  };
+
   const drawParticles = (time) => {
     particleContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     particleContext.clearRect(0, 0, viewportWidth, viewportHeight);
+
+    geometryBodies.forEach((body) => {
+      body.x += body.vx;
+      body.y += body.vy;
+      body.angle += body.angularVelocity;
+      body.hit *= 0.92;
+      if (body.x < body.radius) {
+        body.x = body.radius;
+        body.vx = Math.abs(body.vx);
+        body.hit = 1;
+      } else if (body.x > viewportWidth - body.radius) {
+        body.x = viewportWidth - body.radius;
+        body.vx = -Math.abs(body.vx);
+        body.hit = 1;
+      }
+      if (body.y < body.radius) {
+        body.y = body.radius;
+        body.vy = Math.abs(body.vy);
+        body.hit = 1;
+      } else if (body.y > viewportHeight - body.radius) {
+        body.y = viewportHeight - body.radius;
+        body.vy = -Math.abs(body.vy);
+        body.hit = 1;
+      }
+    });
+    resolveGeometryCollisions();
+
     ambientParticles.forEach((particle) => {
       particle.x += particle.vx;
       particle.y += particle.vy;
-      if (particle.x < -20) particle.x = viewportWidth + 20;
-      if (particle.x > viewportWidth + 20) particle.x = -20;
-      if (particle.y < -20) particle.y = viewportHeight + 20;
-      if (particle.y > viewportHeight + 20) particle.y = -20;
+      if (particle.x < particle.radius || particle.x > viewportWidth - particle.radius) {
+        particle.vx *= -1;
+        particle.x = Math.max(particle.radius, Math.min(viewportWidth - particle.radius, particle.x));
+      }
+      if (particle.y < particle.radius || particle.y > viewportHeight - particle.radius) {
+        particle.vy *= -1;
+        particle.y = Math.max(particle.radius, Math.min(viewportHeight - particle.radius, particle.y));
+      }
+      geometryBodies.forEach((body) => {
+        const dx = particle.x - body.x;
+        const dy = particle.y - body.y;
+        const minimumDistance = body.radius + particle.radius;
+        const distanceSquared = dx * dx + dy * dy;
+        if (distanceSquared >= minimumDistance * minimumDistance) return;
+        const distance = Math.sqrt(distanceSquared) || 0.001;
+        const normalX = dx / distance;
+        const normalY = dy / distance;
+        particle.x = body.x + normalX * minimumDistance;
+        particle.y = body.y + normalY * minimumDistance;
+        const incomingVelocity = (particle.vx - body.vx) * normalX + (particle.vy - body.vy) * normalY;
+        if (incomingVelocity < 0) {
+          particle.vx -= 1.65 * incomingVelocity * normalX;
+          particle.vy -= 1.65 * incomingVelocity * normalY;
+        }
+        body.hit = Math.max(body.hit, 0.62);
+      });
+    });
+
+    for (let firstIndex = 0; firstIndex < ambientParticles.length; firstIndex += 1) {
+      const first = ambientParticles[firstIndex];
+      for (let secondIndex = firstIndex + 1; secondIndex < ambientParticles.length; secondIndex += 1) {
+        const second = ambientParticles[secondIndex];
+        const dx = second.x - first.x;
+        const dy = second.y - first.y;
+        const distance = Math.hypot(dx, dy);
+        if (distance > 112) continue;
+        particleContext.beginPath();
+        particleContext.moveTo(first.x, first.y);
+        particleContext.lineTo(second.x, second.y);
+        particleContext.lineWidth = 0.55;
+        particleContext.strokeStyle = `rgba(20, 20, 212, ${(1 - distance / 112) * 0.055})`;
+        particleContext.stroke();
+      }
+    }
+
+    ambientParticles.forEach((particle) => {
       const pulse = 0.72 + Math.sin(time * 0.0008 + particle.phase) * 0.28;
       particleContext.beginPath();
       particleContext.fillStyle = `rgba(20, 20, 212, ${particle.alpha * pulse})`;
       particleContext.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
       particleContext.fill();
     });
+    geometryBodies.forEach(drawGeometryBody);
     for (let index = trailParticles.length - 1; index >= 0; index -= 1) {
       const particle = trailParticles[index];
       particle.x += particle.vx;
       particle.y += particle.vy;
-      particle.vy -= 0.008;
-      particle.life -= 0.025;
-      particle.spin += 0.035;
+      particle.life -= 0.03;
+      particle.spin += 0.04;
       if (particle.life <= 0) {
         trailParticles.splice(index, 1);
         continue;
@@ -232,8 +377,8 @@ if (!reducedMotion) {
       particleContext.save();
       particleContext.translate(particle.x, particle.y);
       particleContext.rotate(particle.spin);
-      particleContext.fillStyle = `rgba(20, 20, 212, ${particle.life * 0.38})`;
       const size = particle.size * particle.life;
+      particleContext.fillStyle = `rgba(20, 20, 212, ${particle.life * 0.36})`;
       particleContext.fillRect(-size / 2, -size / 2, size, size);
       particleContext.restore();
     }
@@ -243,7 +388,6 @@ if (!reducedMotion) {
     current.x += (pointer.x - current.x) * 0.16;
     current.y += (pointer.y - current.y) * 0.16;
     if (cursor) cursor.style.translate = `${current.x}px ${current.y}px`;
-    trackingLight.style.translate = `${current.x}px ${current.y}px`;
     const normalizedX = (current.x / Math.max(viewportWidth, 1) - 0.5) * 2;
     const normalizedY = (current.y / Math.max(viewportHeight, 1) - 0.5) * 2;
     driftItems.forEach((item) => {

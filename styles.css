@@ -196,7 +196,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .piece-b { right: -3%; top: 39%; font-size: clamp(230px, 29vw, 590px); transform: rotate(7deg); opacity: .11; }
 .piece-c { right: 28%; top: -4%; font-size: clamp(190px, 24vw, 490px); transform: rotate(-16deg); opacity: .08; }
 .motion-particles,
-.motion-tracking-light,
 .motion-click-ring {
   position: fixed;
   left: 0;
@@ -207,21 +206,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   z-index: 92;
   width: 100vw;
   height: 100vh;
-  opacity: .82;
+  opacity: .92;
 }
-.motion-tracking-light {
-  z-index: 91;
-  width: min(48vw, 660px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  opacity: 0;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(20,20,212,.105) 0, rgba(20,20,212,.048) 24%, rgba(20,20,212,.012) 47%, transparent 70%);
-  filter: blur(12px);
-  transition: opacity .5s ease;
-  will-change: translate;
-}
-.motion-pointer-active .motion-tracking-light { opacity: .55; }
 .motion-click-ring {
   z-index: 139;
   width: 38px;
@@ -263,7 +249,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 1px rgba(246,246,243,.68), 0 0 18px rgba(20,20,212,.13);
   transition: width .22s cubic-bezier(.2,.8,.2,1), height .22s cubic-bezier(.2,.8,.2,1), border-color .22s ease, background-color .22s ease, opacity .16s ease;
   will-change: translate, width, height;
 }
@@ -275,7 +260,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
   width: 8px;
   height: 8px;
   background: var(--blue);
-  box-shadow: 0 0 10px rgba(20,20,212,.22);
   transform: translate(-50%, -50%) rotate(45deg);
   transition: width .2s ease, height .2s ease, transform .3s ease;
 }
@@ -300,7 +284,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .cursor-orbit.is-down { width: 26px; height: 26px; background: rgba(20,20,212,.12); }
 .cursor-orbit.is-pulse { animation: cursor-impact .46s ease-out; }
 @keyframes cursor-orbit-spin { to { transform: rotate(360deg); } }
-@keyframes cursor-impact { 0% { box-shadow: 0 0 0 0 rgba(20,20,212,.34); } 100% { box-shadow: 0 0 0 20px rgba(20,20,212,0); } }
+@keyframes cursor-impact { 0%, 100% { scale: 1; } 45% { scale: 1.16; } }
 @keyframes motion-click-ring { from { opacity: .7; scale: .55; } to { opacity: 0; scale: 2.45; } }
 @keyframes motion-breathe { from { scale: 1; } to { scale: 1.014; } }
 @keyframes motion-orbit-a { from { transform: rotate(9deg) scale(.995); } to { transform: rotate(12deg) scale(1.015); } }
