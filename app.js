@@ -184,7 +184,7 @@ if (!reducedMotion) {
   resizeParticleCanvas();
   window.addEventListener('resize', resizeParticleCanvas, { passive: true });
 
-  const pointer = { x: viewportWidth / 2, y: viewportHeight / 2 };
+  const pointer = { x: viewportWidth / 2, y: viewportHeight / 2, active: false };
   const current = { x: pointer.x, y: pointer.y };
   let cursor;
 
@@ -206,20 +206,37 @@ if (!reducedMotion) {
     document.body.append(ring);
     ring.addEventListener('animationend', () => ring.remove(), { once: true });
   };
+  const applyGeometryImpulse = (x, y, strength = 1) => {
+    geometryBodies.forEach((body) => {
+      const dx = body.x - x;
+      const dy = body.y - y;
+      const distance = Math.hypot(dx, dy) || 0.001;
+      const range = body.radius + (body.large ? 300 : 185);
+      if (distance >= range) return;
+      const force = (1 - distance / range) * strength * (body.large ? 0.18 : 0.32);
+      body.vx += (dx / distance) * force;
+      body.vy += (dy / distance) * force;
+      body.angularVelocity += (dx * body.vy - dy * body.vx >= 0 ? 1 : -1) * force * 0.0024;
+      body.hit = Math.max(body.hit, 0.7);
+    });
+  };
 
   window.addEventListener('pointermove', (event) => {
     pointer.x = event.clientX;
     pointer.y = event.clientY;
+    pointer.active = true;
     if (cursor) {
       cursor.classList.add('is-visible');
       cursor.classList.toggle('is-interactive', Boolean(event.target.closest('a, button, input, textarea, select, [role="button"]')));
     }
   }, { passive: true });
   window.addEventListener('pointerleave', () => {
+    pointer.active = false;
     if (cursor) cursor.classList.remove('is-visible');
   });
-  window.addEventListener('pointerdown', () => {
+  window.addEventListener('pointerdown', (event) => {
     if (cursor) cursor.classList.add('is-down');
+    applyGeometryImpulse(event.clientX, event.clientY, 1);
   });
   window.addEventListener('pointerup', (event) => {
     if (cursor) {
@@ -313,6 +330,26 @@ if (!reducedMotion) {
     particleContext.clearRect(0, 0, viewportWidth, viewportHeight);
 
     geometryBodies.forEach((body) => {
+      if (pointer.active) {
+        const dx = body.x - pointer.x;
+        const dy = body.y - pointer.y;
+        const distance = Math.hypot(dx, dy) || 0.001;
+        const influenceRadius = body.radius + (body.large ? 230 : 125);
+        if (distance < influenceRadius) {
+          const influence = 1 - distance / influenceRadius;
+          const force = influence * (body.large ? 0.0045 : 0.011);
+          body.vx += (dx / distance) * force;
+          body.vy += (dy / distance) * force;
+          body.angularVelocity += (pointer.x < body.x ? 1 : -1) * influence * (body.large ? 0.000012 : 0.000035);
+          body.hit = Math.max(body.hit, influence * 0.42);
+        }
+      }
+      const bodySpeed = Math.hypot(body.vx, body.vy);
+      const maximumSpeed = body.large ? 0.24 : 0.58;
+      if (bodySpeed > maximumSpeed) {
+        body.vx = (body.vx / bodySpeed) * maximumSpeed;
+        body.vy = (body.vy / bodySpeed) * maximumSpeed;
+      }
       body.x += body.vx;
       body.y += body.vy;
       body.angle += body.angularVelocity;
@@ -339,6 +376,21 @@ if (!reducedMotion) {
     resolveGeometryCollisions();
 
     ambientParticles.forEach((particle) => {
+      if (pointer.active) {
+        const pointerDx = particle.x - pointer.x;
+        const pointerDy = particle.y - pointer.y;
+        const pointerDistance = Math.hypot(pointerDx, pointerDy) || 0.001;
+        if (pointerDistance < 92) {
+          const pointerForce = (1 - pointerDistance / 92) * 0.018;
+          particle.vx += (pointerDx / pointerDistance) * pointerForce;
+          particle.vy += (pointerDy / pointerDistance) * pointerForce;
+        }
+      }
+      const particleSpeed = Math.hypot(particle.vx, particle.vy);
+      if (particleSpeed > 0.82) {
+        particle.vx = (particle.vx / particleSpeed) * 0.82;
+        particle.vy = (particle.vy / particleSpeed) * 0.82;
+      }
       particle.x += particle.vx;
       particle.y += particle.vy;
       if (particle.x < particle.radius || particle.x > viewportWidth - particle.radius) {
