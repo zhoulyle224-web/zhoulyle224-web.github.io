@@ -112,7 +112,8 @@ if (!reducedMotion) {
       radius,
       alpha: radius > 6 ? 0.12 + Math.random() * 0.1 : 0.18 + Math.random() * 0.25,
       phase: Math.random() * Math.PI * 2,
-      kind: scaleRoll > 0.82 ? (Math.random() > 0.48 ? 'ring' : 'diamond') : 'dot'
+      kind: scaleRoll > 0.82 ? (Math.random() > 0.48 ? 'ring' : 'diamond') : 'dot',
+      pointerInfluence: 0
     };
   };
   const geometryTypes = ['circle', 'triangle', 'diamond', 'hexagon', 'cross'];
@@ -376,14 +377,19 @@ if (!reducedMotion) {
     resolveGeometryCollisions();
 
     ambientParticles.forEach((particle) => {
+      particle.pointerInfluence *= 0.86;
       if (pointer.active) {
         const pointerDx = particle.x - pointer.x;
         const pointerDy = particle.y - pointer.y;
         const pointerDistance = Math.hypot(pointerDx, pointerDy) || 0.001;
-        if (pointerDistance < 92) {
-          const pointerForce = (1 - pointerDistance / 92) * 0.018;
+        if (pointerDistance < 175) {
+          const pointerInfluence = 1 - pointerDistance / 175;
+          const pointerForce = pointerInfluence * pointerInfluence * 0.075;
           particle.vx += (pointerDx / pointerDistance) * pointerForce;
           particle.vy += (pointerDy / pointerDistance) * pointerForce;
+          particle.x += (pointerDx / pointerDistance) * pointerInfluence * 0.72;
+          particle.y += (pointerDy / pointerDistance) * pointerInfluence * 0.72;
+          particle.pointerInfluence = Math.max(particle.pointerInfluence, pointerInfluence);
         }
       }
       const particleSpeed = Math.hypot(particle.vx, particle.vy);
@@ -438,25 +444,43 @@ if (!reducedMotion) {
       }
     }
 
+    if (pointer.active) {
+      ambientParticles
+        .map((particle) => ({ particle, distance: Math.hypot(particle.x - pointer.x, particle.y - pointer.y) }))
+        .filter(({ distance }) => distance < 235)
+        .sort((first, second) => first.distance - second.distance)
+        .slice(0, 9)
+        .forEach(({ particle, distance }) => {
+          const strength = 1 - distance / 235;
+          particleContext.beginPath();
+          particleContext.moveTo(pointer.x, pointer.y);
+          particleContext.lineTo(particle.x, particle.y);
+          particleContext.lineWidth = 0.85;
+          particleContext.strokeStyle = `rgba(20, 20, 212, ${strength * 0.24})`;
+          particleContext.stroke();
+        });
+    }
+
     ambientParticles.forEach((particle) => {
       const pulse = 0.72 + Math.sin(time * 0.0008 + particle.phase) * 0.28;
+      const reactiveScale = 1 + particle.pointerInfluence * 0.75;
       particleContext.save();
       particleContext.translate(particle.x, particle.y);
       particleContext.beginPath();
       if (particle.kind === 'diamond') {
         particleContext.rotate(Math.PI / 4 + time * 0.00008);
-        particleContext.rect(-particle.radius * 0.7, -particle.radius * 0.7, particle.radius * 1.4, particle.radius * 1.4);
+        particleContext.rect(-particle.radius * 0.7 * reactiveScale, -particle.radius * 0.7 * reactiveScale, particle.radius * 1.4 * reactiveScale, particle.radius * 1.4 * reactiveScale);
         particleContext.strokeStyle = `rgba(20, 20, 212, ${particle.alpha * pulse})`;
-        particleContext.lineWidth = 0.8;
+        particleContext.lineWidth = 0.8 + particle.pointerInfluence * 0.55;
         particleContext.stroke();
       } else if (particle.kind === 'ring') {
-        particleContext.arc(0, 0, particle.radius, 0, Math.PI * 2);
+        particleContext.arc(0, 0, particle.radius * reactiveScale, 0, Math.PI * 2);
         particleContext.strokeStyle = `rgba(20, 20, 212, ${particle.alpha * pulse})`;
-        particleContext.lineWidth = 0.85;
+        particleContext.lineWidth = 0.85 + particle.pointerInfluence * 0.55;
         particleContext.stroke();
       } else {
-        particleContext.arc(0, 0, particle.radius, 0, Math.PI * 2);
-        particleContext.fillStyle = `rgba(20, 20, 212, ${particle.alpha * pulse})`;
+        particleContext.arc(0, 0, particle.radius * reactiveScale, 0, Math.PI * 2);
+        particleContext.fillStyle = `rgba(20, 20, 212, ${Math.min(0.72, particle.alpha * pulse + particle.pointerInfluence * 0.18)})`;
         particleContext.fill();
       }
       particleContext.restore();
